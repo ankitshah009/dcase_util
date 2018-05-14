@@ -26,6 +26,114 @@ data = numpy.array(
 ).T
 
 
+def test_aggregate():
+    data_target = numpy.array(
+        [
+            [0.5, 0.5],
+            [1.5, 1.5],
+            [2.5, 2.5],
+            [3.5, 3.5],
+            [4.5, 4.5],
+            [5.5, 5.5],
+            [6.5, 6.5],
+            [7.5, 7.5],
+            [8.5, 8.5],
+            [9.5, 9.5],
+        ]
+    ).T
+
+    container = FeatureContainer(
+        data=data
+    )
+
+    agg = Aggregator(
+        win_length_frames=2,
+        hop_length_frames=1,
+        recipe=['mean'],
+        center=False,
+        padding=False,
+    )
+    data_aggregated = agg.aggregate(data=container)
+
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
+
+    data_target = numpy.array(
+        [
+            [5.0, 5.0]
+        ]
+    ).T
+    container = FeatureContainer(
+        data=data
+    )
+    agg = Aggregator(
+        win_length_frames=11,
+        hop_length_frames=11,
+        recipe=['mean'],
+        center=False,
+        padding=False,
+    )
+    data_aggregated = agg.aggregate(data=container)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
+
+    data_target = numpy.array(
+        [
+            [1.5, 1.5],
+            [5.5, 5.5],
+        ]
+    ).T
+    container = FeatureContainer(
+        data=data
+    )
+    agg = Aggregator(
+        win_length_frames=4,
+        hop_length_frames=4,
+        recipe=['mean'],
+        center=False,
+        padding=False,
+    )
+    data_aggregated = agg.aggregate(data=container)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
+
+    data_target = numpy.array(
+        [
+            [3.5, 3.5],
+            [7.5, 7.5],
+        ]
+    ).T
+    container = FeatureContainer(
+        data=data
+    )
+    agg = Aggregator(
+        win_length_frames=4,
+        hop_length_frames=4,
+        recipe=['mean'],
+        center=True,
+        padding=False,
+    )
+    data_aggregated = agg.aggregate(data=container)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
+
+    data_target = numpy.array(
+        [
+            [0.25, 0.25],
+            [3.5, 3.5],
+            [7.5, 7.5],
+        ]
+    ).T
+    container = FeatureContainer(
+        data=data
+    )
+    agg = Aggregator(
+        win_length_frames=4,
+        hop_length_frames=4,
+        recipe=['mean'],
+        center=True,
+        padding=True,
+    )
+    data_aggregated = agg.aggregate(data=container)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
+
+
 def test_aggregate_flatten():
     data_target = numpy.array(
         [
@@ -51,9 +159,9 @@ def test_aggregate_flatten():
         hop_length_frames=1,
         recipe=['flatten']
     )
-    agg.aggregate(data=container)
+    data_aggregated = agg.aggregate(data=container)
 
-    numpy.testing.assert_array_equal(data_target, container.data)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
 
 
 def test_aggregate_mean():
@@ -82,9 +190,9 @@ def test_aggregate_mean():
         hop_length_frames=1,
         recipe=['mean']
     )
-    agg.aggregate(data=container)
+    data_aggregated = agg.aggregate(data=container)
 
-    numpy.testing.assert_array_equal(data_target, container.data)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
 
 
 def test_aggregate_std():
@@ -113,9 +221,9 @@ def test_aggregate_std():
         hop_length_frames=1,
         recipe=['std']
     )
-    agg.aggregate(data=container)
+    data_aggregated = agg.aggregate(data=container)
 
-    numpy.testing.assert_array_equal(data_target, container.data)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
 
 
 def test_aggregate_cov():
@@ -144,9 +252,9 @@ def test_aggregate_cov():
         hop_length_frames=1,
         recipe=['cov']
     )
-    agg.aggregate(data=container)
+    data_aggregated = agg.aggregate(data=container)
 
-    numpy.testing.assert_array_equal(data_target, container.data)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
 
 
 def test_aggregate_kurtosis():
@@ -175,9 +283,9 @@ def test_aggregate_kurtosis():
         hop_length_frames=1,
         recipe=['kurtosis']
     )
-    agg.aggregate(data=container)
+    data_aggregated = agg.aggregate(data=container)
 
-    numpy.testing.assert_array_equal(data_target, container.data)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
 
 
 def test_aggregate_skew():
@@ -206,9 +314,9 @@ def test_aggregate_skew():
         hop_length_frames=1,
         recipe=['skew']
     )
-    agg.aggregate(data=container)
+    data_aggregated = agg.aggregate(data=container)
 
-    numpy.testing.assert_array_equal(data_target, container.data)
+    numpy.testing.assert_array_equal(data_target, data_aggregated.data)
 
 
 def test_save():
@@ -238,9 +346,9 @@ def test_save():
             hop_length_frames=1,
             recipe=['flatten']
         ).save(filename=tmp.name).load()
-        agg.aggregate(data=container)
+        data_aggregated = agg.aggregate(data=container)
 
-        numpy.testing.assert_array_equal(data_target, container.data)
+        numpy.testing.assert_array_equal(data_target, data_aggregated.data)
     finally:
         os.unlink(tmp.name)
 
@@ -253,4 +361,3 @@ def test_log():
             recipe=['flatten'],
             filename='Aggregator.cpickle'
         ).log()
-

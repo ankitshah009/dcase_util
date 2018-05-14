@@ -682,6 +682,7 @@ Visualizations examples:
     AudioContainer.set_focus
     AudioContainer.get_focused
     AudioContainer.freeze
+    AudioContainer.frames
     AudioContainer.normalize
     AudioContainer.resample
     AudioContainer.mixdown
@@ -756,6 +757,7 @@ MetaDataItem
     MetaDataItem.offset
     MetaDataItem.identifier
     MetaDataItem.source_label
+    MetaDataItem.set_label
     MetaDataItem.tags
     MetaDataItem.active_within_segment
 
@@ -779,6 +781,7 @@ MetaDataContainer
     MetaDataContainer.event_count
     MetaDataContainer.scene_label_count
     MetaDataContainer.event_label_count
+    MetaDataContainer.identifier_count
     MetaDataContainer.tag_count
     MetaDataContainer.unique_files
     MetaDataContainer.unique_event_labels
@@ -796,6 +799,9 @@ MetaDataContainer
     MetaDataContainer.event_stat_counts
     MetaDataContainer.tag_stat_counts
     MetaDataContainer.to_event_roll
+    MetaDataContainer.intersection
+    MetaDataContainer.intersection_report
+    MetaDataContainer.difference
 
 Parameter containers
 ::::::::::::::::::::
@@ -821,9 +827,15 @@ AppParameterContainer
     AppParameterContainer
     AppParameterContainer.reset
     AppParameterContainer.process
+    AppParameterContainer.process_set
     AppParameterContainer.override
     AppParameterContainer.get_path_translated
     AppParameterContainer.set_path_translated
+    AppParameterContainer.update_parameter_set
+    AppParameterContainer.set_ids
+    AppParameterContainer.set_id_exists
+    AppParameterContainer.active_set
+    AppParameterContainer.get_set
 
 
 DCASEAppParameterContainer
@@ -848,7 +860,6 @@ ParameterListContainer
 
 Probability containers
 ::::::::::::::::::::::
-
 
 ProbabilityItem
 ---------------

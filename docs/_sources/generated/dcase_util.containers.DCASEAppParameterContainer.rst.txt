@@ -14,12 +14,14 @@ dcase_util.containers.DCASEAppParameterContainer
    .. autosummary::
    
       ~DCASEAppParameterContainer.__init__
+      ~DCASEAppParameterContainer.active_set
       ~DCASEAppParameterContainer.clear
       ~DCASEAppParameterContainer.copy
       ~DCASEAppParameterContainer.delimiter
       ~DCASEAppParameterContainer.detect_file_format
       ~DCASEAppParameterContainer.empty
       ~DCASEAppParameterContainer.exists
+      ~DCASEAppParameterContainer.filter
       ~DCASEAppParameterContainer.fromkeys
       ~DCASEAppParameterContainer.get
       ~DCASEAppParameterContainer.get_dump_content
@@ -43,13 +45,17 @@ dcase_util.containers.DCASEAppParameterContainer
       ~DCASEAppParameterContainer.pop
       ~DCASEAppParameterContainer.popitem
       ~DCASEAppParameterContainer.process
+      ~DCASEAppParameterContainer.process_set
       ~DCASEAppParameterContainer.reset
       ~DCASEAppParameterContainer.save
+      ~DCASEAppParameterContainer.set_id_exists
+      ~DCASEAppParameterContainer.set_ids
       ~DCASEAppParameterContainer.set_path
       ~DCASEAppParameterContainer.set_path_translated
       ~DCASEAppParameterContainer.setdefault
       ~DCASEAppParameterContainer.show
       ~DCASEAppParameterContainer.update
+      ~DCASEAppParameterContainer.update_parameter_set
       ~DCASEAppParameterContainer.validate_format
       ~DCASEAppParameterContainer.values
       ~DCASEAppParameterContainer.viewitems

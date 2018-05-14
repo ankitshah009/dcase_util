@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -83,7 +86,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation instructions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#pypi">PyPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#source">Source</a></li>
@@ -117,6 +123,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorial_audio.html#creating-container">Creating container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorial_audio.html#loading-and-saving">Loading and Saving</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorial_audio.html#focus-segment">Focus segment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorial_audio.html#frames-and-segments">Frames and Segments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorial_audio.html#processing">Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorial_audio.html#visualizations">Visualizations</a></li>
 </ul>
@@ -140,6 +147,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../tutorial_data.html#event-roll">Event roll</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorial_data.html#probability-encoding">Probability encoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorial_data.html#decision-encoding">Decision encoding</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../tutorial_metadata.html">Metadata</a><ul>
@@ -365,6 +374,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AudioContainer.set_focus.html">dcase_util.containers.AudioContainer.set_focus</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AudioContainer.get_focused.html">dcase_util.containers.AudioContainer.get_focused</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AudioContainer.freeze.html">dcase_util.containers.AudioContainer.freeze</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AudioContainer.frames.html">dcase_util.containers.AudioContainer.frames</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AudioContainer.normalize.html">dcase_util.containers.AudioContainer.normalize</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AudioContainer.resample.html">dcase_util.containers.AudioContainer.resample</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AudioContainer.mixdown.html">dcase_util.containers.AudioContainer.mixdown</a></li>
@@ -414,6 +424,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataItem.offset.html">dcase_util.containers.MetaDataItem.offset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataItem.identifier.html">dcase_util.containers.MetaDataItem.identifier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataItem.source_label.html">dcase_util.containers.MetaDataItem.source_label</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataItem.set_label.html">dcase_util.containers.MetaDataItem.set_label</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataItem.tags.html">dcase_util.containers.MetaDataItem.tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataItem.active_within_segment.html">dcase_util.containers.MetaDataItem.active_within_segment</a></li>
 </ul>
@@ -431,6 +442,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.event_count.html">dcase_util.containers.MetaDataContainer.event_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.scene_label_count.html">dcase_util.containers.MetaDataContainer.scene_label_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.event_label_count.html">dcase_util.containers.MetaDataContainer.event_label_count</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.identifier_count.html">dcase_util.containers.MetaDataContainer.identifier_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.tag_count.html">dcase_util.containers.MetaDataContainer.tag_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.unique_files.html">dcase_util.containers.MetaDataContainer.unique_files</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.unique_event_labels.html">dcase_util.containers.MetaDataContainer.unique_event_labels</a></li>
@@ -448,6 +460,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.event_stat_counts.html">dcase_util.containers.MetaDataContainer.event_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.tag_stat_counts.html">dcase_util.containers.MetaDataContainer.tag_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.to_event_roll.html">dcase_util.containers.MetaDataContainer.to_event_roll</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.intersection.html">dcase_util.containers.MetaDataContainer.intersection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.intersection_report.html">dcase_util.containers.MetaDataContainer.intersection_report</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.MetaDataContainer.difference.html">dcase_util.containers.MetaDataContainer.difference</a></li>
 </ul>
 </li>
 </ul>
@@ -461,9 +476,15 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.html">dcase_util.containers.AppParameterContainer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.reset.html">dcase_util.containers.AppParameterContainer.reset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.process.html">dcase_util.containers.AppParameterContainer.process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.process_set.html">dcase_util.containers.AppParameterContainer.process_set</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.override.html">dcase_util.containers.AppParameterContainer.override</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.get_path_translated.html">dcase_util.containers.AppParameterContainer.get_path_translated</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.set_path_translated.html">dcase_util.containers.AppParameterContainer.set_path_translated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.update_parameter_set.html">dcase_util.containers.AppParameterContainer.update_parameter_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.set_ids.html">dcase_util.containers.AppParameterContainer.set_ids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.set_id_exists.html">dcase_util.containers.AppParameterContainer.set_id_exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.active_set.html">dcase_util.containers.AppParameterContainer.active_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.containers.AppParameterContainer.get_set.html">dcase_util.containers.AppParameterContainer.get_set</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../containers.html#dcaseappparametercontainer">DCASEAppParameterContainer</a><ul>
@@ -659,6 +680,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.data.DecisionEncoder.load.html">dcase_util.data.DecisionEncoder.load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.data.DecisionEncoder.save.html">dcase_util.data.DecisionEncoder.save</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.data.DecisionEncoder.majority_vote.html">dcase_util.data.DecisionEncoder.majority_vote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.data.DecisionEncoder.many_hot.html">dcase_util.data.DecisionEncoder.many_hot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.data.DecisionEncoder.find_contiguous_regions.html">dcase_util.data.DecisionEncoder.find_contiguous_regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.data.DecisionEncoder.process_activity.html">dcase_util.data.DecisionEncoder.process_activity</a></li>
 </ul>
@@ -673,6 +695,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.initialize.html">dcase_util.datasets.Dataset.initialize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.download_packages.html">dcase_util.datasets.Dataset.download_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.extract_packages.html">dcase_util.datasets.Dataset.extract_packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.debug_packages.html">dcase_util.datasets.Dataset.debug_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.prepare.html">dcase_util.datasets.Dataset.prepare</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.process_meta_item.html">dcase_util.datasets.Dataset.process_meta_item</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.check_filelist.html">dcase_util.datasets.Dataset.check_filelist</a></li>
@@ -710,7 +733,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.file_error_meta.html">dcase_util.datasets.Dataset.file_error_meta</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.file_features.html">dcase_util.datasets.Dataset.file_features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.relative_to_absolute_path.html">dcase_util.datasets.Dataset.relative_to_absolute_path</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.absolute_to_relative.html">dcase_util.datasets.Dataset.absolute_to_relative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.absolute_to_relative_path.html">dcase_util.datasets.Dataset.absolute_to_relative_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.dataset_bytes.html">dcase_util.datasets.Dataset.dataset_bytes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.dataset_size_string.html">dcase_util.datasets.Dataset.dataset_size_string</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.Dataset.dataset_size_on_disk.html">dcase_util.datasets.Dataset.dataset_size_on_disk</a></li>
@@ -722,6 +745,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.TUTAcousticScenes_2017_EvaluationSet.html">dcase_util.datasets.TUTAcousticScenes_2017_EvaluationSet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.TUTAcousticScenes_2016_DevelopmentSet.html">dcase_util.datasets.TUTAcousticScenes_2016_DevelopmentSet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet.html">dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet.html">dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet.html">dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.datasets.DCASE2018_Task5_DevelopmentSet.html">dcase_util.datasets.DCASE2018_Task5_DevelopmentSet</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../datasets.html#soundeventdataset">SoundEventDataset</a><ul>
@@ -762,6 +788,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../features.html#spectralfeatureextractor">SpectralFeatureExtractor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.features.SpectralFeatureExtractor.html">dcase_util.features.SpectralFeatureExtractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.features.SpectralFeatureExtractor.extract.html">dcase_util.features.SpectralFeatureExtractor.extract</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.features.SpectralFeatureExtractor.get_window_function.html">dcase_util.features.SpectralFeatureExtractor.get_window_function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.features.SpectralFeatureExtractor.get_spectrogram.html">dcase_util.features.SpectralFeatureExtractor.get_spectrogram</a></li>
 </ul>
@@ -815,6 +842,15 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.File.empty.html">dcase_util.files.File.empty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.File.delimiter.html">dcase_util.files.File.delimiter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.File.is_package.html">dcase_util.files.File.is_package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../files.html#package">Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.Package.html">dcase_util.files.Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.Package.extract.html">dcase_util.files.Package.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.Package.compress.html">dcase_util.files.Package.compress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.Package.detect_file_format.html">dcase_util.files.Package.detect_file_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.Package.validate_format.html">dcase_util.files.Package.validate_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.files.Package.exists.html">dcase_util.files.Package.exists</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../files.html#filelock">FileLock</a><ul>
@@ -911,6 +947,22 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../keras.html#data-processing">Data processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../keras.html#kerasdatasequence">KerasDataSequence</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.keras.get_keras_data_sequence_class.html">dcase_util.keras.get_keras_data_sequence_class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../keras.html#data-collector">data_collector</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.keras.data_collector.html">dcase_util.keras.data_collector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../keras.html#utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.keras.setup_keras.html">dcase_util.keras.setup_keras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.keras.create_optimizer.html">dcase_util.keras.create_optimizer</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../processors.html">Processors</a><ul>
@@ -925,10 +977,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.log_chain.html">dcase_util.processors.ProcessingChain.log_chain</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.push_processor.html">dcase_util.processors.ProcessingChain.push_processor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.process.html">dcase_util.processors.ProcessingChain.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.processor_exists.html">dcase_util.processors.ProcessingChain.processor_exists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.processor_class_reference.html">dcase_util.processors.ProcessingChain.processor_class_reference</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.processor_class.html">dcase_util.processors.ProcessingChain.processor_class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.chain_item_exists.html">dcase_util.processors.ProcessingChain.chain_item_exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.chain_item.html">dcase_util.processors.ProcessingChain.chain_item</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 </ul>
 </li>
 </ul>
@@ -952,9 +1006,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.AggregationProcessor.process.html">dcase_util.processors.AggregationProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#repositoryaggregationprocessor">RepositoryAggregationProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryAggregationProcessor.html">dcase_util.processors.RepositoryAggregationProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryAggregationProcessor.process.html">dcase_util.processors.RepositoryAggregationProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../processors.html#sequencingprocessor">SequencingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.SequencingProcessor.html">dcase_util.processors.SequencingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.SequencingProcessor.process.html">dcase_util.processors.SequencingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#repositorysequencingprocessor">RepositorySequencingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositorySequencingProcessor.html">dcase_util.processors.RepositorySequencingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositorySequencingProcessor.process.html">dcase_util.processors.RepositorySequencingProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../processors.html#normalizationprocessor">NormalizationProcessor</a><ul>
@@ -972,6 +1036,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.StackingProcessor.process.html">dcase_util.processors.StackingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#repositorymaskingprocessor">RepositoryMaskingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryMaskingProcessor.html">dcase_util.processors.RepositoryMaskingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryMaskingProcessor.process.html">dcase_util.processors.RepositoryMaskingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../processors.html#onehotencodingprocessor">OneHotEncodingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.OneHotEncodingProcessor.html">dcase_util.processors.OneHotEncodingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.OneHotEncodingProcessor.process.html">dcase_util.processors.OneHotEncodingProcessor.process</a></li>
@@ -987,9 +1056,24 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.EventRollEncodingProcessor.process.html">dcase_util.processors.EventRollEncodingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#datashapingprocessor">DataShapingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.DataShapingProcessor.html">dcase_util.processors.DataShapingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.DataShapingProcessor.process.html">dcase_util.processors.DataShapingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#repositorytomatrixprocessor">RepositoryToMatrixProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryToMatrixProcessor.html">dcase_util.processors.RepositoryToMatrixProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryToMatrixProcessor.process.html">dcase_util.processors.RepositoryToMatrixProcessor.process</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../processors.html#features">Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#featurereadingprocessor">FeatureReadingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.FeatureReadingProcessor.html">dcase_util.processors.FeatureReadingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.FeatureReadingProcessor.process.html">dcase_util.processors.FeatureReadingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../processors.html#repositoryfeatureextractorprocessor">RepositoryFeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
@@ -998,6 +1082,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../processors.html#featureextractorprocessor">FeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.FeatureExtractorProcessor.html">dcase_util.processors.FeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.FeatureExtractorProcessor.process.html">dcase_util.processors.FeatureExtractorProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#id2">RepositoryFeatureExtractorProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../processors.html#melextractorprocessor">MelExtractorProcessor</a><ul>
@@ -1045,12 +1134,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../processors.html#mixin">Mixin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#processormixin">ProcessorMixin</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessorMixin.html">dcase_util.processors.ProcessorMixin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessorMixin.process.html">dcase_util.processors.ProcessorMixin.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessorMixin.get_processing_chain_item.html">dcase_util.processors.ProcessorMixin.get_processing_chain_item</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.ProcessorMixin.push_processing_chain_item.html">dcase_util.processors.ProcessorMixin.push_processing_chain_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../processors.html#base-object">Base object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../processors.html#processor">Processor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.Processor.html">dcase_util.processors.Processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.Processor.process.html">dcase_util.processors.Processor.process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.processors.Processor.get_processing_chain_item.html">dcase_util.processors.Processor.get_processing_chain_item</a></li>
 </ul>
 </li>
 </ul>
@@ -1062,6 +1150,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.html">dcase_util.ui.FancyLogger</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.line.html">dcase_util.ui.FancyLogger.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.row.html">dcase_util.ui.FancyLogger.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.row_reset.html">dcase_util.ui.FancyLogger.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.row_sep.html">dcase_util.ui.FancyLogger.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.title.html">dcase_util.ui.FancyLogger.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.section_header.html">dcase_util.ui.FancyLogger.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyLogger.sub_header.html">dcase_util.ui.FancyLogger.sub_header</a></li>
@@ -1078,6 +1168,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.html">dcase_util.ui.FancyPrinter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.line.html">dcase_util.ui.FancyPrinter.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.row.html">dcase_util.ui.FancyPrinter.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.row_reset.html">dcase_util.ui.FancyPrinter.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.row_sep.html">dcase_util.ui.FancyPrinter.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.title.html">dcase_util.ui.FancyPrinter.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.section_header.html">dcase_util.ui.FancyPrinter.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyPrinter.sub_header.html">dcase_util.ui.FancyPrinter.sub_header</a></li>
@@ -1102,6 +1194,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyStringifier.sep.html">dcase_util.ui.FancyStringifier.sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyStringifier.table.html">dcase_util.ui.FancyStringifier.table</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyStringifier.row.html">dcase_util.ui.FancyStringifier.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyStringifier.row_reset.html">dcase_util.ui.FancyStringifier.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyStringifier.row_sep.html">dcase_util.ui.FancyStringifier.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../generated/dcase_util.ui.FancyStringifier.class_name.html">dcase_util.ui.FancyStringifier.class_name</a></li>
 </ul>
 </li>
@@ -1154,6 +1248,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.utils.FileFormat.detect.html">dcase_util.utils.FileFormat.detect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.utils.FileFormat.detect_based_on_filename.html">dcase_util.utils.FileFormat.detect_based_on_filename</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.utils.FileFormat.detect_based_on_content.html">dcase_util.utils.FileFormat.detect_based_on_content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../generated/dcase_util.utils.FileFormat.validate_label.html">dcase_util.utils.FileFormat.validate_label</a></li>
 </ul>
 </li>
 </ul>
@@ -1249,6 +1344,11 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-2-1">v0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-2-0">v0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-1-9">v0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-1-8">v0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-1-7">v0.1.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-1-6">v0.1.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-1-5">v0.1.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../changelog.html#v0-1-4">v0.1.4</a></li>
@@ -1268,8 +1368,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">DCASE Utilities</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DCASE Utilities</a>
+        
       </nav>
 
 
@@ -1282,19 +1384,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      
-    <li>dcase_util.data.manipulators</li>
+        
+      <li>dcase_util.data.manipulators</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -1305,12 +1424,18 @@
 <span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">six</span>
 <span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">iteritems</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">from</span> <span class="nn">past.builtins</span> <span class="k">import</span> <span class="n">basestring</span>
 
-<span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">DataContainer</span><span class="p">,</span> <span class="n">ObjectContainer</span>
+<span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">ObjectContainer</span>
 <span class="kn">from</span> <span class="nn">dcase_util.ui</span> <span class="k">import</span> <span class="n">FancyStringifier</span>
+<span class="kn">from</span> <span class="nn">dcase_util.utils</span> <span class="k">import</span> <span class="n">VectorRecipeParser</span><span class="p">,</span> <span class="n">filelist_exists</span>
 
 
 <div class="viewcode-block" id="Normalizer"><a class="viewcode-back" href="../../../generated/dcase_util.data.Normalizer.html#dcase_util.data.Normalizer">[docs]</a><span class="k">class</span> <span class="nc">Normalizer</span><span class="p">(</span><span class="n">ObjectContainer</span><span class="p">):</span>
@@ -1323,18 +1448,23 @@
 <span class="sd">        ----------</span>
 <span class="sd">        n : int</span>
 <span class="sd">            Item count used to calculate statistics</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        s1 : np.array [shape=(vector_length,)]</span>
 <span class="sd">            Vector-wise sum of the data seen by the Normalizer</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        s2 : np.array [shape=(vector_length,)]</span>
 <span class="sd">            Vector-wise sum^2 of the data seen by the Normalizer</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        mean : np.ndarray() [shape=(vector_length, 1)]</span>
 <span class="sd">            Mean of the data</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        std : np.ndarray() [shape=(vector_length, 1)]</span>
 <span class="sd">            Standard deviation of the data</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1464,10 +1594,11 @@
 
 <span class="sd">        time_axis : int</span>
 <span class="sd">            If data contains np.ndarray axis for the time</span>
+<span class="sd">            Default value 1</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        nothing</span>
+<span class="sd">        self</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1508,14 +1639,14 @@
 <div class="viewcode-block" id="Normalizer.finalize"><a class="viewcode-back" href="../../../generated/dcase_util.data.Normalizer.finalize.html#dcase_util.data.Normalizer.finalize">[docs]</a>    <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Finalize statistics calculation</span>
 
-<span class="sd">        Accumulated values are used to get mean and std for the seen feature data.</span>
+<span class="sd">        Accumulated values are used to get mean and std for the seen data.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        None</span>
+<span class="sd">        self</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1524,8 +1655,8 @@
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Normalizer.normalize"><a class="viewcode-back" href="../../../generated/dcase_util.data.Normalizer.normalize.html#dcase_util.data.Normalizer.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Normalize feature matrix with internal statistics of the class</span>
+<div class="viewcode-block" id="Normalizer.normalize"><a class="viewcode-back" href="../../../generated/dcase_util.data.Normalizer.normalize.html#dcase_util.data.Normalizer.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Normalize data matrix with internal statistics of the class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1534,17 +1665,17 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        DataContainer or numpy.ndarray [shape=(frames, number of feature values)]</span>
+<span class="sd">        DataContainer or numpy.ndarray [shape=(frames, number of data values)]</span>
 <span class="sd">            Normalized data matrix</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">DataContainer</span>
 
+        <span class="c1"># Make copy of data to prevent data contamination</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">DataContainer</span><span class="p">):</span>
             <span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span>
-
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;get_processing_chain_item&#39;</span><span class="p">):</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">processing_chain</span><span class="o">.</span><span class="n">push_processor</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">get_processing_chain_item</span><span class="p">())</span>
 
             <span class="k">return</span> <span class="n">data</span>
 
@@ -1554,37 +1685,98 @@
 
 <div class="viewcode-block" id="RepositoryNormalizer"><a class="viewcode-back" href="../../../generated/dcase_util.data.RepositoryNormalizer.html#dcase_util.data.RepositoryNormalizer">[docs]</a><span class="k">class</span> <span class="nc">RepositoryNormalizer</span><span class="p">(</span><span class="n">ObjectContainer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Data repository normalizer&quot;&quot;&quot;</span>
-<div class="viewcode-block" id="RepositoryNormalizer.__init__"><a class="viewcode-back" href="../../../generated/dcase_util.data.RepositoryNormalizer.html#dcase_util.data.RepositoryNormalizer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normalizer_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="RepositoryNormalizer.__init__"><a class="viewcode-back" href="../../../generated/dcase_util.data.RepositoryNormalizer.html#dcase_util.data.RepositoryNormalizer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">normalizers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;__init__ method.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        normalizer_dict : dict</span>
-<span class="sd">            Normalizers in a dict, key should be the label used in the repository.</span>
+<span class="sd">        normalizers : dict</span>
+<span class="sd">            Normalizers in a dict to initialize the repository, key in the dictionary should be the label</span>
+<span class="sd">            Default value None</span>
 
-<span class="sd">        filename_dict : dict</span>
-<span class="sd">            Filenames of Normalizers, key should be the label used in the repository.</span>
+<span class="sd">        filename : str or dict</span>
+<span class="sd">            Either one filename (str) or multiple filenames in a dictionary. Dictionary based parameter is used to</span>
+<span class="sd">            construct the repository from separate Normalizer, format:</span>
+<span class="sd">            label as key, and filename as value.</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Run super init to call init of mixins too</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">RepositoryNormalizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">normalizer_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">if</span> <span class="n">normalizer_dict</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">normalizer_dict</span> <span class="o">=</span> <span class="n">normalizer_dict</span>
+        <span class="k">if</span> <span class="n">normalizers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">normalizers</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span> <span class="o">=</span> <span class="n">normalizers</span>
 
-        <span class="k">if</span> <span class="n">filename_dict</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename_dict</span><span class="o">=</span><span class="n">filename_dict</span><span class="p">)</span></div>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: Invalid type for normalizer_dict&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-<div class="viewcode-block" id="RepositoryNormalizer.load"><a class="viewcode-back" href="../../../generated/dcase_util.data.RepositoryNormalizer.load.html#dcase_util.data.RepositoryNormalizer.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename_dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span></div>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="c1"># Finalize accumulated calculation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ui</span> <span class="o">=</span> <span class="n">FancyStringifier</span><span class="p">()</span>
+
+        <span class="n">output</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">RepositoryNormalizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+            <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">field</span><span class="o">=</span><span class="s1">&#39;Labels&#39;</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;Content&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">label_data</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">label_data</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                    <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                    <span class="n">field</span><span class="o">=</span><span class="s1">&#39;[&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;]&#39;</span><span class="p">,</span>
+                    <span class="n">value</span><span class="o">=</span><span class="n">label_data</span>
+                <span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="n">output</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset normalizers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<div class="viewcode-block" id="RepositoryNormalizer.load"><a class="viewcode-back" href="../../../generated/dcase_util.data.RepositoryNormalizer.load.html#dcase_util.data.RepositoryNormalizer.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">collect_from_containers</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load normalizers from disk.</span>
+
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        filename_dict : dict</span>
-<span class="sd">            Filenames of Normalizers, key should be the label used in the repository.</span>
+<span class="sd">        filename : str or dict</span>
+<span class="sd">            Either one filename (str) or multiple filenames in a dictionary. Dictionary based parameter is used to</span>
+<span class="sd">            construct the repository from separate Normalizer, format:</span>
+<span class="sd">            label as key, and filename as value. If None given, parameter given to class initializer is used instead.</span>
+<span class="sd">            Default value None</span>
+
+<span class="sd">        collect_from_containers : bool</span>
+<span class="sd">            Collect data to the repository from separate containers.</span>
+<span class="sd">            Default value True</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1592,56 +1784,247 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">normalizer_dict</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">filename_dict</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">normalizer_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">Normalizer</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="c1"># String filename given use load method from parent class</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                <span class="c1"># If file exist load it</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">detect_file_format</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">validate_format</span><span class="p">()</span>
+
+                <span class="nb">super</span><span class="p">(</span><span class="n">RepositoryNormalizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                    <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">collect_from_containers</span><span class="p">:</span>
+                <span class="c1"># Collect data to the repository from separate normalizer containers</span>
+                <span class="n">filename_base</span><span class="p">,</span> <span class="n">file_extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                <span class="n">normalizers</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">filename_base</span> <span class="o">+</span> <span class="s1">&#39;.*&#39;</span> <span class="o">+</span> <span class="n">file_extension</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">normalizers</span><span class="p">:</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">Normalizer</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span>
+                    <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+            <span class="c1"># Dictionary based filename given</span>
+            <span class="k">if</span> <span class="n">filelist_exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
+                        <span class="c1"># Skip labels starting with &#39;_&#39;, those are just for extra info</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                            <span class="c1"># filename given directly, only one data stream per method inputted.</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">Normalizer</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                                <span class="n">filename</span><span class="o">=</span><span class="n">data</span>
+                            <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># All filenames did not exists, find which ones is missing and raise error.</span>
+                <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: RepositoryNormalizer cannot be loaded, file does not exists for method [</span><span class="si">{method}</span><span class="s1">], file [</span><span class="si">{filename}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                            <span class="n">method</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                            <span class="n">filename</span><span class="o">=</span><span class="n">data</span>
+                        <span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: RepositoryNormalizer cannot be loaded, no valid filename set.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="RepositoryNormalizer.normalize"><a class="viewcode-back" href="../../../generated/dcase_util.data.RepositoryNormalizer.normalize.html#dcase_util.data.RepositoryNormalizer.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_repository</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">split_into_containers</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str or dict</span>
+<span class="sd">            File path</span>
+<span class="sd">            Default value filename given to class constructor</span>
+
+<span class="sd">        split_into_containers : bool</span>
+<span class="sd">            Split data from repository separate normalizer containers and save them individually.</span>
+<span class="sd">            Default value False</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ImportError:</span>
+<span class="sd">            Error if file format specific module cannot be imported</span>
+
+<span class="sd">        IOError:</span>
+<span class="sd">            File has unknown file format</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+
+        <span class="k">if</span> <span class="n">split_into_containers</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="c1"># Automatic filename generation for saving data into separate containers</span>
+            <span class="n">filename_base</span><span class="p">,</span> <span class="n">file_extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">filename_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filename_dictionary</span><span class="p">:</span>
+                    <span class="n">filename_dictionary</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+                <span class="n">filename_dictionary</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename_base</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">label</span>  <span class="o">+</span> <span class="n">file_extension</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename_dictionary</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="c1"># Single output file as target</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">detect_file_format</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">validate_format</span><span class="p">()</span>
+
+            <span class="c1"># String filename given use load method from parent class</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">RepositoryNormalizer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># Custom naming and splitting into separate normalizer containers</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+            <span class="c1"># Dictionary of filenames given, save each data normalizer in the repository separately</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+                    <span class="n">current_normalizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+                    <span class="n">current_normalizer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+                        <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+                    <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">accumulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Accumulate statistics</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : DataRepository</span>
+<span class="sd">            Data in DataRepository</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">label_id</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">:</span>
+                <span class="c1"># Label not yet encountered, initialize new normalizer for it</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">Normalizer</span><span class="p">()</span>
+
+            <span class="c1"># Loop through streams</span>
+            <span class="k">for</span> <span class="n">stream_id</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">stream_ids</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span>
+                        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                        <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finalize statistics calculation</span>
+
+<span class="sd">        Accumulated values are used to get mean and std for the seen data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="RepositoryNormalizer.normalize"><a class="viewcode-back" href="../../../generated/dcase_util.data.RepositoryNormalizer.normalize.html#dcase_util.data.RepositoryNormalizer.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Normalize data repository</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        data_repository : DataRepository</span>
+<span class="sd">        data : DataRepository</span>
 <span class="sd">            DataRepository to be normalized</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        DataRepository</span>
-<span class="sd">            Normalized data</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">DataRepository</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_repository</span><span class="p">,</span> <span class="n">DataRepository</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">label_id</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_repository</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizer_dict</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">stream_id</span> <span class="ow">in</span> <span class="n">data_repository</span><span class="o">.</span><span class="n">stream_ids</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">):</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">normalizer_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
-                            <span class="n">data</span><span class="o">=</span><span class="n">data_repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">)</span>
+        <span class="c1"># Make copy of data to prevent data contamination</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">DataRepository</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">label_id</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">stream_id</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">stream_ids</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">):</span>
+                        <span class="n">data</span><span class="o">.</span><span class="n">set_container</span><span class="p">(</span>
+                            <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                            <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">,</span>
+                            <span class="n">container</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">normalizers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span>
+                                    <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                                    <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
                         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">data_repository</span></div></div>
+        <span class="k">return</span> <span class="n">data</span></div></div>
 
 
 <div class="viewcode-block" id="Aggregator"><a class="viewcode-back" href="../../../generated/dcase_util.data.Aggregator.html#dcase_util.data.Aggregator">[docs]</a><span class="k">class</span> <span class="nc">Aggregator</span><span class="p">(</span><span class="n">ObjectContainer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Data aggregator&quot;&quot;&quot;</span>
     <span class="n">valid_method</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;cov&#39;</span><span class="p">,</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">,</span> <span class="s1">&#39;skew&#39;</span><span class="p">,</span> <span class="s1">&#39;flatten&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Aggregator.__init__"><a class="viewcode-back" href="../../../generated/dcase_util.data.Aggregator.html#dcase_util.data.Aggregator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">win_length_frames</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">hop_length_frames</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Aggregator.__init__"><a class="viewcode-back" href="../../../generated/dcase_util.data.Aggregator.html#dcase_util.data.Aggregator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">win_length_frames</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">hop_length_frames</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Constructor</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        recipe : list of dict or list of str</span>
 <span class="sd">            Aggregation recipe, supported methods [mean, std, cov, kurtosis, skew, flatten].</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        win_length_frames : int</span>
-<span class="sd">            Window length in feature frames</span>
+<span class="sd">            Window length in data frames</span>
+<span class="sd">            Default value 10</span>
 
 <span class="sd">        hop_length_frames : int</span>
-<span class="sd">            Hop length in feature frames</span>
+<span class="sd">            Hop length in data frames</span>
+<span class="sd">            Default value 1</span>
+
+<span class="sd">        center : bool</span>
+<span class="sd">            Centering of the window</span>
+<span class="sd">            Default value True</span>
+
+<span class="sd">        padding : bool</span>
+<span class="sd">            Padding of the first window with the first frame and last window with last frame to have equal</span>
+<span class="sd">            length data in the windows.</span>
+<span class="sd">            Default value True</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1650,6 +2033,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">win_length_frames</span> <span class="o">=</span> <span class="n">win_length_frames</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span> <span class="o">=</span> <span class="n">hop_length_frames</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">padding</span>
+
+        <span class="k">if</span> <span class="n">recipe</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;aggregation_recipe&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">recipe</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;aggregation_recipe&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">recipe</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">recipe</span><span class="p">]</span>
@@ -1663,8 +2051,16 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span>
 
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">recipe</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+            <span class="n">recipe</span> <span class="o">=</span> <span class="n">VectorRecipeParser</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">recipe</span><span class="o">=</span><span class="n">recipe</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">recipe</span><span class="p">]</span>
+
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="kc">None</span></div>
+            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: No valid recipe set&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ui</span> <span class="o">=</span> <span class="n">FancyStringifier</span><span class="p">()</span>
@@ -1695,6 +2091,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        data : DataContainer</span>
 <span class="sd">            Features to be aggregated</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1703,54 +2100,78 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">DataContainer</span>
+        <span class="c1"># Make copy of the data to prevent modifications to the original data</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">DataContainer</span><span class="p">):</span>
-            <span class="n">aggregated_features</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">aggregated_data</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="c1"># Not the most efficient way as numpy stride_tricks would produce</span>
             <span class="c1"># faster code, however, opted for cleaner presentation this time.</span>
             <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span><span class="p">):</span>
-                <span class="c1"># Get start and end of the window, keep frame at the middle (approximately)</span>
-                <span class="n">start_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win_length_frames</span><span class="o">/</span><span class="mf">2.0</span><span class="p">))</span>
-                <span class="n">end_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win_length_frames</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span>
+                <span class="c1"># Get start and end of the window</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">:</span>
+                    <span class="c1"># Keep frame at the middle (approximately)</span>
+                    <span class="n">start_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win_length_frames</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span>
+                    <span class="n">end_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win_length_frames</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">start_frame</span> <span class="o">=</span> <span class="n">frame</span>
+                    <span class="n">end_frame</span> <span class="o">=</span> <span class="n">frame</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">win_length_frames</span>
 
                 <span class="n">frame_ids</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">start_frame</span><span class="p">,</span> <span class="n">end_frame</span><span class="p">))</span>
-                <span class="c1"># If start of feature matrix, pad with first frame</span>
-                <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
-                <span class="c1"># If end of the feature matrix, pad with last frame</span>
-                <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">valid_frame</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">:</span>
+                    <span class="c1"># If start of data matrix, pad with first frame</span>
+                    <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
-                <span class="n">current_frame</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">frame_ids</span><span class="o">=</span><span class="n">frame_ids</span><span class="p">)</span>
+                    <span class="c1"># If end of the data matrix, pad with last frame</span>
+                    <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
 
-                <span class="n">aggregated_frame</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Mark non-full windows invalid</span>
+                    <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">frame_ids</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span> <span class="n">frame_ids</span> <span class="o">&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">valid_frame</span> <span class="o">=</span> <span class="kc">False</span>
 
-                <span class="k">if</span> <span class="s1">&#39;mean&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
-                    <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">valid_frame</span><span class="p">:</span>
+                    <span class="n">current_frame</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">frame_ids</span><span class="o">=</span><span class="n">frame_ids</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="s1">&#39;std&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
-                    <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
+                    <span class="n">aggregated_frame</span> <span class="o">=</span> <span class="p">[]</span>
 
-                <span class="k">if</span> <span class="s1">&#39;cov&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
-                    <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">current_frame</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="s1">&#39;mean&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
+                        <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
 
-                <span class="k">if</span> <span class="s1">&#39;kurtosis&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
-                    <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="s1">&#39;std&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
+                        <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
 
-                <span class="k">if</span> <span class="s1">&#39;skew&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
-                    <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="s1">&#39;cov&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
+                        <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">current_frame</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
 
-                <span class="k">if</span> <span class="s1">&#39;flatten&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">time_axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
-                    <span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">time_axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                        <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="s1">&#39;kurtosis&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
+                        <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
 
-                <span class="k">if</span> <span class="n">aggregated_frame</span><span class="p">:</span>
-                    <span class="n">aggregated_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">aggregated_frame</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="s1">&#39;skew&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
+                        <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span><span class="p">))</span>
 
-            <span class="c1"># Update data</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">aggregated_features</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+                    <span class="k">if</span> <span class="s1">&#39;flatten&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">time_axis</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+                        <span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">time_axis</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">aggregated_frame</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_frame</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">aggregated_frame</span><span class="p">:</span>
+                        <span class="n">aggregated_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">aggregated_frame</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">aggregated_data</span><span class="p">:</span>
+                <span class="c1"># Update data</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">aggregated_data</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: No aggregated data, check your aggregation recipe.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
             <span class="c1"># Update meta data</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;hop_length_seconds&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">hop_length_seconds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1769,47 +2190,67 @@
 <div class="viewcode-block" id="Sequencer"><a class="viewcode-back" href="../../../generated/dcase_util.data.Sequencer.html#dcase_util.data.Sequencer">[docs]</a><span class="k">class</span> <span class="nc">Sequencer</span><span class="p">(</span><span class="n">ObjectContainer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Data sequencer&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Sequencer.__init__"><a class="viewcode-back" href="../../../generated/dcase_util.data.Sequencer.html#dcase_util.data.Sequencer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">hop_length_frames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shift_step</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                 <span class="n">shift_border</span><span class="o">=</span><span class="s1">&#39;roll&#39;</span><span class="p">,</span> <span class="n">shift_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Sequencer.__init__"><a class="viewcode-back" href="../../../generated/dcase_util.data.Sequencer.html#dcase_util.data.Sequencer.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">padding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">shift_border</span><span class="o">=</span><span class="s1">&#39;roll&#39;</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">required_data_amount_per_segment</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;__init__ method.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        frames : int</span>
+<span class="sd">        sequence_length : int</span>
 <span class="sd">            Sequence length</span>
+<span class="sd">            Default value 10</span>
 
-<span class="sd">        hop_length_frames : int</span>
-<span class="sd">            Hop value of when forming the sequence, if None then hop length equals to frames (non-overlapping hopping).</span>
+<span class="sd">        hop_length : int</span>
+<span class="sd">            Hop value of when forming the sequence, if None then hop length equals to sequence_length (non-overlapping sequences).</span>
+<span class="sd">            Default value None</span>
 
-<span class="sd">        padding: bool</span>
-<span class="sd">            Replicate data when sequence is not full</span>
+<span class="sd">        padding: str</span>
+<span class="sd">            How data is treated at the boundaries [None, &#39;zero&#39;, &#39;repeat&#39;]</span>
+<span class="sd">            Default value None</span>
 
-<span class="sd">        shift_step : int</span>
-<span class="sd">            Sequence start temporal shifting amount, is added once method increase_shifting is called</span>
-
-<span class="sd">        shift_border : string, {&#39;roll&#39;, &#39;shift&#39;}</span>
+<span class="sd">        shift_border : string, [&#39;roll&#39;, &#39;shift&#39;]</span>
 <span class="sd">            Sequence border handling when doing temporal shifting.</span>
+<span class="sd">            Default value roll</span>
 
-<span class="sd">        shift_max : int</span>
-<span class="sd">            Maximum value for temporal shift</span>
+<span class="sd">        shift : int</span>
+<span class="sd">            Sequencing grid shift.</span>
+<span class="sd">            Default value 0</span>
+
+<span class="sd">        required_data_amount_per_segment : float [0,1]</span>
+<span class="sd">            Percentage of valid data items per segment there need to be for valid segment. Use this parameter to</span>
+<span class="sd">            filter out part of the non-full segments.</span>
+<span class="sd">            Default value 0.9</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Run super init to call init of mixins too</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Sequencer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">frames</span> <span class="o">=</span> <span class="n">frames</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">=</span> <span class="n">sequence_length</span>
 
-        <span class="k">if</span> <span class="n">hop_length_frames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frames</span>
+        <span class="k">if</span> <span class="n">hop_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span> <span class="o">=</span> <span class="n">hop_length_frames</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hop_length</span> <span class="o">=</span> <span class="n">hop_length</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">padding</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Padding</span>
+        <span class="k">if</span> <span class="n">padding</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;zero&#39;</span><span class="p">,</span> <span class="s1">&#39;repeat&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">padding</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">shift_step</span> <span class="o">=</span> <span class="n">shift_step</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: Unknown padding mode [</span><span class="si">{padding_mode}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="n">padding_mode</span><span class="o">=</span><span class="n">padding</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="c1"># Shifting</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="n">shift</span>
 
         <span class="k">if</span> <span class="n">shift_border</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;roll&#39;</span><span class="p">,</span> <span class="s1">&#39;shift&#39;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span> <span class="o">=</span> <span class="n">shift_border</span>
@@ -1822,52 +2263,53 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">shift_max</span> <span class="o">=</span> <span class="n">shift_max</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">required_data_amount_per_segment</span> <span class="o">=</span> <span class="n">required_data_amount_per_segment</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ui</span> <span class="o">=</span> <span class="n">FancyStringifier</span><span class="p">()</span>
 
         <span class="n">output</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Sequencer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
-        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;frames&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;hop_length_frames&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;frames&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;hop_length_frames&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop_length</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
-
+        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;required_data_amount_per_segment&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">required_data_amount_per_segment</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;Shifting&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;shift&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;shift_step&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift_step</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;shift_border&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
-        <span class="n">output</span> <span class="o">+=</span> <span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;shift_max&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift_max</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
 
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Return only needed data for pickle</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;frames&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">frames</span><span class="p">,</span>
-            <span class="s1">&#39;hop_length_frames&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span><span class="p">,</span>
+            <span class="s1">&#39;frames&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">,</span>
+            <span class="s1">&#39;hop_length_frames&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length</span><span class="p">,</span>
             <span class="s1">&#39;padding&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span>
             <span class="s1">&#39;shift&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
-            <span class="s1">&#39;shift_step&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_step</span><span class="p">,</span>
             <span class="s1">&#39;shift_border&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span><span class="p">,</span>
-            <span class="s1">&#39;shift_max&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_max</span><span class="p">,</span>
+            <span class="s1">&#39;required_data_amount_per_segment&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_data_amount_per_segment</span><span class="p">,</span>
         <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">frames</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;frames&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;hop_length_frames&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;frames&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hop_length</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;hop_length_frames&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;padding&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;shift&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shift_step</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;shift_step&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;shift_border&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shift_max</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;shift_max&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">required_data_amount_per_segment</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;required_data_amount_per_segment&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Sequencer.sequence"><a class="viewcode-back" href="../../../generated/dcase_util.data.Sequencer.sequence.html#dcase_util.data.Sequencer.sequence">[docs]</a>    <span class="k">def</span> <span class="nf">sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Make sequences</span>
+<div class="viewcode-block" id="Sequencer.sequence"><a class="viewcode-back" href="../../../generated/dcase_util.data.Sequencer.sequence.html#dcase_util.data.Sequencer.sequence">[docs]</a>    <span class="k">def</span> <span class="nf">sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert 2D data matrix into sequence of specified length 2D matrices</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        data : DataContainer</span>
+<span class="sd">        data : DataContainer or numpy.ndarray</span>
 <span class="sd">            Data</span>
+
+<span class="sd">        shift : int</span>
+<span class="sd">            Sequencing grid shift in frames. If none given, one given for class initializer is used.</span>
+<span class="sd">            Value is kept inside data size. Parameter value is stored as new class stored value.</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1875,59 +2317,101 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">DataContainer</span><span class="p">,</span> <span class="n">DataMatrix3DContainer</span>
+        <span class="k">if</span> <span class="n">shift</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="n">shift</span>
+
+        <span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">DataContainer</span><span class="p">,</span> <span class="n">DataMatrix2DContainer</span><span class="p">,</span> <span class="n">DataMatrix3DContainer</span>
+        <span class="c1"># Make copy of the data to prevent modifications to the original data</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">DataMatrix2DContainer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">DataContainer</span><span class="p">):</span>
+            <span class="c1"># Make sure shift index is withing data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">%</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span>
 
             <span class="c1"># Not the most efficient way as numpy stride_tricks would produce</span>
             <span class="c1"># faster code, however, opted for cleaner presentation this time.</span>
-            <span class="n">data_length</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span>
             <span class="n">processed_data</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span> <span class="o">==</span> <span class="s1">&#39;shift&#39;</span><span class="p">:</span>
-                <span class="n">segment_indexes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span><span class="p">)</span>
+                <span class="n">segment_indexes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length</span><span class="p">)</span>
 
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span> <span class="o">==</span> <span class="s1">&#39;roll&#39;</span><span class="p">:</span>
-                <span class="n">segment_indexes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span><span class="p">)</span>
+                <span class="n">segment_indexes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Roll data</span>
                     <span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span>
                         <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-                        <span class="n">shift</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
+                        <span class="n">shift</span><span class="o">=-</span><span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
                         <span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">time_axis</span>
                     <span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: Unknown type for sequence border handling when doing temporal shifting [</span><span class="si">{shift_border}</span><span class="s1">].&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: Unknown type for sequence border handling when doing temporal shifting &#39;</span> \
+                          <span class="s1">&#39;[</span><span class="si">{shift_border}</span><span class="s1">].&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-                    <span class="n">shift_border</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span><span class="p">,</span>
+                    <span class="n">shift_border</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift_border</span>
                 <span class="p">)</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">segment_indexes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Have at least one segment</span>
                     <span class="n">segment_indexes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Remove segments which are not full</span>
-                <span class="n">segment_indexes</span> <span class="o">=</span> <span class="n">segment_indexes</span><span class="p">[(</span><span class="n">segment_indexes</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span><span class="p">]</span>
+                <span class="n">segment_indexes</span> <span class="o">=</span> <span class="n">segment_indexes</span><span class="p">[(</span><span class="n">segment_indexes</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span><span class="p">]</span>
 
             <span class="k">for</span> <span class="n">segment_start_frame</span> <span class="ow">in</span> <span class="n">segment_indexes</span><span class="p">:</span>
-                <span class="n">segment_end_frame</span> <span class="o">=</span> <span class="n">segment_start_frame</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">hop_length_frames</span>
+                <span class="n">segment_end_frame</span> <span class="o">=</span> <span class="n">segment_start_frame</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span>
 
                 <span class="n">frame_ids</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">segment_start_frame</span><span class="p">,</span> <span class="n">segment_end_frame</span><span class="p">))</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">:</span>
-                    <span class="c1"># If start of matrix, pad with first frame</span>
-                    <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">valid_frames</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">frame_ids</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frame_ids</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
-                    <span class="c1"># If end of the matrix, pad with last frame</span>
-                    <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_frames</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">required_data_amount_per_segment</span><span class="p">:</span>
+                    <span class="c1"># Process segment only if it has minimum about of valid frames</span>
 
-                <span class="n">processed_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">frame_ids</span><span class="o">=</span><span class="n">frame_ids</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">==</span> <span class="s1">&#39;repeat&#39;</span><span class="p">:</span>
+                        <span class="c1"># Handle boundaries with repeated boundary vectors</span>
+
+                        <span class="c1"># If start of matrix, pad with first frame</span>
+                        <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+                        <span class="c1"># If end of the matrix, pad with last frame</span>
+                        <span class="n">frame_ids</span><span class="p">[</span><span class="n">frame_ids</span> <span class="o">&gt;</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span>
+
+                        <span class="c1"># Append the segment</span>
+                        <span class="n">processed_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">data</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span>
+                                <span class="n">frame_ids</span><span class="o">=</span><span class="n">frame_ids</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">==</span> <span class="s1">&#39;zero&#39;</span><span class="p">:</span>
+                        <span class="c1"># Handle boundaries with zero padding</span>
+
+                        <span class="c1"># Initialize current segment with zero content</span>
+                        <span class="n">current_segment</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">data</span><span class="o">.</span><span class="n">vector_length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_length</span><span class="p">))</span>
+
+                        <span class="c1"># Copy data into correct position within the segment</span>
+                        <span class="n">current_segment</span><span class="p">[:,</span> <span class="n">valid_frames</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span>
+                            <span class="n">frame_ids</span><span class="o">=</span><span class="n">frame_ids</span><span class="p">[</span><span class="n">valid_frames</span><span class="p">]</span>
+                        <span class="p">)</span>
+
+                        <span class="c1"># Append the segment</span>
+                        <span class="n">processed_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_segment</span><span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Append the segment</span>
+                        <span class="n">processed_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">frame_ids</span><span class="o">=</span><span class="n">frame_ids</span><span class="p">))</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">processed_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: Cannot create valid segment, adjust segment length and hop size, or use &#39;</span> \
@@ -1949,13 +2433,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Sequencer.increase_shifting"><a class="viewcode-back" href="../../../generated/dcase_util.data.Sequencer.increase_shifting.html#dcase_util.data.Sequencer.increase_shifting">[docs]</a>    <span class="k">def</span> <span class="nf">increase_shifting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sequencer.increase_shifting"><a class="viewcode-back" href="../../../generated/dcase_util.data.Sequencer.increase_shifting.html#dcase_util.data.Sequencer.increase_shifting">[docs]</a>    <span class="k">def</span> <span class="nf">increase_shifting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift_step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Increase temporal shifting</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        shift_step : int</span>
-<span class="sd">            Optional value, if none given shift_step parameter given for init is used.</span>
+<span class="sd">            Amount to be added to the sequencing grid</span>
+<span class="sd">            Default value 1</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1963,12 +2448,8 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">shift_step</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">shift_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_step</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">+=</span> <span class="n">shift_step</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_max</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_max</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">shift_step</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">+=</span> <span class="n">shift_step</span>
 
         <span class="k">return</span> <span class="bp">self</span></div></div>
 
@@ -1983,9 +2464,11 @@
 <span class="sd">        ----------</span>
 <span class="sd">        recipe : dict or str</span>
 <span class="sd">            Stacking recipe</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        hop : int, optional</span>
 <span class="sd">            Data item hopping</span>
+<span class="sd">            Default value 1</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -2027,7 +2510,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;recipe&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hop</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;hop&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Stacker.stack"><a class="viewcode-back" href="../../../generated/dcase_util.data.Stacker.stack.html#dcase_util.data.Stacker.stack">[docs]</a>    <span class="k">def</span> <span class="nf">stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
+<div class="viewcode-block" id="Stacker.stack"><a class="viewcode-back" href="../../../generated/dcase_util.data.Stacker.stack.html#dcase_util.data.Stacker.stack">[docs]</a>    <span class="k">def</span> <span class="nf">stack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Vector creation based on recipe</span>
 
 <span class="sd">        Parameters</span>
@@ -2041,7 +2524,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># Check that all feature matrices have same amount of frames</span>
+        <span class="c1"># Check that all data matrices have same amount of frames</span>
         <span class="n">frame_count</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">time_resolution</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">recipe_part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
@@ -2051,9 +2534,19 @@
                 <span class="n">stream_id</span> <span class="o">=</span> <span class="n">recipe_part</span><span class="p">[</span><span class="s1">&#39;vector-index&#39;</span><span class="p">][</span><span class="s1">&#39;stream&#39;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">)</span><span class="o">.</span><span class="n">time_resolution</span><span class="p">:</span>
-                <span class="n">time_resolution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">)</span><span class="o">.</span><span class="n">time_resolution</span><span class="p">)</span>
+                <span class="n">time_resolution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span>
+                        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                        <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">time_resolution</span>
+                <span class="p">)</span>
 
-            <span class="n">frame_count</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">)</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+            <span class="n">frame_count</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                    <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">length</span>
+            <span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">frame_count</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">: Data matrices should have same number of frames </span><span class="si">{frame_count}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -2088,7 +2581,12 @@
 
                 <span class="c1"># Full matrix</span>
                 <span class="n">data_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">frame_hop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">)</span>
+                    <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span>
+                        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                        <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span>
+                        <span class="n">frame_hop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
 
             <span class="k">elif</span> <span class="p">(</span><span class="s1">&#39;vector-index&#39;</span> <span class="ow">in</span> <span class="n">recipe_part</span> <span class="ow">and</span>
@@ -2099,7 +2597,13 @@
 
                 <span class="c1"># Selector vector</span>
                 <span class="n">data_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">vector_ids</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">frame_hop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">)</span>
+                    <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span>
+                        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                        <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span>
+                        <span class="n">vector_ids</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+                        <span class="n">frame_hop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
 
             <span class="k">elif</span> <span class="p">(</span><span class="s1">&#39;vector-index&#39;</span> <span class="ow">in</span> <span class="n">recipe_part</span> <span class="ow">and</span>
@@ -2110,7 +2614,13 @@
 
                 <span class="c1"># Start and end index</span>
                 <span class="n">data_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">vector_ids</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">frame_hop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span><span class="p">)</span>
+                    <span class="n">repository</span><span class="o">.</span><span class="n">get_container</span><span class="p">(</span>
+                        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                        <span class="n">stream_id</span><span class="o">=</span><span class="n">stream_id</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span>
+                        <span class="n">vector_ids</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+                        <span class="n">frame_hop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hop</span>
+                    <span class="p">)</span>
                 <span class="p">)</span>
 
         <span class="kn">from</span> <span class="nn">dcase_util.containers</span> <span class="k">import</span> <span class="n">FeatureContainer</span>
@@ -2163,7 +2673,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="Selector.select"><a class="viewcode-back" href="../../../generated/dcase_util.data.Selector.select.html#dcase_util.data.Selector.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">selection_events</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Selecting feature repository with given events </span>
+        <span class="sd">&quot;&quot;&quot;Selecting data repository with given events</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2172,6 +2682,7 @@
 
 <span class="sd">        selection_events : list of MetaItems or MetaDataContainer</span>
 <span class="sd">            Event list used for selecting</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2199,6 +2710,7 @@
                 <span class="n">current_container</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">current_container</span><span class="o">.</span><span class="n">get_frames</span><span class="p">(</span><span class="n">frame_ids</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">selection_mask</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">data</span></div></div>
+
 
 <div class="viewcode-block" id="Masker"><a class="viewcode-back" href="../../../generated/dcase_util.data.Masker.html#dcase_util.data.Masker">[docs]</a><span class="k">class</span> <span class="nc">Masker</span><span class="p">(</span><span class="n">ObjectContainer</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Data masker&quot;&quot;&quot;</span>
@@ -2241,7 +2753,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="Masker.mask"><a class="viewcode-back" href="../../../generated/dcase_util.data.Masker.mask.html#dcase_util.data.Masker.mask">[docs]</a>    <span class="k">def</span> <span class="nf">mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask_events</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Masking feature repository with given events</span>
+        <span class="sd">&quot;&quot;&quot;Masking data repository with given events</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -2250,6 +2762,7 @@
 
 <span class="sd">        mask_events : list of MetaItems or MetaDataContainer</span>
 <span class="sd">            Event list used for masking</span>
+<span class="sd">            Default value None</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -2279,6 +2792,9 @@
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -2312,7 +2828,8 @@
             VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../../_static/jquery.js"></script>

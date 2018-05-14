@@ -20,6 +20,7 @@ dcase_util.containers.OneToOneMappingContainer
       ~OneToOneMappingContainer.detect_file_format
       ~OneToOneMappingContainer.empty
       ~OneToOneMappingContainer.exists
+      ~OneToOneMappingContainer.filter
       ~OneToOneMappingContainer.fromkeys
       ~OneToOneMappingContainer.get
       ~OneToOneMappingContainer.get_dump_content

@@ -3,8 +3,10 @@
 
 
 from __future__ import print_function, absolute_import
+import six
 import logging
 import numpy
+import datetime
 from dcase_util.utils import setup_logging, is_float, is_int
 
 
@@ -17,6 +19,7 @@ class FancyStringifier(object):
         self.row_data_types = []
         self.row_indent = 2
         self.row_column_separators = []
+        self.row_column_count = None
 
     @property
     def logger(self):
@@ -36,7 +39,6 @@ class FancyStringifier(object):
         Returns
         -------
         str
-            title string
 
         """
 
@@ -52,11 +54,11 @@ class FancyStringifier(object):
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         Returns
         -------
         str
-            section header string
 
         """
 
@@ -72,11 +74,11 @@ class FancyStringifier(object):
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         Returns
         -------
         str
-            Sub header string
 
         """
 
@@ -89,30 +91,42 @@ class FancyStringifier(object):
         ----------
         text : str, optional
             Footer text
+            Default value 'DONE'
 
-        time : str, optional
-            Elapsed time as string
+        time : str or float, optional
+            Elapsed time as string or float (as seconds)
+            Default value None
 
         item_count : int, optional
             Item count
+            Default value None
 
         indent : int
             Amount of indention used for the line
+            Default value 2
 
         Returns
         -------
         str
-            footer string
 
         """
 
         output = '{text:10s} '.format(text=text)
 
         if time:
-            output += '[{time:<15s}] '.format(time=time)
+            if isinstance(time, six.string_types):
+                output += '[{time:<14s}] '.format(time=time)
+
+            elif isinstance(time, float):
+                output += '[{time:<14s}] '.format(time=str(datetime.timedelta(seconds=time)))
 
         if item_count:
             output += '[{items:<d} items] '.format(items=item_count)
+
+            if time and isinstance(time, float):
+                output += '[{item_time:<14s} per item]'.format(
+                    item_time=str(datetime.timedelta(seconds=time / float(item_count)))
+                )
 
         return ' ' * indent + output
 
@@ -123,15 +137,18 @@ class FancyStringifier(object):
         ----------
         field : str
             Data field name
+            Default value None
 
         indent : int
             Amount of indention used for the line
+            Default value 2
 
         Returns
         -------
         str
 
         """
+
         lines = field.split('\n')
 
         for line_id, line in enumerate(lines):
@@ -142,6 +159,17 @@ class FancyStringifier(object):
     def formatted_value(self, value, data_type='auto'):
         """Format value into string.
 
+        Valid data_type parameters:
+
+        - auto
+        - str
+        - bool
+        - float1, float2, float3, float4
+        - float1_percentage, float2_percentage
+        - float1_percentage+ci, float2_percentage+ci
+        - float1_ci, float2_ci
+        - float1_ci_bracket, float2_ci_bracket
+
         Parameters
         ----------
         value :
@@ -149,6 +177,7 @@ class FancyStringifier(object):
         data_type : str
             Data type in format [type label][length], e.g. for floats with 4 decimals use 'float4',
             strings with fixed length 10 use 'str10'. For automatic value formatting use 'auto'.
+            Default value 'auto'
 
         Returns
         -------
@@ -193,8 +222,27 @@ class FancyStringifier(object):
         elif data_type == 'float2_percentage' and is_float(value):
             value = '{:3.2f}%'.format(float(value))
 
+        elif data_type == 'float1_percentage+ci' and isinstance(value, tuple):
+            value = '{:3.1f}% (+/-{:3.1f})'.format(float(value[0]), float(value[1]))
+
+        elif data_type == 'float2_percentage+ci' and isinstance(value, tuple):
+            value = '{:3.2f}% (+/-{:3.2f})'.format(float(value[0]), float(value[1]))
+
+        elif data_type == 'float1_ci':
+            value = '+/-{:3.1f}'.format(float(value))
+
+        elif data_type == 'float2_ci':
+            value = '+/-{:3.2f}'.format(float(value))
+
+        elif data_type == 'float1_ci_bracket' and isinstance(value, tuple):
+            value = '{:3.1f}-{:3.1f}'.format(float(value[0]), float(value[1]))
+
+        elif data_type == 'float2_ci_bracket' and isinstance(value, tuple):
+            value = '{:3.2f}-{:3.2f}'.format(float(value[0]), float(value[1]))
+
         elif isinstance(value, numpy.ndarray):
             shape = value.shape
+
             if len(shape) == 1:
                 value = 'array ({0:d},)'.format(shape[0])
 
@@ -210,6 +258,7 @@ class FancyStringifier(object):
         elif data_type == 'bool':
             if value:
                 value = 'True'
+
             else:
                 value = 'False'
 
@@ -233,21 +282,26 @@ class FancyStringifier(object):
         ----------
         field : str
             Data field name
+            Default value None
 
         value : str, bool, int, float, list or dict
             Data value
+            Default value None
 
         unit : str
             Data value unit
+            Default value None
 
         indent : int
             Amount of indention used for the line
+            Default value 2
 
         Returns
         -------
         str
 
         """
+
         mid = 35
         mid_point = str(mid - indent)
         line = '{field:<' + mid_point + '} : {value} {unit}'
@@ -295,9 +349,11 @@ class FancyStringifier(object):
         ----------
         length : int
             Length of separator
+            Default value 40
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         Returns
         -------
@@ -316,22 +372,28 @@ class FancyStringifier(object):
         cell_data : list of list
             Cell data in format [ [cell(col1,row1), cell(col1,row2), cell(col1,row3)],
             [cell(col2,row1), cell(col2,row2), cell(col2,row3)] ]
+            Default value None
 
         column_headers : list of str
             Column headers in list, if None given column numbers are used
+            Default value None
 
         column_types : list of str
             Column data types, if None given type is determined automatically.
             Possible values: ['int', 'float1', 'float2', 'float3', 'float4', 'str10', 'str20']]
+            Default value None
 
         column_separators : list of int
             Column ids where to place separation lines. Line is placed on the right of the indicated column.
+            Default value None
 
         row_separators : list of int
             Row ids where to place separation lines. Line is place after indicated row.
+            Default value None
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         Returns
         -------
@@ -372,7 +434,7 @@ class FancyStringifier(object):
                     elif all(isinstance(x, float) for x in row_data):
                         data_type = 'float2'
 
-                    elif all(isinstance(x, str) for x in row_data):
+                    elif all(isinstance(x, six.string_types) for x in row_data):
                         data_type = 'str20'
 
                     else:
@@ -429,7 +491,7 @@ class FancyStringifier(object):
                     elif isinstance(cell_value, float):
                         data_type = 'float2'
 
-                    elif isinstance(cell_value, str):
+                    elif isinstance(cell_value, six.string_types):
                         data_type = 'str10'
 
                     else:
@@ -475,6 +537,8 @@ class FancyStringifier(object):
     def row(self, *args, **kwargs):
         """Table row
 
+        Parameters
+        ----------
         args : various
             Data for columns
 
@@ -509,6 +573,8 @@ class FancyStringifier(object):
         if kwargs.get('separators'):
             self.row_column_separators = kwargs.get('separators')
 
+        self.row_column_count = len(args)
+
         line_string = ''
         for column_id, column_data in enumerate(args):
             if column_id < len(self.row_column_widths):
@@ -534,7 +600,7 @@ class FancyStringifier(object):
             if isinstance(column_data, int):
                 line_string += cell.format(str(column_data))
 
-            elif isinstance(column_data, str):
+            elif isinstance(column_data, six.string_types):
                 if len(column_data) > column_width and column_data != '-':
                     column_data = column_data[0:(column_width-2)] + '..'
 
@@ -553,6 +619,44 @@ class FancyStringifier(object):
                 line_string += ' '
 
         return ' ' * self.row_indent + line_string
+
+    def row_reset(self):
+        """Reset table row formatting
+
+        Returns
+        -------
+        self
+
+        """
+
+        self.row_column_widths = []
+        self.row_data_types = []
+        self.row_indent = 2
+        self.row_column_separators = []
+        self.row_column_count = None
+
+        return self
+
+    def row_sep(self, separator_char='-'):
+        """Table separator row
+
+        Parameters
+        ----------
+        separator_char : str
+            Character used for the separator row
+            Default value '-'
+
+        Returns
+        -------
+        str
+
+        """
+
+        row_list = []
+        for i in range(0, self.row_column_count):
+            row_list.append(separator_char)
+
+        return self.row(*row_list)
 
     def class_name(self, class_name):
         """Class name
@@ -617,7 +721,7 @@ class FancyLogger(object):
 
         """
 
-        if isinstance(data, str):
+        if isinstance(data, six.string_types):
             lines = data.split('\n')
 
         elif isinstance(data, list):
@@ -644,8 +748,64 @@ class FancyLogger(object):
                 self.logger.info(' ' * indent + line)
 
     def row(self, *args, **kwargs):
+        """Table row
+
+        Parameters
+        ----------
+        args : various
+            Data for columns
+
+        indent : int
+            Amount of indention used for the row. If None given, value from previous method call is used.
+
+        widths : list of int
+            Column widths. If None given, value from previous method call is used.
+
+        types : list of str
+            Column data types, see `formatted_value` method more. If None given, value from previous
+            method call is used.
+
+        separators : list of bool
+            Column vertical separators. If None given, value from previous method call is used.
+
+        Returns
+        -------
+        nothing
+
+        """
+
         self.line(
             self.ui.row(*args, **kwargs)
+        )
+
+    def row_reset(self):
+        """Reset table row formatting
+
+        Returns
+        -------
+        nothing
+
+        """
+
+        self.ui.row_reset()
+
+    def row_sep(self, separator_char='-'):
+        """Table separator row
+
+        Parameters
+        ----------
+        separator_char : str
+            Character used for the separator row
+            Default value '-'
+
+        Returns
+        -------
+        nothing
+
+        """
+
+        self.line(
+            self.ui.row_sep(separator_char=separator_char)
         )
 
     def title(self, text, level='info'):
@@ -658,10 +818,10 @@ class FancyLogger(object):
 
         level : str
             Logging level, one of [info, debug, warning, warn, error]
+            Default value 'info'
 
         Returns
         -------
-
         nothing
 
         See Also
@@ -688,14 +848,14 @@ class FancyLogger(object):
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         level : str
             Logging level, one of [info, debug, warning, warn, error]
-
+            Default value 'info'
 
         Returns
         -------
-
         nothing
 
         See Also
@@ -723,14 +883,15 @@ class FancyLogger(object):
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         level : str
             Logging level, one of [info, debug, warning, warn, error]
+            Default value 'info'
 
         Returns
         -------
-        str
-            Sub header string
+        nothing
 
         See Also
         --------
@@ -754,23 +915,26 @@ class FancyLogger(object):
         ----------
         text : str, optional
             Footer text.
+            Default value 'DONE'
 
         time : str, optional
             Elapsed time as string.
+            Default value None
 
         item_count : int, optional
             Item count.
+            Default value None
 
         indent : int
             Amount of indention used for the line.
+            Default value 2
 
         level : str
             Logging level, one of [info, debug, warning, warn, error].
-
+            Default value 'info'
 
         Returns
         -------
-
         nothing
 
         See Also
@@ -798,22 +962,26 @@ class FancyLogger(object):
         ----------
         field : str
             Data field name
+            Default value None
 
         value : str, bool, int, float, list or dict
             Data value
+            Default value None
 
         unit : str
             Data value unit
+            Default value None
 
         indent : int
             Amount of indention used for the line
+            Default value 2
 
         level : str
             Logging level, one of [info,debug,warning,warn,error]
+            Default value 'info'
 
         Returns
         -------
-
         nothing
 
         See Also
@@ -840,12 +1008,15 @@ class FancyLogger(object):
         ----------
         level : str
             Logging level, one of [info,debug,warning,warn,error]
+            Default value 'info'
 
         length : int
             Length of separator
+            Default value 40
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         Returns
         -------
@@ -875,30 +1046,36 @@ class FancyLogger(object):
         cell_data : list of list
             Cell data in format [ [cell(col1,row1), cell(col1,row2), cell(col1,row3)],
             [cell(col2,row1), cell(col2,row2), cell(col2,row3)] ]
+            Default value None
 
         column_headers : list of str
             Column headers in list, if None given column numbers are used
+            Default value None
 
         column_types : list of str
             Column data types, if None given type is determined automatically.
             Possible values: ['int', 'float1', 'float2', 'float3', 'float4', 'str10', 'str20']]
+            Default value None
 
         column_separators : list of int
             Column ids where to place separation lines. Line is placed on the right of the indicated column.
+            Default value None
 
         row_separators : list of int
             Row ids where to place separation lines. Line is place after indicated row.
+            Default value None
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         level : str
             Logging level, one of [info,debug,warning,warn,error]
-
+            Default value 'info'
 
         Returns
         -------
-        str
+        nothing
 
         See Also
         --------
@@ -926,14 +1103,14 @@ class FancyLogger(object):
         ----------
         text : str
             Text
+            Default value ''
 
         indent : int
             Amount of indention used for the line
-
+            Default value 0
 
         Returns
         -------
-
         nothing
 
         """
@@ -951,13 +1128,14 @@ class FancyLogger(object):
         ----------
         text : str
             Text
+            Default value ''
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         Returns
         -------
-
         nothing
 
         """
@@ -975,13 +1153,14 @@ class FancyLogger(object):
         ----------
         text : str
             Text
+            Default value ''
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         Returns
         -------
-
         nothing
 
         """
@@ -1002,13 +1181,16 @@ class FancyPrinter(FancyLogger):
 
         Parameters
         ----------
+        colors : bool
+            Using colors or not
+            Default value True
 
         Returns
         -------
-
         nothing
 
         """
+
         super(FancyPrinter, self).__init__()
 
         self.colors = colors
@@ -1048,12 +1230,15 @@ class FancyPrinter(FancyLogger):
         ----------
         data : str or list, optional
             String or list of strings
+            Default value ''
 
         indent : int
             Amount of indention used for the line
+            Default value 0
 
         level : str
             Logging level, one of [info, debug, warning, warn, error]
+            Default value 'info'
 
         Returns
         -------
@@ -1061,7 +1246,7 @@ class FancyPrinter(FancyLogger):
 
         """
 
-        if isinstance(data, str):
+        if isinstance(data, six.string_types):
             lines = data.split('\n')
 
         elif isinstance(data, list):
@@ -1078,6 +1263,7 @@ class FancyPrinter(FancyLogger):
         for line in lines:
             if level in self.levels:
                 print(' ' * indent + self.levels[level] + line + self.levels['reset'])
+
             else:
                 print(' ' * indent + line)
 

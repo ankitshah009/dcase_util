@@ -21,8 +21,10 @@ dcase_util.containers.ListDictContainer
       ~ListDictContainer.empty
       ~ListDictContainer.exists
       ~ListDictContainer.extend
+      ~ListDictContainer.filter
       ~ListDictContainer.get_dump_content
       ~ListDictContainer.get_field
+      ~ListDictContainer.get_field_unique
       ~ListDictContainer.get_file_information
       ~ListDictContainer.index
       ~ListDictContainer.insert

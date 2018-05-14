@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, absolute_import
+import six
 import copy
 import numpy
-import os
 import csv
 import logging
+import io
 from dcase_util.containers import ListDictContainer
-from dcase_util.utils import posix_path, get_parameter_hash, FieldValidator, setup_logging, FileFormat
+from dcase_util.utils import posix_path, get_parameter_hash, FieldValidator, setup_logging, is_float, is_int, FileFormat
 from dcase_util.ui import FancyStringifier
 
 
@@ -25,7 +26,7 @@ class MetaDataItem(dict):
 
         dict.__init__(self, *args)
 
-        # Compatibility with old field names
+        # Compatibility with old field names used in DCASE baseline system implementations 2016 and 2017
         if 'file' in self and 'filename' not in self:
             self['filename'] = self['file']
 
@@ -35,15 +36,18 @@ class MetaDataItem(dict):
         if 'event_offset' in self and 'offset' not in self:
             self['offset'] = self['event_offset']
 
-        # Process fields
-        if 'filename' in self:
+        # Process meta data fields
+
+        # File target for the meta data item
+        if 'filename' in self and isinstance(self['filename'], six.string_types):
             # Keep file paths in unix format even under Windows
             self['filename'] = posix_path(self['filename'])
 
-        if 'filename_original' in self:
+        if 'filename_original' in self and isinstance(self['filename_original'], six.string_types):
             # Keep file paths in unix format even under Windows
             self['filename_original'] = posix_path(self['filename_original'])
 
+        # Meta data item timestamps: onset and offset
         if 'onset' in self:
             self['onset'] = float(self['onset'])
 
@@ -55,11 +59,13 @@ class MetaDataItem(dict):
             if self['event_label'].lower() == 'none':
                 self['event_label'] = None
 
+        # Acoustic scene label assigned to the meta data item
         if 'scene_label' in self and self.scene_label:
             self['scene_label'] = self['scene_label'].strip()
             if self['scene_label'].lower() == 'none':
                 self['scene_label'] = None
 
+        # Tag labels
         if 'tags' in self and self.tags:
             if isinstance(self['tags'], str):
                 self['tags'] = self['tags'].strip()
@@ -105,6 +111,9 @@ class MetaDataItem(dict):
         if self.source_label:
             output += ui.data(indent=4, field='source_label', value=self.source_label) + '\n'
 
+        if self.set_label:
+            output += ui.data(indent=4, field='set_label', value=self.set_label) + '\n'
+
         if self.onset is not None:
             output += ui.data(indent=4, field='onset', value=self.onset, unit='sec') + '\n'
 
@@ -138,8 +147,6 @@ class MetaDataItem(dict):
 
         print(self)
 
-        return self
-
     def log(self, level='info'):
         """Log container content
 
@@ -156,9 +163,7 @@ class MetaDataItem(dict):
         """
 
         from dcase_util.ui import FancyLogger
-        FancyLogger().line(str(self), level=level)
-
-        return self
+        FancyLogger().line(self.__str__(), level=level)
 
     @property
     def logger(self):
@@ -181,20 +186,31 @@ class MetaDataItem(dict):
         """
 
         string = ''
+
         if self.filename:
             string += self.filename
+
         if self.scene_label:
             string += self.scene_label
+
         if self.event_label:
             string += self.event_label
+
         if self.identifier:
             string += self.identifier
+
         if self.source_label:
             string += self.source_label
+
+        if self.set_label:
+            string += self.set_label
+
         if self.tags:
             string += ','.join(self.tags)
+
         if self.onset:
             string += '{:8.4f}'.format(self.onset)
+
         if self.offset:
             string += '{:8.4f}'.format(self.offset)
 
@@ -436,6 +452,26 @@ class MetaDataItem(dict):
         self['source_label'] = value
 
     @property
+    def set_label(self):
+        """Set label
+
+        Returns
+        -------
+        str or None
+            set label
+
+        """
+
+        if 'set_label' in self:
+            return self['set_label']
+        else:
+            return None
+
+    @set_label.setter
+    def set_label(self, value):
+        self['set_label'] = value
+
+    @property
     def tags(self):
         """Tags
 
@@ -511,7 +547,7 @@ class MetaDataItem(dict):
 
 class MetaDataContainer(ListDictContainer):
     """Meta data container class, inherited from ListDictContainer."""
-    valid_formats = [FileFormat.CSV, FileFormat.TXT, FileFormat.ANN]  #: Valid file formats
+    valid_formats = [FileFormat.CSV, FileFormat.TXT, FileFormat.ANN, FileFormat.CPICKLE]  #: Valid file formats
 
     def __init__(self, *args, **kwargs):
         super(MetaDataContainer, self).__init__(*args, **kwargs)
@@ -521,6 +557,9 @@ class MetaDataContainer(ListDictContainer):
         for item_id in range(0, len(self)):
             if not isinstance(self[item_id], self.item_class):
                 self[item_id] = self.item_class(self[item_id])
+
+        from dcase_util.processors import ProcessingChain
+        self.processing_chain = ProcessingChain()
 
     def __str__(self):
         return self.get_string()
@@ -605,6 +644,18 @@ class MetaDataContainer(ListDictContainer):
         return len(self.unique_event_labels)
 
     @property
+    def identifier_count(self):
+        """Number of unique identifiers
+
+        Returns
+        -------
+        identifier_count: float >= 0
+
+        """
+
+        return len(self.unique_identifiers)
+
+    @property
     def tag_count(self):
         """Number of unique tags
 
@@ -652,6 +703,7 @@ class MetaDataContainer(ListDictContainer):
                 labels.append(item.event_label)
 
         labels.sort()
+
         return labels
 
     @property
@@ -730,6 +782,29 @@ class MetaDataContainer(ListDictContainer):
                 max_offset = item.offset
         return max_offset
 
+    def update(self, data):
+        """Replace content with given list
+
+        Parameters
+        ----------
+        data : list
+            New content
+
+        Returns
+        -------
+        self
+
+        """
+
+        list.__init__(self, data)
+
+        # Convert all items in the list to MetaDataItems
+        for item_id in range(0, len(self)):
+            if not isinstance(self[item_id], self.item_class):
+                self[item_id] = self.item_class(self[item_id])
+
+        return self
+
     def log(self, level='info', show_data=False, show_stats=True):
         """Log container content
 
@@ -765,10 +840,11 @@ class MetaDataContainer(ListDictContainer):
         ----------
         show_data : bool
             Include data
-            Default value "True"
+            Default value True
+
         show_stats : bool
             Include scene and event statistics
-            Default value "True"
+            Default value True
 
         Returns
         -------
@@ -784,7 +860,7 @@ class MetaDataContainer(ListDictContainer):
 
         self.show(show_data=True, show_stats=True)
 
-    def load(self, filename=None, decimal='point'):
+    def load(self, filename=None, fields=None, csv_header=True, file_format=None, delimiter=None, decimal='point'):
         """Load event list from delimited text file (csv-formatted)
 
         Preferred delimiter is tab, however, other delimiters are supported automatically
@@ -809,9 +885,27 @@ class MetaDataContainer(ListDictContainer):
         ----------
         filename : str
             Path to the event list in text format (csv). If none given, one given for class constructor is used.
+            Default value None
+
+        fields : list of str, optional
+            List of column names. Used only for CSV formatted files.
+            Default value None
+
+        csv_header : bool, optional
+            Read field names from first line (header). Used only for CSV formatted files.
+            Default value True
+
+        file_format : FileFormat, optional
+            Forced file format, use this when there is a miss-match between file extension and file format.
+            Default value None
+
+        delimiter : str, optional
+            Forced data delimiter for csv format. If None given, automatic delimiter sniffer used. Use this when sniffer does not work.
+            Default value None
 
         decimal : str
             Decimal 'point' or 'comma'
+            Default value 'point'
 
         Returns
         -------
@@ -820,11 +914,558 @@ class MetaDataContainer(ListDictContainer):
 
         """
 
+        def validate(row_format, valid_formats):
+            for valid_format in valid_formats:
+                if row_format == valid_format:
+                    return True
+
+            return False
+
         if filename:
             self.filename = filename
-            self.format = self.detect_file_format(self.filename)
+            if not file_format:
+                self.detect_file_format()
+                self.validate_format()
 
-        if not os.path.isfile(self.filename):
+        if file_format and FileFormat.validate_label(label=file_format):
+            self.format = file_format
+
+        if self.exists():
+            if self.format in [FileFormat.TXT, FileFormat.ANN]:
+                if decimal == 'comma':
+                    delimiter = self.delimiter(exclude_delimiters=[','])
+
+                else:
+                    delimiter = self.delimiter()
+
+                data = []
+                field_validator = FieldValidator()
+
+                f = io.open(self.filename, 'rt')
+                try:
+                    for row in csv.reader(f, delimiter=delimiter):
+                        if row:
+                            row_format = []
+                            for item in row:
+                                row_format.append(field_validator.process(item))
+
+                            for item_id, item in enumerate(row):
+                                if row_format[item_id] == FieldValidator.NUMBER:
+                                    # Translate decimal comma into decimal point
+                                    row[item_id] = float(row[item_id].replace(',', '.'))
+
+                                elif row_format[item_id] in [FieldValidator.AUDIOFILE,
+                                                             FieldValidator.DATAFILE,
+                                                             FieldValidator.STRING,
+                                                             FieldValidator.ALPHA1,
+                                                             FieldValidator.ALPHA2,
+                                                             FieldValidator.LIST]:
+
+                                    row[item_id] = row[item_id].strip()
+
+                            if validate(row_format=row_format,
+                                        valid_formats=[
+                                            [FieldValidator.AUDIOFILE],
+                                            [FieldValidator.DATAFILE],
+                                            [FieldValidator.AUDIOFILE,
+                                             FieldValidator.EMPTY],
+                                            [FieldValidator.DATAFILE,
+                                             FieldValidator.EMPTY]
+                                        ]):
+
+                                # Format: [file]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER]
+                                          ]):
+
+                                # Format: [onset offset]
+                                data.append(
+                                    self.item_class({
+                                        'onset': row[0],
+                                        'offset': row[1]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING],
+                                          ]):
+
+                                # Format: [file scene_label]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.AUDIOFILE],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.DATAFILE],
+                                          ]):
+
+                                # Format: [file scene_label file], filename mapping included
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'filename_original': row[2]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING],
+                                          ]):
+
+                                # Format: [file scene_label identifier]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'identifier': row[2]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.ALPHA2],
+                                          ]):
+
+                                # Format: [onset offset event_label]
+                                data.append(
+                                    self.item_class({
+                                        'onset': row[0],
+                                        'offset': row[1],
+                                        'event_label': row[2]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file onset offset event_label]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'onset': row[1],
+                                        'offset': row[2],
+                                        'event_label': row[3]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER]
+                                          ]):
+
+                                # Format: [file scene_label onset offset]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'onset': row[2],
+                                        'offset': row[3],
+                                        'scene_label': row[1]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file onset offset event_label identifier]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'onset': row[1],
+                                        'offset': row[2],
+                                        'event_label': row[3],
+                                        'identifier': row[4]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER]
+                                          ]):
+
+                                # Format: [file scene_label onset offset]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'onset': row[2],
+                                        'offset': row[3]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file scene_label onset offset event_label]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'onset': row[2],
+                                        'offset': row[3],
+                                        'event_label': row[4]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.ALPHA1],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.ALPHA1]
+                                          ]):
+
+                                # Format: [file scene_label onset offset event_label source_label]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'onset': row[2],
+                                        'offset': row[3],
+                                        'event_label': row[4],
+                                        'source_label': row[5]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file scene_label onset offset event_label source_label]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'onset': row[2],
+                                        'offset': row[3],
+                                        'event_label': row[4],
+                                        'source_label': row[5]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.ALPHA1,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.ALPHA1,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file scene_label onset offset event_label source_label identifier]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'onset': row[2],
+                                        'offset': row[3],
+                                        'event_label': row[4],
+                                        'source_label': row[5],
+                                        'identifier': row[6]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file scene_label onset offset event_label source_label identifier]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'onset': row[2],
+                                        'offset': row[3],
+                                        'event_label': row[4],
+                                        'source_label': row[5],
+                                        'identifier': row[6]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.LIST],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.LIST]
+                                          ]):
+
+                                # Format: [file scene_label tags]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'tags': row[2]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.LIST,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.LIST,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file scene_label tags identifier]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'tags': row[2],
+                                        'identifier': row[3]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.LIST],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.LIST]
+                                          ]):
+
+                                # Format: [file tags]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'tags': row[1]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.LIST,
+                                               FieldValidator.STRING],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.LIST,
+                                               FieldValidator.STRING]
+                                          ]):
+
+                                # Format: [file tags identifier]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'tags': row[1],
+                                        'identifier': row[2]
+                                    })
+                                )
+
+                            elif validate(row_format=row_format,
+                                          valid_formats=[
+                                              [FieldValidator.AUDIOFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.LIST],
+                                              [FieldValidator.DATAFILE,
+                                               FieldValidator.STRING,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.NUMBER,
+                                               FieldValidator.LIST]
+                                          ]):
+
+                                # Format: [file scene_label onset offset tags]
+                                data.append(
+                                    self.item_class({
+                                        'filename': row[0],
+                                        'scene_label': row[1],
+                                        'onset': row[2],
+                                        'offset': row[3],
+                                        'tags': row[4]
+                                    })
+                                )
+
+                            else:
+                                message = '{name}: Unknown row format [{format}], row [{row}]'.format(
+                                    name=self.__class__.__name__,
+                                    format=row_format,
+                                    row=row
+                                )
+                                self.logger.exception(message)
+                                raise IOError(message)
+                finally:
+                    f.close()
+
+                self.update(data=data)
+
+            elif self.format == FileFormat.CSV:
+                if fields is None and csv_header is None:
+                    message = '{name}: Parameters fields or csv_header has to be set for CSV files.'.format(
+                        name=self.__class__.__name__
+                    )
+                    self.logger.exception(message)
+                    raise ValueError(message)
+
+                if not delimiter:
+                    if decimal == 'comma':
+                        delimiter = self.delimiter(exclude_delimiters=[','])
+
+                    else:
+                        delimiter = self.delimiter()
+
+                data = []
+                with open(self.filename, 'r') as f:
+                    csv_reader = csv.reader(f, delimiter=delimiter)
+                    if csv_header:
+                        csv_fields = next(csv_reader)
+                        if fields is None:
+                            fields = csv_fields
+
+                    for row in csv_reader:
+                        for cell_id, cell_data in enumerate(row):
+                            if is_int(cell_data):
+                                row[cell_id] = int(cell_data)
+
+                            elif is_float(cell_data):
+                                row[cell_id] = float(cell_data)
+
+                        data.append(dict(zip(fields, row)))
+
+                self.update(data=data)
+
+            elif self.format == FileFormat.CPICKLE:
+                from dcase_util.files import Serializer
+                self.update(
+                    data=Serializer.load_cpickle(filename=self.filename)
+                )
+
+            else:
+                message = '{name}: Unknown format [{format}]'.format(name=self.__class__.__name__, format=self.filename)
+                self.logger.exception(message)
+                raise IOError(message)
+
+        else:
             message = '{name}: File not found [{filename}]'.format(
                 name=self.__class__.__name__,
                 filename=self.filename
@@ -832,334 +1473,32 @@ class MetaDataContainer(ListDictContainer):
             self.logger.exception(message)
             raise IOError(message)
 
-        if decimal == 'comma':
-            delimiter = self.delimiter(exclude_delimiters=[','])
-
-        else:
-            delimiter = self.delimiter()
-
-        data = []
-        field_validator = FieldValidator()
-        with open(self.filename, 'rtU') as f:
-            for row in csv.reader(f, delimiter=delimiter):
-                if row:
-                    row_format = []
-                    for item in row:
-                        row_format.append(field_validator.process(item))
-
-                    for item_id, item in enumerate(row):
-                        if row_format[item_id] == FieldValidator.NUMBER:
-                            # Translate decimal comma into decimal point
-                            row[item_id] = float(row[item_id].replace(',', '.'))
-
-                        elif row_format[item_id] in [FieldValidator.AUDIOFILE, FieldValidator.STRING, FieldValidator.ALPHA1, FieldValidator.ALPHA2, FieldValidator.LIST]:
-                            row[item_id] = row[item_id].strip()
-
-                    if row_format == [FieldValidator.AUDIOFILE] or row_format == [FieldValidator.AUDIOFILE, FieldValidator.EMPTY]:
-                        # Format: [file]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER]:
-                        # Format: [onset offset]
-                        data.append(
-                            self.item_class({
-                                'onset': row[0],
-                                'offset': row[1]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING]:
-                        # Format: [file scene_label]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.AUDIOFILE]:
-                        # Format: [file scene_label file], filename mapping included
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'filename_original': row[2]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.STRING]:
-                        # Format: [file scene_label identifier]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'identifier': row[2]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING]:
-                        # Format: [onset offset event_label]
-                        data.append(
-                            self.item_class({
-                                'onset': row[0],
-                                'offset': row[1],
-                                'event_label': row[2]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING]:
-                        # Format: [file onset offset event_label]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'onset': row[1],
-                                'offset': row[2],
-                                'event_label': row[3]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING]:
-                        # Format: [file onset offset event_label]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'onset': row[1],
-                                'offset': row[2],
-                                'event_label': row[3]
-                            })
-                        )
-
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER]:
-                        # Format: [file scene_label onset offset]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'onset': row[2],
-                                'offset': row[3],
-                                'scene_label': row[1]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING,
-                                        FieldValidator.STRING]:
-                        # Format: [file onset offset event_label identifier]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'onset': row[1],
-                                'offset': row[2],
-                                'event_label': row[3],
-                                'identifier': row[4]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER]:
-                        # Format: [file scene_label onset offset]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'onset': row[2],
-                                'offset': row[3]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING]:
-                        # Format: [file scene_label onset offset event_label]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'onset': row[2],
-                                'offset': row[3],
-                                'event_label': row[4]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING,
-                                        FieldValidator.ALPHA1]:
-                        # Format: [file scene_label onset offset event_label source_label]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'onset': row[2],
-                                'offset': row[3],
-                                'event_label': row[4],
-                                'source_label': row[5]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING,
-                                        FieldValidator.STRING]:
-                        # Format: [file scene_label onset offset event_label source_label]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'onset': row[2],
-                                'offset': row[3],
-                                'event_label': row[4],
-                                'source_label': row[5]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING,
-                                        FieldValidator.ALPHA1,
-                                        FieldValidator.STRING]:
-                        # Format: [file scene_label onset offset event_label source_label identifier]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'onset': row[2],
-                                'offset': row[3],
-                                'event_label': row[4],
-                                'source_label': row[5],
-                                'identifier': row[6]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.STRING,
-                                        FieldValidator.STRING,
-                                        FieldValidator.STRING]:
-                        # Format: [file scene_label onset offset event_label source_label identifier]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'onset': row[2],
-                                'offset': row[3],
-                                'event_label': row[4],
-                                'source_label': row[5],
-                                'identifier': row[6]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.LIST]:
-                        # Format: [file scene_label tags]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'tags': row[2]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.LIST,
-                                        FieldValidator.STRING]:
-                        # Format: [file scene_label tags identifier]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'tags': row[2],
-                                'identifier': row[3]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.LIST,
-                                        FieldValidator.STRING]:
-                        # Format: [file tags]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'tags': row[1],
-                                'identifier': row[2]
-                            })
-                        )
-
-                    elif row_format == [FieldValidator.AUDIOFILE,
-                                        FieldValidator.STRING,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.NUMBER,
-                                        FieldValidator.LIST]:
-                        # Format: [file scene_label onset offset tags]
-                        data.append(
-                            self.item_class({
-                                'filename': row[0],
-                                'scene_label': row[1],
-                                'onset': row[2],
-                                'offset': row[3],
-                                'tags': row[4]
-                            })
-                        )
-
-                    else:
-                        message = '{name}: Unknown row format [{format}], row [{row}]'.format(
-                            name=self.__class__.__name__,
-                            format=row_format,
-                            row=row
-                        )
-                        self.logger.exception(message)
-                        raise IOError(message)
-
-        self.update(data=data)
         return self
 
-    def save(self, filename=None, delimiter='\t', **kwargs):
+    def save(self, filename=None, fields=None, csv_header=True, file_format=None, delimiter='\t',  **kwargs):
         """Save content to csv file
 
         Parameters
         ----------
         filename : str
             Filename. If none given, one given for class constructor is used.
+            Default value None
+
+        fields : list of str
+            Fields in correct order, if none given all field in alphabetical order will be outputted. Used only for CSV formatted files.
+            Default value None
+
+        csv_header : bool
+            In case of CSV formatted file, first line will contain field names. Names are taken from fields parameter.
+            Default value True
+
+        file_format : FileFormat, optional
+            Forced file format, use this when there is a miss-match between file extension and file format.
+            Default value None
 
         delimiter : str
-            Delimiter to be used
+            Delimiter to be used when saving data.
+            Default value '\t'
 
         Returns
         -------
@@ -1169,15 +1508,54 @@ class MetaDataContainer(ListDictContainer):
 
         if filename:
             self.filename = filename
+            if not file_format:
+                self.detect_file_format()
+                self.validate_format()
 
-        f = open(self.filename, 'wt')
-        try:
-            writer = csv.writer(f, delimiter=delimiter)
-            for item in self:
-                writer.writerow(item.get_list())
+        if file_format and FileFormat.validate_label(label=file_format):
+            self.format = file_format
 
-        finally:
-            f.close()
+        if self.format in [FileFormat.TXT, FileFormat.ANN]:
+            f = open(self.filename, 'wt')
+            try:
+                writer = csv.writer(f, delimiter=delimiter)
+                for item in self:
+                    writer.writerow(item.get_list())
+
+            finally:
+                f.close()
+
+        elif self.format == FileFormat.CSV:
+            if fields is None:
+                fields = set()
+                for item in self:
+                    fields.update(list(item.keys()))
+                fields = sorted(list(fields))
+
+            with open(self.filename, 'w') as csv_file:
+                csv_writer = csv.writer(csv_file, delimiter=delimiter)
+                if csv_header:
+                    csv_writer.writerow(fields)
+
+                for item in self:
+                    item_values = []
+                    for field in fields:
+                        value = item[field]
+                        if isinstance(value, list):
+                            value = ";".join(value)+";"
+
+                        item_values.append(value)
+
+                    csv_writer.writerow(item_values)
+
+        elif self.format == FileFormat.CPICKLE:
+            from dcase_util.files import Serializer
+            Serializer.save_cpickle(filename=self.filename, data=self)
+
+        else:
+            message = '{name}: Unknown format [{format}]'.format(name=self.__class__.__name__, format=self.filename)
+            self.logger.exception(message)
+            raise IOError(message)
 
         return self
 
@@ -1188,9 +1566,11 @@ class MetaDataContainer(ListDictContainer):
         ----------
         show_data : bool
             Include data
+            Default value True
 
         show_stats : bool
             Include scene and event statistics
+            Default value True
 
         Returns
         -------
@@ -1202,8 +1582,12 @@ class MetaDataContainer(ListDictContainer):
 
         string_data = ''
         string_data += ui.class_name(self.__class__.__name__) + '\n'
-        if self.filename:
-            string_data += ui.data(field='Filename', value=self.filename) + '\n'
+
+        if hasattr(self, 'filename') and self.filename:
+            string_data += ui.data(
+                field='Filename',
+                value=self.filename
+            ) + '\n'
 
         string_data += ui.data(field='Items', value=len(self)) + '\n'
         string_data += ui.line(field='Unique') + '\n'
@@ -1211,6 +1595,7 @@ class MetaDataContainer(ListDictContainer):
         string_data += ui.data(indent=4, field='Scene labels', value=len(self.unique_scene_labels)) + '\n'
         string_data += ui.data(indent=4, field='Event labels', value=len(self.unique_event_labels)) + '\n'
         string_data += ui.data(indent=4, field='Tags', value=len(self.unique_tags)) + '\n'
+        string_data += ui.data(indent=4, field='Identifiers', value=len(self.unique_identifiers)) + '\n'
         string_data += '\n'
 
         if show_data:
@@ -1240,16 +1625,17 @@ class MetaDataContainer(ListDictContainer):
             if 'scenes' in stats and 'scene_label_list' in stats['scenes'] and stats['scenes']['scene_label_list']:
                 string_data += ui.line('Scene statistics', indent=2) + '\n'
 
-                cell_data = [[], []]
+                cell_data = [[], [], []]
 
                 for scene_id, scene_label in enumerate(stats['scenes']['scene_label_list']):
                     cell_data[0].append(scene_label)
                     cell_data[1].append(int(stats['scenes']['count'][scene_id]))
+                    cell_data[2].append(int(stats['scenes']['identifiers'][scene_id]))
 
                 string_data += ui.table(
                     cell_data=cell_data,
-                    column_headers=['Scene label', 'Count'],
-                    column_types=['str20', 'int'],
+                    column_headers=['Scene label', 'Count', 'Identifiers'],
+                    column_types=['str20', 'int', 'int'],
                     indent=8
                 )
                 string_data += '\n'
@@ -1290,28 +1676,72 @@ class MetaDataContainer(ListDictContainer):
 
         return string_data
 
-    def filter(self, filename=None, file_list=None, scene_label=None, event_label=None, tag=None, identifier=None):
+    def filter(self,
+               filename=None,
+               file_list=None,
+               scene_label=None,
+               scene_list=None,
+               event_label=None,
+               event_list=None,
+               tag=None,
+               tag_list=None,
+               identifier=None,
+               identifier_list=None,
+               source_label=None,
+               source_label_list=None,
+               **kwargs
+               ):
         """Filter content
 
         Parameters
         ----------
         filename : str, optional
             Filename to be matched
+            Default value None
 
         file_list : list, optional
             List of filenames to be matched
+            Default value None
 
         scene_label : str, optional
             Scene label to be matched
+            Default value None
+
+        scene_list : list of str, optional
+            List of scene labels to be matched
+            Default value None
 
         event_label : str, optional
             Event label to be matched
+            Default value None
+
+        event_list : list of str, optional
+            List of event labels to be matched
+            Default value None
 
         tag : str, optional
             Tag to be matched
+            Default value None
+
+        tag_list : list of str, optional
+            List of tags to be matched
+            Default value None
 
         identifier : str, optional
             Identifier to be matched
+            Default value None
+
+        identifier_list : list of str, optional
+            List of identifiers to be matched
+            Default value None
+
+        source_label : str, optional
+            Source label to be matched
+            Default value None
+
+        source_label_list : list of str, optional
+            List of source labels to be matched
+            Default value None
 
         Returns
         -------
@@ -1319,49 +1749,67 @@ class MetaDataContainer(ListDictContainer):
 
         """
 
-        data = []
-        for item in self:
-            matched = []
-            if filename:
-                if item.filename == filename:
-                    matched.append(True)
-                else:
-                    matched.append(False)
+        # Inject parameters back to kwargs, and use parent filter method
+        if filename is not None:
+            kwargs['filename'] = filename
 
-            if file_list:
-                if item.filename in file_list:
-                    matched.append(True)
-                else:
-                    matched.append(False)
+        if scene_label is not None:
+            kwargs['scene_label'] = scene_label
 
-            if scene_label:
-                if item.scene_label == scene_label:
-                    matched.append(True)
-                else:
-                    matched.append(False)
+        if event_label is not None:
+            kwargs['event_label'] = event_label
 
-            if event_label:
-                if item.event_label == event_label:
-                    matched.append(True)
-                else:
-                    matched.append(False)
+        if identifier is not None:
+            kwargs['identifier'] = identifier
 
-            if tag:
-                if item.tags and tag in item.tags:
-                    matched.append(True)
-                else:
-                    matched.append(False)
+        if source_label is not None:
+            kwargs['source_label'] = source_label
 
-            if identifier:
-                if item.identifier == identifier:
-                    matched.append(True)
-                else:
-                    matched.append(False)
+        if file_list is not None:
+            kwargs['filename'] = list(file_list)
 
-            if all(matched):
-                data.append(copy.deepcopy(item))
+        if scene_list is not None:
+            kwargs['scene_label'] = list(scene_list)
 
-        return MetaDataContainer(data)
+        if event_list is not None:
+            kwargs['event_label'] = list(event_list)
+
+        if identifier_list is not None:
+            kwargs['identifier'] = list(identifier_list)
+
+        if source_label_list is not None:
+            kwargs['source_label'] = list(source_label_list)
+
+        result = MetaDataContainer(super(MetaDataContainer, self).filter(**kwargs))
+
+        # Handle tags separately
+        if tag is not None or tag_list is not None:
+            data = []
+
+            if tag_list:
+                tag_list = set(tag_list)
+
+            for item in result:
+                matched = []
+                if tag:
+                    if item.tags and tag in item.tags:
+                        matched.append(True)
+                    else:
+                        matched.append(False)
+
+                if tag_list:
+                    if item.tags and tag_list.intersection(item.tags):
+                        matched.append(True)
+                    else:
+                        matched.append(False)
+
+                if all(matched):
+                    data.append(copy.deepcopy(item))
+
+            return MetaDataContainer(data)
+
+        else:
+            return result
 
     def process_events(self, minimum_event_length=None, minimum_event_gap=None):
         """Process event content
@@ -1372,9 +1820,11 @@ class MetaDataContainer(ListDictContainer):
         ----------
         minimum_event_length : float > 0.0
             Minimum event length in seconds, shorten than given are filtered out from the output.
+            Default value None
 
         minimum_event_gap : float > 0.0
             Minimum allowed gap between events in seconds from same event label class.
+            Default value None
 
         Returns
         -------
@@ -1470,21 +1920,27 @@ class MetaDataContainer(ListDictContainer):
         ----------
         start : float > 0.0
             Segment start, seconds
+            Default value None
 
         stop : float > 0.0
             Segment end, seconds
+            Default value None
 
         duration : float
             Segment duration, seconds
+            Default value None
 
         filename : str
             Filename to filter
+            Default value None
 
         zero_time : bool
             Convert timestamps in respect to the segment start
+            Default value True
 
         trim : bool
             Trim event onsets and offset according to segment start and stop times.
+            Default value True
 
         Returns
         -------
@@ -1529,11 +1985,14 @@ class MetaDataContainer(ListDictContainer):
                         # Trim negative onsets to 0 and trim offsets going over slice stop to slice stop.
                         if item_.onset < 0:
                             item_.onset = 0
+
                         if item_.offset > stop-start:
                             item_.offset = stop - start
+
                 elif trim:
                     if item_.onset < start:
                         item_.onset = start
+
                     if item_.offset > stop:
                         item_.offset = stop
 
@@ -1549,12 +2008,15 @@ class MetaDataContainer(ListDictContainer):
         ----------
         event_label_list : list of str
             List of event labels to be included in the statistics. If none given, all unique labels used
+            Default value None
 
         scene_label_list : list of str
             List of scene labels to be included in the statistics. If none given, all unique labels used
+            Default value None
 
         tag_list : list of str
             List of tags to be included in the statistics. If none given, all unique tags used
+            Default value None
 
         Returns
         -------
@@ -1572,11 +2034,11 @@ class MetaDataContainer(ListDictContainer):
             tag_list = self.unique_tags
 
         scene_counts = numpy.zeros(len(scene_label_list))
-
+        scene_unique_identifiers = numpy.zeros(len(scene_label_list))
         for scene_id, scene_label in enumerate(scene_label_list):
-            for item in self:
-                if item.scene_label and item.scene_label == scene_label:
-                    scene_counts[scene_id] += 1
+            scene_data = self.filter(scene_label=scene_label)
+            scene_counts[scene_id] = len(scene_data)
+            scene_unique_identifiers[scene_id] = len(scene_data.unique_identifiers)
 
         event_lengths = numpy.zeros(len(event_label_list))
         event_counts = numpy.zeros(len(event_label_list))
@@ -1595,18 +2057,19 @@ class MetaDataContainer(ListDictContainer):
 
         return {
             'scenes': {
-                'count': scene_counts,
                 'scene_label_list': scene_label_list,
+                'count': scene_counts,
+                'identifiers': scene_unique_identifiers
             },
             'events': {
+                'event_label_list': event_label_list,
                 'length': event_lengths,
                 'count': event_counts,
-                'avg_length': event_lengths/event_counts,
-                'event_label_list': event_label_list
+                'avg_length': event_lengths/event_counts
             },
             'tags': {
-                'count': tag_counts,
                 'tag_list': tag_list,
+                'count': tag_counts
             }
         }
 
@@ -1664,15 +2127,19 @@ class MetaDataContainer(ListDictContainer):
         ----------
         label_list : list
             List of labels in correct order
+            Default value None
 
         time_resolution : float > 0.0
             Time resolution used when converting event into event roll.
+            Default value 0.01
 
         label : str
             Meta data field used to create event roll
+            Default value 'event_label'
 
         length_seconds : float
             Event roll length in seconds
+            Default value None
 
         Returns
         -------
@@ -1693,6 +2160,7 @@ class MetaDataContainer(ListDictContainer):
                 label=label,
                 length_seconds=length_seconds
             )
+
             return event_roll
 
         else:
@@ -1700,3 +2168,142 @@ class MetaDataContainer(ListDictContainer):
             self.logger.exception(message)
             raise ValueError(message)
 
+    def intersection(self, second_metadata):
+        """Intersection of two meta containers
+
+        Parameters
+        ----------
+
+        second_metadata : MetaDataContainer
+            Second meta data container
+
+        Returns
+        -------
+        MetaDataContainer
+            Container with intersecting items
+
+        """
+
+        # Get unique IDs for current meta data container
+        id1 = []
+        for item1 in self:
+            id1.append(item1.id)
+
+        # Get unique IDs for second meta data container
+        id2 = []
+        for item2 in second_metadata:
+            id2.append(item2.id)
+
+        # Find intersection of IDs
+        id_intersect = list(set(id1).intersection(set(id2)))
+
+        # Collect intersecting items
+        intersection = MetaDataContainer()
+        for id in id_intersect:
+            intersection.append(self[id1.index(id)])
+
+        return intersection
+
+    def intersection_report(self, second_metadata):
+        """Intersection report for two meta containers
+
+        Parameters
+        ----------
+
+        second_metadata : MetaDataContainer
+            Second meta data container
+
+        Returns
+        -------
+        dict
+            Dict with intersection data ['items', 'files', 'identifiers', 'scene_labels', 'event_labels' ,'tags']
+
+        """
+
+        return {
+            'items': self.intersection(second_metadata=second_metadata),
+            'files': list(set(self.unique_files).intersection(set(second_metadata.unique_files))),
+            'identifiers': list(set(self.unique_identifiers).intersection(set(second_metadata.unique_identifiers))),
+            'scene_labels': list(set(self.unique_scene_labels).intersection(set(second_metadata.unique_scene_labels))),
+            'event_labels': list(set(self.unique_event_labels).intersection(set(second_metadata.unique_event_labels))),
+            'tags': list(set(self.unique_tags).intersection(set(second_metadata.unique_tags)))
+        }
+
+    def difference(self, second_metadata):
+        """Difference of two meta containers
+
+        Parameters
+        ----------
+
+        second_metadata : MetaDataContainer
+            Second meta data container
+
+        Returns
+        -------
+        MetaDataContainer
+            Container with difference items
+
+        """
+
+        # Get unique IDs for current meta data container
+        id1 = []
+        for item1 in self:
+            id1.append(item1.id)
+
+        # Get unique IDs for second meta data container
+        id2 = []
+        for item2 in second_metadata:
+            id2.append(item2.id)
+
+        # Find difference of IDs
+        id_difference = list(set(id1).symmetric_difference(set(id2)))
+
+        # Collect difference items
+        difference = MetaDataContainer()
+        for id in id_difference:
+            difference.append(self[id1.index(id)])
+
+        return difference
+
+    def push_processing_chain_item(self, processor_name, init_parameters=None, process_parameters=None,
+                                   preprocessing_callbacks=None,
+                                   input_type=None, output_type=None):
+        """Push processing chain item
+
+        Parameters
+        ----------
+        processor_name : str
+            Processor name
+
+        init_parameters : dict, optional
+            Initialization parameters for the processors
+            Default value None
+
+        process_parameters : dict, optional
+            Parameters for the process method of the Processor
+            Default value None
+
+        input_type : ProcessingChainItemType
+            Input data type
+            Default value None
+
+        output_type : ProcessingChainItemType
+            Output data type
+            Default value None
+
+        Returns
+        -------
+        self
+
+        """
+
+        self.processing_chain.push_processor(
+            processor_name=processor_name,
+            init_parameters=init_parameters,
+            process_parameters=process_parameters,
+            preprocessing_callbacks=preprocessing_callbacks,
+            input_type=input_type,
+            output_type=output_type,
+        )
+
+        return self

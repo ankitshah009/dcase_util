@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -48,6 +50,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +87,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#pypi">PyPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#source">Source</a></li>
@@ -118,6 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#creating-container">Creating container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#loading-and-saving">Loading and Saving</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#focus-segment">Focus segment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#frames-and-segments">Frames and Segments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#processing">Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#visualizations">Visualizations</a></li>
 </ul>
@@ -141,6 +148,8 @@
 <li class="toctree-l3"><a class="reference internal" href="tutorial_data.html#event-roll">Event roll</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_data.html#probability-encoding">Probability encoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_data.html#decision-encoding">Decision encoding</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_metadata.html">Metadata</a><ul>
@@ -366,6 +375,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.set_focus.html">dcase_util.containers.AudioContainer.set_focus</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.get_focused.html">dcase_util.containers.AudioContainer.get_focused</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.freeze.html">dcase_util.containers.AudioContainer.freeze</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.frames.html">dcase_util.containers.AudioContainer.frames</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.normalize.html">dcase_util.containers.AudioContainer.normalize</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.resample.html">dcase_util.containers.AudioContainer.resample</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.mixdown.html">dcase_util.containers.AudioContainer.mixdown</a></li>
@@ -432,6 +442,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.event_count.html">dcase_util.containers.MetaDataContainer.event_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.scene_label_count.html">dcase_util.containers.MetaDataContainer.scene_label_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.event_label_count.html">dcase_util.containers.MetaDataContainer.event_label_count</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.identifier_count.html">dcase_util.containers.MetaDataContainer.identifier_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.tag_count.html">dcase_util.containers.MetaDataContainer.tag_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.unique_files.html">dcase_util.containers.MetaDataContainer.unique_files</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.unique_event_labels.html">dcase_util.containers.MetaDataContainer.unique_event_labels</a></li>
@@ -449,6 +460,9 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.event_stat_counts.html">dcase_util.containers.MetaDataContainer.event_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.tag_stat_counts.html">dcase_util.containers.MetaDataContainer.tag_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.to_event_roll.html">dcase_util.containers.MetaDataContainer.to_event_roll</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.intersection.html">dcase_util.containers.MetaDataContainer.intersection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.intersection_report.html">dcase_util.containers.MetaDataContainer.intersection_report</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.difference.html">dcase_util.containers.MetaDataContainer.difference</a></li>
 </ul>
 </li>
 </ul>
@@ -660,6 +674,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.load.html">dcase_util.data.DecisionEncoder.load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.save.html">dcase_util.data.DecisionEncoder.save</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.majority_vote.html">dcase_util.data.DecisionEncoder.majority_vote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.many_hot.html">dcase_util.data.DecisionEncoder.many_hot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.find_contiguous_regions.html">dcase_util.data.DecisionEncoder.find_contiguous_regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.process_activity.html">dcase_util.data.DecisionEncoder.process_activity</a></li>
 </ul>
@@ -674,6 +689,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.initialize.html">dcase_util.datasets.Dataset.initialize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.download_packages.html">dcase_util.datasets.Dataset.download_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.extract_packages.html">dcase_util.datasets.Dataset.extract_packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.debug_packages.html">dcase_util.datasets.Dataset.debug_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.prepare.html">dcase_util.datasets.Dataset.prepare</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.process_meta_item.html">dcase_util.datasets.Dataset.process_meta_item</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.check_filelist.html">dcase_util.datasets.Dataset.check_filelist</a></li>
@@ -711,7 +727,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_error_meta.html">dcase_util.datasets.Dataset.file_error_meta</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_features.html">dcase_util.datasets.Dataset.file_features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.relative_to_absolute_path.html">dcase_util.datasets.Dataset.relative_to_absolute_path</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.absolute_to_relative.html">dcase_util.datasets.Dataset.absolute_to_relative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.absolute_to_relative_path.html">dcase_util.datasets.Dataset.absolute_to_relative_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_bytes.html">dcase_util.datasets.Dataset.dataset_bytes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_string.html">dcase_util.datasets.Dataset.dataset_size_string</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_on_disk.html">dcase_util.datasets.Dataset.dataset_size_on_disk</a></li>
@@ -763,6 +779,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="features.html#spectralfeatureextractor">SpectralFeatureExtractor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.html">dcase_util.features.SpectralFeatureExtractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.extract.html">dcase_util.features.SpectralFeatureExtractor.extract</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.get_window_function.html">dcase_util.features.SpectralFeatureExtractor.get_window_function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.get_spectrogram.html">dcase_util.features.SpectralFeatureExtractor.get_spectrogram</a></li>
 </ul>
@@ -816,6 +833,15 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.File.empty.html">dcase_util.files.File.empty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.File.delimiter.html">dcase_util.files.File.delimiter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.File.is_package.html">dcase_util.files.File.is_package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#package">Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.html">dcase_util.files.Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.extract.html">dcase_util.files.Package.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.compress.html">dcase_util.files.Package.compress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.detect_file_format.html">dcase_util.files.Package.detect_file_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.validate_format.html">dcase_util.files.Package.validate_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.exists.html">dcase_util.files.Package.exists</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="files.html#filelock">FileLock</a><ul>
@@ -912,6 +938,18 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="keras.html#generators">Generators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keras.html#kerasdatasequence">KerasDataSequence</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.keras.get_keras_data_sequence_class.html">dcase_util.keras.get_keras_data_sequence_class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keras.html#utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.keras.setup_keras.html">dcase_util.keras.setup_keras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.keras.create_optimizer.html">dcase_util.keras.create_optimizer</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="processors.html">Processors</a><ul>
@@ -926,10 +964,12 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.log_chain.html">dcase_util.processors.ProcessingChain.log_chain</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.push_processor.html">dcase_util.processors.ProcessingChain.push_processor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.process.html">dcase_util.processors.ProcessingChain.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.processor_exists.html">dcase_util.processors.ProcessingChain.processor_exists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.processor_class_reference.html">dcase_util.processors.ProcessingChain.processor_class_reference</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.processor_class.html">dcase_util.processors.ProcessingChain.processor_class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.chain_item_exists.html">dcase_util.processors.ProcessingChain.chain_item_exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.chain_item.html">dcase_util.processors.ProcessingChain.chain_item</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 </ul>
 </li>
 </ul>
@@ -953,9 +993,19 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.AggregationProcessor.process.html">dcase_util.processors.AggregationProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositoryaggregationprocessor">RepositoryAggregationProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryAggregationProcessor.html">dcase_util.processors.RepositoryAggregationProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryAggregationProcessor.process.html">dcase_util.processors.RepositoryAggregationProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#sequencingprocessor">SequencingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.SequencingProcessor.html">dcase_util.processors.SequencingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.SequencingProcessor.process.html">dcase_util.processors.SequencingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositorysequencingprocessor">RepositorySequencingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositorySequencingProcessor.html">dcase_util.processors.RepositorySequencingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositorySequencingProcessor.process.html">dcase_util.processors.RepositorySequencingProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#normalizationprocessor">NormalizationProcessor</a><ul>
@@ -973,6 +1023,11 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.StackingProcessor.process.html">dcase_util.processors.StackingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositorymaskingprocessor">RepositoryMaskingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryMaskingProcessor.html">dcase_util.processors.RepositoryMaskingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryMaskingProcessor.process.html">dcase_util.processors.RepositoryMaskingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#onehotencodingprocessor">OneHotEncodingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.OneHotEncodingProcessor.html">dcase_util.processors.OneHotEncodingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.OneHotEncodingProcessor.process.html">dcase_util.processors.OneHotEncodingProcessor.process</a></li>
@@ -988,9 +1043,24 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.EventRollEncodingProcessor.process.html">dcase_util.processors.EventRollEncodingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#datashapingprocessor">DataShapingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.DataShapingProcessor.html">dcase_util.processors.DataShapingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.DataShapingProcessor.process.html">dcase_util.processors.DataShapingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositorytomatrixprocessor">RepositoryToMatrixProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryToMatrixProcessor.html">dcase_util.processors.RepositoryToMatrixProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryToMatrixProcessor.process.html">dcase_util.processors.RepositoryToMatrixProcessor.process</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="processors.html#features">Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#featurereadingprocessor">FeatureReadingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureReadingProcessor.html">dcase_util.processors.FeatureReadingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureReadingProcessor.process.html">dcase_util.processors.FeatureReadingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#repositoryfeatureextractorprocessor">RepositoryFeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
@@ -999,6 +1069,11 @@
 <li class="toctree-l3"><a class="reference internal" href="processors.html#featureextractorprocessor">FeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureExtractorProcessor.html">dcase_util.processors.FeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureExtractorProcessor.process.html">dcase_util.processors.FeatureExtractorProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#id2">RepositoryFeatureExtractorProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#melextractorprocessor">MelExtractorProcessor</a><ul>
@@ -1046,12 +1121,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="processors.html#mixin">Mixin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="processors.html#processormixin">ProcessorMixin</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.html">dcase_util.processors.ProcessorMixin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.process.html">dcase_util.processors.ProcessorMixin.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.get_processing_chain_item.html">dcase_util.processors.ProcessorMixin.get_processing_chain_item</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.push_processing_chain_item.html">dcase_util.processors.ProcessorMixin.push_processing_chain_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processors.html#base-object">Base object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#processor">Processor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.Processor.html">dcase_util.processors.Processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.Processor.process.html">dcase_util.processors.Processor.process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.Processor.get_processing_chain_item.html">dcase_util.processors.Processor.get_processing_chain_item</a></li>
 </ul>
 </li>
 </ul>
@@ -1063,6 +1137,8 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.html">dcase_util.ui.FancyLogger</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.line.html">dcase_util.ui.FancyLogger.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.row.html">dcase_util.ui.FancyLogger.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.row_reset.html">dcase_util.ui.FancyLogger.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.row_sep.html">dcase_util.ui.FancyLogger.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.title.html">dcase_util.ui.FancyLogger.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.section_header.html">dcase_util.ui.FancyLogger.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.sub_header.html">dcase_util.ui.FancyLogger.sub_header</a></li>
@@ -1079,6 +1155,8 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.html">dcase_util.ui.FancyPrinter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.line.html">dcase_util.ui.FancyPrinter.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.row.html">dcase_util.ui.FancyPrinter.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.row_reset.html">dcase_util.ui.FancyPrinter.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.row_sep.html">dcase_util.ui.FancyPrinter.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.title.html">dcase_util.ui.FancyPrinter.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.section_header.html">dcase_util.ui.FancyPrinter.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.sub_header.html">dcase_util.ui.FancyPrinter.sub_header</a></li>
@@ -1103,6 +1181,8 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.sep.html">dcase_util.ui.FancyStringifier.sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.table.html">dcase_util.ui.FancyStringifier.table</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.row.html">dcase_util.ui.FancyStringifier.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.row_reset.html">dcase_util.ui.FancyStringifier.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.row_sep.html">dcase_util.ui.FancyStringifier.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.class_name.html">dcase_util.ui.FancyStringifier.class_name</a></li>
 </ul>
 </li>
@@ -1155,6 +1235,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.detect.html">dcase_util.utils.FileFormat.detect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.detect_based_on_filename.html">dcase_util.utils.FileFormat.detect_based_on_filename</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.detect_based_on_content.html">dcase_util.utils.FileFormat.detect_based_on_content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.validate_label.html">dcase_util.utils.FileFormat.validate_label</a></li>
 </ul>
 </li>
 </ul>
@@ -1250,6 +1331,10 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-9">v0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-8">v0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-7">v0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-6">v0.1.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-5">v0.1.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-4">v0.1.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-0">v0.1.0</a></li>
@@ -1268,8 +1353,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">DCASE Utilities</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DCASE Utilities</a>
+        
       </nav>
 
 
@@ -1278,21 +1365,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Processing chain</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Processing chain</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -1300,10 +1404,10 @@
             
   <div class="section" id="processing-chain">
 <span id="tutorial-processing-chain"></span><h1>Processing chain<a class="headerlink" href="#processing-chain" title="Permalink to this headline">¶</a></h1>
-<p>In addition to the basic utilities, this library provides mechanism to link various data processing classes together.
+<p>In addition to the basic utilities, the library provides mechanism to link various data processing classes together.
 This allows easier construction of complex data processing pipelines. The data processing is done in <strong>processors</strong>,
-which are contained in the <strong>chain</strong> (a list of processors).</p>
-<p>All processors classes are using <a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.html#dcase_util.processors.ProcessorMixin" title="dcase_util.processors.ProcessorMixin"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.ProcessorMixin</span></code></a> mixin and specific utility class. For example, <a class="reference internal" href="generated/dcase_util.processors.AudioReadingProcessor.html#dcase_util.processors.AudioReadingProcessor" title="dcase_util.processors.AudioReadingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.AudioReadingProcessor</span></code></a> is inherited from <a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.html#dcase_util.processors.ProcessorMixin" title="dcase_util.processors.ProcessorMixin"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.ProcessorMixin</span></code></a> and <a class="reference internal" href="generated/dcase_util.containers.AudioContainer.html#dcase_util.containers.AudioContainer" title="dcase_util.containers.AudioContainer"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.containers.AudioContainer</span></code></a>.</p>
+which are contained in the <strong>processing chain</strong> (a list of processors).
+All processors classes are inherited from <a class="reference internal" href="generated/dcase_util.processors.Processor.html#dcase_util.processors.Processor" title="dcase_util.processors.Processor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.Processor</span></code></a>.</p>
 <p>Audio related processors:</p>
 <ul class="simple">
 <li><a class="reference internal" href="generated/dcase_util.processors.AudioReadingProcessor.html#dcase_util.processors.AudioReadingProcessor" title="dcase_util.processors.AudioReadingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.AudioReadingProcessor</span></code></a>, audio reading, suppors multi-channel audio.</li>
@@ -1312,10 +1416,15 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <p>Data manipulation processors:</p>
 <ul class="simple">
 <li><a class="reference internal" href="generated/dcase_util.processors.AggregationProcessor.html#dcase_util.processors.AggregationProcessor" title="dcase_util.processors.AggregationProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.AggregationProcessor</span></code></a>, aggregating data withing sliding processing window.</li>
-<li><a class="reference internal" href="generated/dcase_util.processors.SequencingProcessor.html#dcase_util.processors.SequencingProcessor" title="dcase_util.processors.SequencingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.SequencingProcessor</span></code></a>, spliting data matrix into sequences.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.RepositoryAggregationProcessor.html#dcase_util.processors.RepositoryAggregationProcessor" title="dcase_util.processors.RepositoryAggregationProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositoryAggregationProcessor</span></code></a>, aggregating data stored in the data repository.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.SequencingProcessor.html#dcase_util.processors.SequencingProcessor" title="dcase_util.processors.SequencingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.SequencingProcessor</span></code></a>, splitting data matrix into sequences.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.RepositorySequencingProcessor.html#dcase_util.processors.RepositorySequencingProcessor" title="dcase_util.processors.RepositorySequencingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositorySequencingProcessor</span></code></a>, splitting data stored in the data repository.</li>
 <li><a class="reference internal" href="generated/dcase_util.processors.NormalizationProcessor.html#dcase_util.processors.NormalizationProcessor" title="dcase_util.processors.NormalizationProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.NormalizationProcessor</span></code></a>, normalizing data matrix.</li>
-<li><a class="reference internal" href="generated/dcase_util.processors.RepositoryNormalizationProcessor.html#dcase_util.processors.RepositoryNormalizationProcessor" title="dcase_util.processors.RepositoryNormalizationProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositoryNormalizationProcessor</span></code></a>, normalizing data stored inside repository.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.RepositoryNormalizationProcessor.html#dcase_util.processors.RepositoryNormalizationProcessor" title="dcase_util.processors.RepositoryNormalizationProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositoryNormalizationProcessor</span></code></a>, normalizing data stored in the data repository.</li>
 <li><a class="reference internal" href="generated/dcase_util.processors.StackingProcessor.html#dcase_util.processors.StackingProcessor" title="dcase_util.processors.StackingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.StackingProcessor</span></code></a>, stack a new feature matrix based on data stored inside a repository.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.RepositoryMaskingProcessor.html#dcase_util.processors.RepositoryMaskingProcessor" title="dcase_util.processors.RepositoryMaskingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositoryMaskingProcessor</span></code></a>, masking data stored in the data repository.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.DataShapingProcessor.html#dcase_util.processors.DataShapingProcessor" title="dcase_util.processors.DataShapingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.DataShapingProcessor</span></code></a>, reshaping data stored in the data container.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.RepositoryToMatrixProcessor.html#dcase_util.processors.RepositoryToMatrixProcessor" title="dcase_util.processors.RepositoryToMatrixProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositoryToMatrixProcessor</span></code></a>, converting data from data repository into a single matrix.</li>
 </ul>
 <p>Data encoding processors:</p>
 <ul class="simple">
@@ -1325,6 +1434,9 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 </ul>
 <p>Feature extraction processors:</p>
 <ul class="simple">
+<li><a class="reference internal" href="generated/dcase_util.processors.FeatureReadingProcessor.html#dcase_util.processors.FeatureReadingProcessor" title="dcase_util.processors.FeatureReadingProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.FeatureReadingProcessor</span></code></a>, reading features from a file.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html#dcase_util.processors.RepositoryFeatureExtractorProcessor" title="dcase_util.processors.RepositoryFeatureExtractorProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositoryFeatureExtractorProcessor</span></code></a>, reading features from a file and storing them in the data repository.</li>
+<li><a class="reference internal" href="generated/dcase_util.processors.FeatureExtractorProcessor.html#dcase_util.processors.FeatureExtractorProcessor" title="dcase_util.processors.FeatureExtractorProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.FeatureExtractorProcessor</span></code></a>, extracting features.</li>
 <li><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html#dcase_util.processors.RepositoryFeatureExtractorProcessor" title="dcase_util.processors.RepositoryFeatureExtractorProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.RepositoryFeatureExtractorProcessor</span></code></a>, extracting many feature types at the same time, and storing them into single repository. Supports multi-channel audio input.</li>
 <li><a class="reference internal" href="generated/dcase_util.processors.MelExtractorProcessor.html#dcase_util.processors.MelExtractorProcessor" title="dcase_util.processors.MelExtractorProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.MelExtractorProcessor</span></code></a>, extracting mel-band energies. Supports only single channel audio.</li>
 <li><a class="reference internal" href="generated/dcase_util.processors.MfccStaticExtractorProcessor.html#dcase_util.processors.MfccStaticExtractorProcessor" title="dcase_util.processors.MfccStaticExtractorProcessor"><code class="xref py py-obj docutils literal"><span class="pre">dcase_util.processors.MfccStaticExtractorProcessor</span></code></a>, extracting static MFCCs. Supports only single channel audio.</li>
@@ -1344,14 +1456,13 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Define processing chain</span>
 <span class="n">chain</span> <span class="o">=</span> <span class="n">dcase_util</span><span class="o">.</span><span class="n">processors</span><span class="o">.</span><span class="n">ProcessingChain</span><span class="p">([</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;fs&#39;</span><span class="p">:</span> <span class="mi">44100</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.MelExtractorProcessor&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;MelExtractorProcessor&#39;</span>
     <span class="p">}</span>
 <span class="p">])</span>
 <span class="c1"># Run the processing chain</span>
@@ -1362,84 +1473,44 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <span class="c1">#     data                            : matrix (40,501)</span>
 <span class="c1">#     Dimensions</span>
 <span class="c1">#       time_axis                     : 1</span>
-<span class="c1">#       data_axis                     : 0</span>
 <span class="c1">#     Timing information</span>
 <span class="c1">#       time_resolution               : 0.02 sec</span>
 <span class="c1">#   Meta</span>
 <span class="c1">#     stats                           : Calculated</span>
 <span class="c1">#     metadata                        : -</span>
-<span class="c1">#     processing_chain                : ProcessingChain :: Class</span>
-<span class="c1">#                                       [0]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              _focus_channel                  : None</span>
-<span class="c1">#                                              _focus_start                    : 0</span>
-<span class="c1">#                                              _focus_stop                     : None</span>
-<span class="c1">#                                              channel_axis                    : 0</span>
-<span class="c1">#                                              data_synced_with_file           : False</span>
-<span class="c1">#                                              filename                        : None</span>
-<span class="c1">#                                              fs                              : 44100</span>
-<span class="c1">#                                              mono                            : True</span>
-<span class="c1">#                                              time_axis                       : 1</span>
-<span class="c1">#                                            input_type                        : NONE</span>
-<span class="c1">#                                            output_type                       : AUDIO</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                              filename                        : dcase_util/utils/example_data/acoustic_scene.flac</span>
-<span class="c1">#                                              focus_channel                   : None</span>
-<span class="c1">#                                              focus_duration_samples          : (None,)</span>
-<span class="c1">#                                              focus_duration_sec              : None</span>
-<span class="c1">#                                              focus_start_samples             : None</span>
-<span class="c1">#                                              focus_start_sec                 : None</span>
-<span class="c1">#                                              focus_stop_samples              : None</span>
-<span class="c1">#                                              focus_stop_sec                  : None</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.MonoAudioReadingProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [1]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              eps                             : 2.22044604925e-16</span>
-<span class="c1">#                                              fmax                            : None</span>
-<span class="c1">#                                              fmin                            : 0</span>
-<span class="c1">#                                              fs                              : 44100</span>
-<span class="c1">#                                              hop_length_samples              : 882</span>
-<span class="c1">#                                              hop_length_seconds              : 0.02</span>
-<span class="c1">#                                              htk                             : False</span>
-<span class="c1">#                                              log                             : True</span>
-<span class="c1">#                                              n_mels                          : 40</span>
-<span class="c1">#                                              normalize_mel_bands             : False</span>
-<span class="c1">#                                              win_length_samples              : 1764</span>
-<span class="c1">#                                              win_length_seconds              : 0.04</span>
-<span class="c1">#                                            input_type                        : AUDIO</span>
-<span class="c1">#                                            output_type                       : DATA_CONTAINER</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                              filename                        : dcase_util/utils/example_data/acoustic_scene.flac</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.MelExtractorProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
+<span class="c1">#     processing_chain                : -</span>
 <span class="c1">#   Duration</span>
-<span class="c1">#       Frames                        : 501</span>
-<span class="c1">#       Seconds                       : 10.02 sec</span>
+<span class="c1">#     Frames                          : 501</span>
+<span class="c1">#     Seconds                         : 10.02 sec</span>
+<span class="c1">#   Data</span>
+<span class="c1">#     Dimensions</span>
+<span class="c1">#       time_axis                     : 1</span>
+<span class="c1">#       data_axis                     : 0</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
+</div>
+<p>(<a class="reference external" href=".//tutorial_processing_chain-1.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-1.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-1.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-1.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/tutorial_processing_chain-1.png" src="_images/tutorial_processing_chain-1.png" />
 </div>
 <p>Focusing on certain part of audio:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Define processing chain</span>
 <span class="n">chain</span> <span class="o">=</span> <span class="n">dcase_util</span><span class="o">.</span><span class="n">processors</span><span class="o">.</span><span class="n">ProcessingChain</span><span class="p">([</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;fs&#39;</span><span class="p">:</span> <span class="mi">44100</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.MelExtractorProcessor&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;MelExtractorProcessor&#39;</span>
     <span class="p">}</span>
 <span class="p">])</span>
 <span class="c1"># Run the processing chain</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">process</span><span class="p">(</span>
     <span class="n">filename</span><span class="o">=</span><span class="n">dcase_util</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Example</span><span class="p">()</span><span class="o">.</span><span class="n">audio_filename</span><span class="p">(),</span>
     <span class="n">focus_start_seconds</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">duration_seconds</span><span class="o">=</span><span class="mf">2.0</span>
+    <span class="n">focus_duration_seconds</span><span class="o">=</span><span class="mf">2.0</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="c1"># (40, 101)</span>
@@ -1458,13 +1529,13 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Define processing chain</span>
 <span class="n">chain</span> <span class="o">=</span> <span class="n">dcase_util</span><span class="o">.</span><span class="n">processors</span><span class="o">.</span><span class="n">ProcessingChain</span><span class="p">([</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;fs&#39;</span><span class="p">:</span> <span class="mi">44100</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.RepositoryFeatureExtractorProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositoryFeatureExtractorProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;mel&#39;</span><span class="p">:</span> <span class="p">{},</span>
@@ -1473,7 +1544,7 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.StackingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;StackingProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;recipe&#39;</span><span class="p">:</span> <span class="s1">&#39;mel;mfcc=1-19&#39;</span>
         <span class="p">}</span>
@@ -1482,84 +1553,12 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <span class="c1"># Run the processing chain</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">dcase_util</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Example</span><span class="p">()</span><span class="o">.</span><span class="n">audio_filename</span><span class="p">())</span>
 <span class="n">data</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="c1"># FeatureContainer :: Class</span>
-<span class="c1">#   Data</span>
-<span class="c1">#     data                            : matrix (59,501)</span>
-<span class="c1">#     Dimensions</span>
-<span class="c1">#       time_axis                     : 1</span>
-<span class="c1">#       data_axis                     : 0</span>
-<span class="c1">#     Timing information</span>
-<span class="c1">#       time_resolution               : 0.02 sec</span>
-<span class="c1">#   Meta</span>
-<span class="c1">#     stats                           : Calculated</span>
-<span class="c1">#     metadata                        : -</span>
-<span class="c1">#     processing_chain                : ProcessingChain :: Class</span>
-<span class="c1">#                                       [0]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              _focus_channel                  : None</span>
-<span class="c1">#                                              _focus_start                    : 0</span>
-<span class="c1">#                                              _focus_stop                     : None</span>
-<span class="c1">#                                              channel_axis                    : 0</span>
-<span class="c1">#                                              data_synced_with_file           : False</span>
-<span class="c1">#                                              filename                        : None</span>
-<span class="c1">#                                              fs                              : 44100</span>
-<span class="c1">#                                              mono                            : True</span>
-<span class="c1">#                                              time_axis                       : 1</span>
-<span class="c1">#                                            input_type                        : NONE</span>
-<span class="c1">#                                            output_type                       : AUDIO</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                              filename                        : dcase_util/utils/example_data/acoustic_scene.flac</span>
-<span class="c1">#                                              focus_channel                   : None</span>
-<span class="c1">#                                              focus_duration_samples          : (None,)</span>
-<span class="c1">#                                              focus_duration_sec              : None</span>
-<span class="c1">#                                              focus_start_samples             : None</span>
-<span class="c1">#                                              focus_start_sec                 : None</span>
-<span class="c1">#                                              focus_stop_samples              : None</span>
-<span class="c1">#                                              focus_stop_sec                  : None</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.MonoAudioReadingProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [1]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              parameters</span>
-<span class="c1">#                                                mel</span>
-<span class="c1">#                                                mfcc</span>
-<span class="c1">#                                            input_type                        : AUDIO</span>
-<span class="c1">#                                            output_type                       : DATA_REPOSITORY</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.RepositoryFeatureExtractorProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [2]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              hop                             : 1</span>
-<span class="c1">#                                              recipe                          : list (2)</span>
-<span class="c1">#                                                [0]</span>
-<span class="c1">#                                                  label                       : mel</span>
-<span class="c1">#                                                [1]</span>
-<span class="c1">#                                                  label                       : mfcc</span>
-<span class="c1">#                                                  vector-index</span>
-<span class="c1">#                                                    full                      : False</span>
-<span class="c1">#                                                    selection                 : False</span>
-<span class="c1">#                                                    start                     : 1</span>
-<span class="c1">#                                                    stop                      : 20</span>
-<span class="c1">#                                                    stream                    : 0</span>
-<span class="c1">#                                            input_type                        : DATA_REPOSITORY</span>
-<span class="c1">#                                            output_type                       : DATA_CONTAINER</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.StackingProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#   Duration</span>
-<span class="c1">#       Frames                        : 501</span>
-<span class="c1">#       Seconds                       : 10.02 sec</span>
 <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//tutorial_processing_chain-1.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-1.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-1.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-1.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//tutorial_processing_chain-2.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-2.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-2.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-2.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/tutorial_processing_chain-1.png" src="_images/tutorial_processing_chain-1.png" />
+<img alt="_images/tutorial_processing_chain-2.png" src="_images/tutorial_processing_chain-2.png" />
 </div>
 <p>Extracting a few different acoustic features for an audio file, normalize them, form data matrix, aggregate along time axis (context windowing), and split data into sequences:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
@@ -1567,51 +1566,51 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <span class="n">mel_mean</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="o">-</span><span class="mf">3.26094211</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.20447522</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.57860912</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.11036974</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.33019526</span><span class="p">,</span>
     <span class="o">-</span><span class="mf">5.48390484</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.50473626</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.54014946</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.28249358</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.12090705</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">5.21508926</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.3824216</span> <span class="p">,</span> <span class="o">-</span><span class="mf">5.37758142</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.38829567</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.4912112</span> <span class="p">,</span>
+    <span class="o">-</span><span class="mf">5.21508926</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.3824216</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.37758142</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.38829567</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.4912112</span><span class="p">,</span>
     <span class="o">-</span><span class="mf">5.55352419</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.72801733</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.02412347</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.41367833</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.64073975</span><span class="p">,</span>
-    <span class="o">-</span><span class="mf">6.80493457</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.8717373</span> <span class="p">,</span> <span class="o">-</span><span class="mf">6.88140949</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.91464104</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.00929399</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">6.80493457</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.8717373</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.88140949</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.91464104</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.00929399</span><span class="p">,</span>
     <span class="o">-</span><span class="mf">7.13497673</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.36417664</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.73457445</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.25007518</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.79878143</span><span class="p">,</span>
     <span class="o">-</span><span class="mf">9.22709866</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.28843908</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.57054527</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.82846299</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.85425306</span><span class="p">,</span>
     <span class="o">-</span><span class="mf">9.90253041</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.85194976</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.62786338</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.38480217</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.18478766</span>
-    <span class="p">])</span>
+<span class="p">])</span>
 <span class="n">mel_std</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="mf">0.3450398</span> <span class="p">,</span>  <span class="mf">0.47330394</span><span class="p">,</span>  <span class="mf">0.53112192</span><span class="p">,</span>  <span class="mf">0.57607313</span><span class="p">,</span>  <span class="mf">0.66710664</span><span class="p">,</span>
-     <span class="mf">0.70052532</span><span class="p">,</span>  <span class="mf">0.79045046</span><span class="p">,</span>  <span class="mf">0.81864229</span><span class="p">,</span>  <span class="mf">0.79422025</span><span class="p">,</span>  <span class="mf">0.76691708</span><span class="p">,</span>
-     <span class="mf">0.64798516</span><span class="p">,</span>  <span class="mf">0.59340713</span><span class="p">,</span>  <span class="mf">0.57756029</span><span class="p">,</span>  <span class="mf">0.64032687</span><span class="p">,</span>  <span class="mf">0.70226395</span><span class="p">,</span>
-     <span class="mf">0.75670044</span><span class="p">,</span>  <span class="mf">0.80861907</span><span class="p">,</span>  <span class="mf">0.79305124</span><span class="p">,</span>  <span class="mf">0.7289238</span> <span class="p">,</span>  <span class="mf">0.75346821</span><span class="p">,</span>
-     <span class="mf">0.77785602</span><span class="p">,</span>  <span class="mf">0.7350573</span> <span class="p">,</span>  <span class="mf">0.75137917</span><span class="p">,</span>  <span class="mf">0.77171676</span><span class="p">,</span>  <span class="mf">0.80314121</span><span class="p">,</span>
-     <span class="mf">0.78965339</span><span class="p">,</span>  <span class="mf">0.79256442</span><span class="p">,</span>  <span class="mf">0.82524546</span><span class="p">,</span>  <span class="mf">0.84596991</span><span class="p">,</span>  <span class="mf">0.76430333</span><span class="p">,</span>
-     <span class="mf">0.69690919</span><span class="p">,</span>  <span class="mf">0.69591269</span><span class="p">,</span>  <span class="mf">0.54718615</span><span class="p">,</span>  <span class="mf">0.5277196</span> <span class="p">,</span>  <span class="mf">0.61271734</span><span class="p">,</span>
-     <span class="mf">0.54482468</span><span class="p">,</span>  <span class="mf">0.42716334</span><span class="p">,</span>  <span class="mf">0.25561558</span><span class="p">,</span>  <span class="mf">0.08991936</span><span class="p">,</span>  <span class="mf">0.06402002</span>
+    <span class="mf">0.3450398</span><span class="p">,</span> <span class="mf">0.47330394</span><span class="p">,</span> <span class="mf">0.53112192</span><span class="p">,</span> <span class="mf">0.57607313</span><span class="p">,</span> <span class="mf">0.66710664</span><span class="p">,</span>
+    <span class="mf">0.70052532</span><span class="p">,</span> <span class="mf">0.79045046</span><span class="p">,</span> <span class="mf">0.81864229</span><span class="p">,</span> <span class="mf">0.79422025</span><span class="p">,</span> <span class="mf">0.76691708</span><span class="p">,</span>
+    <span class="mf">0.64798516</span><span class="p">,</span> <span class="mf">0.59340713</span><span class="p">,</span> <span class="mf">0.57756029</span><span class="p">,</span> <span class="mf">0.64032687</span><span class="p">,</span> <span class="mf">0.70226395</span><span class="p">,</span>
+    <span class="mf">0.75670044</span><span class="p">,</span> <span class="mf">0.80861907</span><span class="p">,</span> <span class="mf">0.79305124</span><span class="p">,</span> <span class="mf">0.7289238</span><span class="p">,</span> <span class="mf">0.75346821</span><span class="p">,</span>
+    <span class="mf">0.77785602</span><span class="p">,</span> <span class="mf">0.7350573</span><span class="p">,</span> <span class="mf">0.75137917</span><span class="p">,</span> <span class="mf">0.77171676</span><span class="p">,</span> <span class="mf">0.80314121</span><span class="p">,</span>
+    <span class="mf">0.78965339</span><span class="p">,</span> <span class="mf">0.79256442</span><span class="p">,</span> <span class="mf">0.82524546</span><span class="p">,</span> <span class="mf">0.84596991</span><span class="p">,</span> <span class="mf">0.76430333</span><span class="p">,</span>
+    <span class="mf">0.69690919</span><span class="p">,</span> <span class="mf">0.69591269</span><span class="p">,</span> <span class="mf">0.54718615</span><span class="p">,</span> <span class="mf">0.5277196</span><span class="p">,</span> <span class="mf">0.61271734</span><span class="p">,</span>
+    <span class="mf">0.54482468</span><span class="p">,</span> <span class="mf">0.42716334</span><span class="p">,</span> <span class="mf">0.25561558</span><span class="p">,</span> <span class="mf">0.08991936</span><span class="p">,</span> <span class="mf">0.06402002</span>
 <span class="p">])</span>
 
 <span class="n">mfcc_mean</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="o">-</span><span class="mf">1.89603847e+02</span><span class="p">,</span>   <span class="mf">4.88930395e+01</span><span class="p">,</span>  <span class="o">-</span><span class="mf">8.37911555e+00</span><span class="p">,</span>
-      <span class="mf">2.58522036e+00</span><span class="p">,</span>   <span class="mf">4.51964497e+00</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.87312873e-01</span><span class="p">,</span>
-      <span class="mf">8.97250541e+00</span><span class="p">,</span>   <span class="mf">1.61597737e+00</span><span class="p">,</span>   <span class="mf">1.74111135e+00</span><span class="p">,</span>
-      <span class="mf">2.50223131e+00</span><span class="p">,</span>   <span class="mf">3.03385048e+00</span><span class="p">,</span>   <span class="mf">1.34561742e-01</span><span class="p">,</span>
-      <span class="mf">1.04119803e+00</span><span class="p">,</span>  <span class="o">-</span><span class="mf">2.57486399e-01</span><span class="p">,</span>   <span class="mf">7.58245525e-01</span><span class="p">,</span>
-      <span class="mf">1.11375319e+00</span><span class="p">,</span>   <span class="mf">5.45536494e-01</span><span class="p">,</span>   <span class="mf">7.62699140e-01</span><span class="p">,</span>
-      <span class="mf">9.34355519e-01</span><span class="p">,</span>   <span class="mf">1.57158221e-01</span>
+    <span class="o">-</span><span class="mf">1.89603847e+02</span><span class="p">,</span> <span class="mf">4.88930395e+01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.37911555e+00</span><span class="p">,</span>
+    <span class="mf">2.58522036e+00</span><span class="p">,</span> <span class="mf">4.51964497e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.87312873e-01</span><span class="p">,</span>
+    <span class="mf">8.97250541e+00</span><span class="p">,</span> <span class="mf">1.61597737e+00</span><span class="p">,</span> <span class="mf">1.74111135e+00</span><span class="p">,</span>
+    <span class="mf">2.50223131e+00</span><span class="p">,</span> <span class="mf">3.03385048e+00</span><span class="p">,</span> <span class="mf">1.34561742e-01</span><span class="p">,</span>
+    <span class="mf">1.04119803e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.57486399e-01</span><span class="p">,</span> <span class="mf">7.58245525e-01</span><span class="p">,</span>
+    <span class="mf">1.11375319e+00</span><span class="p">,</span> <span class="mf">5.45536494e-01</span><span class="p">,</span> <span class="mf">7.62699140e-01</span><span class="p">,</span>
+    <span class="mf">9.34355519e-01</span><span class="p">,</span> <span class="mf">1.57158221e-01</span>
 <span class="p">])</span>
 <span class="n">mfcc_std</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="mf">15.94006483</span><span class="p">,</span>   <span class="mf">2.39593761</span><span class="p">,</span>   <span class="mf">4.78748908</span><span class="p">,</span>   <span class="mf">2.39555341</span><span class="p">,</span>
-      <span class="mf">2.66573364</span><span class="p">,</span>   <span class="mf">1.75496556</span><span class="p">,</span>   <span class="mf">2.75005027</span><span class="p">,</span>   <span class="mf">1.5436589</span> <span class="p">,</span>
-      <span class="mf">1.81070379</span><span class="p">,</span>   <span class="mf">1.39476785</span><span class="p">,</span>   <span class="mf">1.22560606</span><span class="p">,</span>   <span class="mf">1.25575051</span><span class="p">,</span>
-      <span class="mf">1.34613239</span><span class="p">,</span>   <span class="mf">1.46778281</span><span class="p">,</span>   <span class="mf">1.19398649</span><span class="p">,</span>   <span class="mf">1.1590474</span> <span class="p">,</span>
-      <span class="mf">1.1309816</span> <span class="p">,</span>   <span class="mf">1.12975486</span><span class="p">,</span>   <span class="mf">0.95503429</span><span class="p">,</span>   <span class="mf">1.01747647</span>
+    <span class="mf">15.94006483</span><span class="p">,</span> <span class="mf">2.39593761</span><span class="p">,</span> <span class="mf">4.78748908</span><span class="p">,</span> <span class="mf">2.39555341</span><span class="p">,</span>
+    <span class="mf">2.66573364</span><span class="p">,</span> <span class="mf">1.75496556</span><span class="p">,</span> <span class="mf">2.75005027</span><span class="p">,</span> <span class="mf">1.5436589</span><span class="p">,</span>
+    <span class="mf">1.81070379</span><span class="p">,</span> <span class="mf">1.39476785</span><span class="p">,</span> <span class="mf">1.22560606</span><span class="p">,</span> <span class="mf">1.25575051</span><span class="p">,</span>
+    <span class="mf">1.34613239</span><span class="p">,</span> <span class="mf">1.46778281</span><span class="p">,</span> <span class="mf">1.19398649</span><span class="p">,</span> <span class="mf">1.1590474</span><span class="p">,</span>
+    <span class="mf">1.1309816</span><span class="p">,</span> <span class="mf">1.12975486</span><span class="p">,</span> <span class="mf">0.95503429</span><span class="p">,</span> <span class="mf">1.01747647</span>
 <span class="p">])</span>
 
 <span class="c1"># Define processing chain</span>
 <span class="n">chain</span> <span class="o">=</span> <span class="n">dcase_util</span><span class="o">.</span><span class="n">processors</span><span class="o">.</span><span class="n">ProcessingChain</span><span class="p">([</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;fs&#39;</span><span class="p">:</span> <span class="mi">44100</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.RepositoryFeatureExtractorProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositoryFeatureExtractorProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;mel&#39;</span><span class="p">:</span> <span class="p">{},</span>
@@ -1620,7 +1619,7 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.RepositoryNormalizationProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositoryNormalizationProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;mel&#39;</span><span class="p">:</span> <span class="p">{</span>
@@ -1635,13 +1634,13 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.StackingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;StackingProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;recipe&#39;</span><span class="p">:</span> <span class="s1">&#39;mel;mfcc=1-19&#39;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.AggregationProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;AggregationProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;recipe&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;flatten&#39;</span><span class="p">],</span>
             <span class="s1">&#39;win_length_frames&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
@@ -1649,11 +1648,9 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcase_util.processors.SequencingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;SequencingProcessor&#39;</span><span class="p">,</span>
         <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;frames&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-            <span class="s1">&#39;hop_length_frames&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-            <span class="s1">&#39;padding&#39;</span><span class="p">:</span> <span class="kc">True</span>
+            <span class="s1">&#39;sequence_length&#39;</span><span class="p">:</span> <span class="mi">50</span>
         <span class="p">}</span>
     <span class="p">},</span>
 <span class="p">])</span>
@@ -1661,119 +1658,220 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <span class="n">data</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="c1"># DataMatrix3DContainer :: Class</span>
 <span class="c1">#   Data</span>
-<span class="c1">#     data                            : matrix (295,20,26)</span>
+<span class="c1">#     data                            : matrix (295,50,10)</span>
 <span class="c1">#     Dimensions</span>
 <span class="c1">#       time_axis                     : 1</span>
-<span class="c1">#       data_axis                     : 0</span>
-<span class="c1">#       sequence_axis                 : 2</span>
 <span class="c1">#     Timing information</span>
 <span class="c1">#       time_resolution               : None</span>
 <span class="c1">#   Meta</span>
 <span class="c1">#     stats                           : Calculated</span>
 <span class="c1">#     metadata                        : -</span>
-<span class="c1">#     processing_chain                : ProcessingChain :: Class</span>
-<span class="c1">#                                       [0]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              _focus_channel                  : None</span>
-<span class="c1">#                                              _focus_start                    : 0</span>
-<span class="c1">#                                              _focus_stop                     : None</span>
-<span class="c1">#                                              channel_axis                    : 0</span>
-<span class="c1">#                                              data_synced_with_file           : False</span>
-<span class="c1">#                                              filename                        : None</span>
-<span class="c1">#                                              fs                              : 44100</span>
-<span class="c1">#                                              mono                            : True</span>
-<span class="c1">#                                              time_axis                       : 1</span>
-<span class="c1">#                                            input_type                        : NONE</span>
-<span class="c1">#                                            output_type                       : AUDIO</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                              filename                        : dcase_util/utils/example_data/acoustic_scene.flac</span>
-<span class="c1">#                                              focus_channel                   : None</span>
-<span class="c1">#                                              focus_duration_samples          : (None,)</span>
-<span class="c1">#                                              focus_duration_sec              : None</span>
-<span class="c1">#                                              focus_start_samples             : None</span>
-<span class="c1">#                                              focus_start_sec                 : None</span>
-<span class="c1">#                                              focus_stop_samples              : None</span>
-<span class="c1">#                                              focus_stop_sec                  : None</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.MonoAudioReadingProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [1]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              parameters</span>
-<span class="c1">#                                                mel</span>
-<span class="c1">#                                                mfcc</span>
-<span class="c1">#                                            input_type                        : AUDIO</span>
-<span class="c1">#                                            output_type                       : DATA_REPOSITORY</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.RepositoryFeatureExtractorProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [2]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              parameters</span>
-<span class="c1">#                                                mel</span>
-<span class="c1">#                                                  mean                        : matrix (40,1)</span>
-<span class="c1">#                                                  std                         : matrix (40,1)</span>
-<span class="c1">#                                                mfcc</span>
-<span class="c1">#                                                  mean                        : matrix (20,1)</span>
-<span class="c1">#                                                  std                         : matrix (20,1)</span>
-<span class="c1">#                                            input_type                        : DATA_REPOSITORY</span>
-<span class="c1">#                                            output_type                       : DATA_REPOSITORY</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.RepositoryNormalizationProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [3]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              hop                             : 1</span>
-<span class="c1">#                                              recipe                          : list (2)</span>
-<span class="c1">#                                                [0]</span>
-<span class="c1">#                                                  label                       : mel</span>
-<span class="c1">#                                                [1]</span>
-<span class="c1">#                                                  label                       : mfcc</span>
-<span class="c1">#                                                  vector-index</span>
-<span class="c1">#                                                    full                      : False</span>
-<span class="c1">#                                                    selection                 : False</span>
-<span class="c1">#                                                    start                     : 1</span>
-<span class="c1">#                                                    stop                      : 20</span>
-<span class="c1">#                                                    stream                    : 0</span>
-<span class="c1">#                                            input_type                        : DATA_REPOSITORY</span>
-<span class="c1">#                                            output_type                       : DATA_CONTAINER</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.StackingProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [4]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              hop_length_frames               : 1</span>
-<span class="c1">#                                              recipe                          : list (1)</span>
-<span class="c1">#                                                [0]                           : flatten</span>
-<span class="c1">#                                              win_length_frames               : 5</span>
-<span class="c1">#                                            input_type                        : DATA_CONTAINER</span>
-<span class="c1">#                                            output_type                       : DATA_CONTAINER</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.AggregationProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#                                       [5]</span>
-<span class="c1">#                                          DictContainer :: Class</span>
-<span class="c1">#                                            init_parameters</span>
-<span class="c1">#                                              frames                          : 20</span>
-<span class="c1">#                                              hop_length_frames               : 20</span>
-<span class="c1">#                                              padding                         : True</span>
-<span class="c1">#                                              shift                           : 0</span>
-<span class="c1">#                                              shift_border                    : roll</span>
-<span class="c1">#                                              shift_max                       : None</span>
-<span class="c1">#                                              shift_step                      : 0</span>
-<span class="c1">#                                            input_type                        : DATA_CONTAINER</span>
-<span class="c1">#                                            output_type                       : DATA_CONTAINER</span>
-<span class="c1">#                                            process_parameters</span>
-<span class="c1">#                                            processor_name                    : dcase_util.processors.SequencingProcessor</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
+<span class="c1">#     processing_chain                : -</span>
 <span class="c1">#   Duration</span>
-<span class="c1">#       Frames                        : 20</span>
+<span class="c1">#     Frames                          : 50</span>
+<span class="c1">#   Data</span>
+<span class="c1">#     Dimensions</span>
+<span class="c1">#       time_axis                     : 1</span>
+<span class="c1">#       data_axis                     : 0</span>
+<span class="c1">#       sequence_axis                 : 2</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
+</div>
+<p>(<a class="reference external" href=".//tutorial_processing_chain-3.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-3.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-3.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-3.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/tutorial_processing_chain-3.png" src="_images/tutorial_processing_chain-3.png" />
+</div>
+<p>Reshaping output matrix:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="c1"># Normalization factors</span>
+<span class="n">mel_mean</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="o">-</span><span class="mf">3.26094211</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.20447522</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.57860912</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.11036974</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.33019526</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">5.48390484</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.50473626</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.54014946</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.28249358</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.12090705</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">5.21508926</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.3824216</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.37758142</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.38829567</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.4912112</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">5.55352419</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.72801733</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.02412347</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.41367833</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.64073975</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">6.80493457</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.8717373</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.88140949</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.91464104</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.00929399</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">7.13497673</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.36417664</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.73457445</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.25007518</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.79878143</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">9.22709866</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.28843908</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.57054527</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.82846299</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.85425306</span><span class="p">,</span>
+    <span class="o">-</span><span class="mf">9.90253041</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.85194976</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.62786338</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.38480217</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.18478766</span>
+<span class="p">])</span>
+<span class="n">mel_std</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="mf">0.3450398</span><span class="p">,</span> <span class="mf">0.47330394</span><span class="p">,</span> <span class="mf">0.53112192</span><span class="p">,</span> <span class="mf">0.57607313</span><span class="p">,</span> <span class="mf">0.66710664</span><span class="p">,</span>
+    <span class="mf">0.70052532</span><span class="p">,</span> <span class="mf">0.79045046</span><span class="p">,</span> <span class="mf">0.81864229</span><span class="p">,</span> <span class="mf">0.79422025</span><span class="p">,</span> <span class="mf">0.76691708</span><span class="p">,</span>
+    <span class="mf">0.64798516</span><span class="p">,</span> <span class="mf">0.59340713</span><span class="p">,</span> <span class="mf">0.57756029</span><span class="p">,</span> <span class="mf">0.64032687</span><span class="p">,</span> <span class="mf">0.70226395</span><span class="p">,</span>
+    <span class="mf">0.75670044</span><span class="p">,</span> <span class="mf">0.80861907</span><span class="p">,</span> <span class="mf">0.79305124</span><span class="p">,</span> <span class="mf">0.7289238</span><span class="p">,</span> <span class="mf">0.75346821</span><span class="p">,</span>
+    <span class="mf">0.77785602</span><span class="p">,</span> <span class="mf">0.7350573</span><span class="p">,</span> <span class="mf">0.75137917</span><span class="p">,</span> <span class="mf">0.77171676</span><span class="p">,</span> <span class="mf">0.80314121</span><span class="p">,</span>
+    <span class="mf">0.78965339</span><span class="p">,</span> <span class="mf">0.79256442</span><span class="p">,</span> <span class="mf">0.82524546</span><span class="p">,</span> <span class="mf">0.84596991</span><span class="p">,</span> <span class="mf">0.76430333</span><span class="p">,</span>
+    <span class="mf">0.69690919</span><span class="p">,</span> <span class="mf">0.69591269</span><span class="p">,</span> <span class="mf">0.54718615</span><span class="p">,</span> <span class="mf">0.5277196</span><span class="p">,</span> <span class="mf">0.61271734</span><span class="p">,</span>
+    <span class="mf">0.54482468</span><span class="p">,</span> <span class="mf">0.42716334</span><span class="p">,</span> <span class="mf">0.25561558</span><span class="p">,</span> <span class="mf">0.08991936</span><span class="p">,</span> <span class="mf">0.06402002</span>
+<span class="p">])</span>
+
+<span class="n">mfcc_mean</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="o">-</span><span class="mf">1.89603847e+02</span><span class="p">,</span> <span class="mf">4.88930395e+01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.37911555e+00</span><span class="p">,</span>
+    <span class="mf">2.58522036e+00</span><span class="p">,</span> <span class="mf">4.51964497e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.87312873e-01</span><span class="p">,</span>
+    <span class="mf">8.97250541e+00</span><span class="p">,</span> <span class="mf">1.61597737e+00</span><span class="p">,</span> <span class="mf">1.74111135e+00</span><span class="p">,</span>
+    <span class="mf">2.50223131e+00</span><span class="p">,</span> <span class="mf">3.03385048e+00</span><span class="p">,</span> <span class="mf">1.34561742e-01</span><span class="p">,</span>
+    <span class="mf">1.04119803e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.57486399e-01</span><span class="p">,</span> <span class="mf">7.58245525e-01</span><span class="p">,</span>
+    <span class="mf">1.11375319e+00</span><span class="p">,</span> <span class="mf">5.45536494e-01</span><span class="p">,</span> <span class="mf">7.62699140e-01</span><span class="p">,</span>
+    <span class="mf">9.34355519e-01</span><span class="p">,</span> <span class="mf">1.57158221e-01</span>
+<span class="p">])</span>
+<span class="n">mfcc_std</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="mf">15.94006483</span><span class="p">,</span> <span class="mf">2.39593761</span><span class="p">,</span> <span class="mf">4.78748908</span><span class="p">,</span> <span class="mf">2.39555341</span><span class="p">,</span>
+    <span class="mf">2.66573364</span><span class="p">,</span> <span class="mf">1.75496556</span><span class="p">,</span> <span class="mf">2.75005027</span><span class="p">,</span> <span class="mf">1.5436589</span><span class="p">,</span>
+    <span class="mf">1.81070379</span><span class="p">,</span> <span class="mf">1.39476785</span><span class="p">,</span> <span class="mf">1.22560606</span><span class="p">,</span> <span class="mf">1.25575051</span><span class="p">,</span>
+    <span class="mf">1.34613239</span><span class="p">,</span> <span class="mf">1.46778281</span><span class="p">,</span> <span class="mf">1.19398649</span><span class="p">,</span> <span class="mf">1.1590474</span><span class="p">,</span>
+    <span class="mf">1.1309816</span><span class="p">,</span> <span class="mf">1.12975486</span><span class="p">,</span> <span class="mf">0.95503429</span><span class="p">,</span> <span class="mf">1.01747647</span>
+<span class="p">])</span>
+
+<span class="c1"># Define processing chain</span>
+<span class="n">chain</span> <span class="o">=</span> <span class="n">dcase_util</span><span class="o">.</span><span class="n">processors</span><span class="o">.</span><span class="n">ProcessingChain</span><span class="p">([</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;MonoAudioReadingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;fs&#39;</span><span class="p">:</span> <span class="mi">44100</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositoryFeatureExtractorProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;mel&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                <span class="s1">&#39;mfcc&#39;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositoryNormalizationProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;mel&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="n">mel_mean</span><span class="p">,</span>
+                    <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="n">mel_std</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;mfcc&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="n">mfcc_mean</span><span class="p">,</span>
+                    <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="n">mfcc_std</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;StackingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;recipe&#39;</span><span class="p">:</span> <span class="s1">&#39;mel;mfcc=1-19&#39;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;AggregationProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;recipe&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;flatten&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;win_length_frames&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;hop_length_frames&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;SequencingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;sequence_length&#39;</span><span class="p">:</span> <span class="mi">50</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;DataShapingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;axis_list&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;sequence&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+<span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">dcase_util</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Example</span><span class="p">()</span><span class="o">.</span><span class="n">audio_filename</span><span class="p">())</span>
+<span class="n">data</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># DataMatrix3DContainer :: Class</span>
+<span class="c1">#   Data</span>
+<span class="c1">#     data                            : matrix (10,295,50)</span>
+<span class="c1">#     Dimensions</span>
+<span class="c1">#       time_axis                     : 2</span>
+<span class="c1">#     Timing information</span>
+<span class="c1">#       time_resolution               : None</span>
+<span class="c1">#   Meta</span>
+<span class="c1">#     stats                           : -</span>
+<span class="c1">#     metadata                        : -</span>
+<span class="c1">#     processing_chain                : -</span>
+<span class="c1">#   Duration</span>
+<span class="c1">#     Frames                          : 20</span>
+<span class="c1">#   Data</span>
+<span class="c1">#     Dimensions</span>
+<span class="c1">#       time_axis                     : 2</span>
+<span class="c1">#       data_axis                     : 1</span>
+<span class="c1">#       sequence_axis                 : 0</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//tutorial_processing_chain-4.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-4.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-4.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-4.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/tutorial_processing_chain-4.png" src="_images/tutorial_processing_chain-4.png" />
+</div>
+<p>Handling multi-channel audio and output data in 4D matrix:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Define processing chain</span>
+<span class="n">chain</span> <span class="o">=</span> <span class="n">dcase_util</span><span class="o">.</span><span class="n">processors</span><span class="o">.</span><span class="n">ProcessingChain</span><span class="p">([</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;AudioReadingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;fs&#39;</span><span class="p">:</span> <span class="mi">44100</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositoryFeatureExtractorProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;mel&#39;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositorySequencingProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;sequence_length&#39;</span><span class="p">:</span> <span class="mi">100</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;processor_name&#39;</span><span class="p">:</span> <span class="s1">&#39;RepositoryToMatrixProcessor&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;init_parameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;mel&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;expanded_dimension&#39;</span><span class="p">:</span> <span class="s1">&#39;last&#39;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+<span class="p">])</span>
+<span class="c1"># Run the processing chain</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">dcase_util</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Example</span><span class="p">()</span><span class="o">.</span><span class="n">audio_filename</span><span class="p">())</span>
+<span class="n">data</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="c1"># DataMatrix4DContainer :: Class</span>
+<span class="c1">#   Data</span>
+<span class="c1">#     data                            : matrix (40,100,5,2)</span>
+<span class="c1">#     Dimensions</span>
+<span class="c1">#       time_axis                     : 1</span>
+<span class="c1">#     Timing information</span>
+<span class="c1">#       time_resolution               : None</span>
+<span class="c1">#   Meta</span>
+<span class="c1">#     stats                           : Calculated</span>
+<span class="c1">#     metadata                        : -</span>
+<span class="c1">#     processing_chain                : -</span>
+<span class="c1">#   Duration</span>
+<span class="c1">#     Frames                          : 20</span>
+<span class="c1">#   Data</span>
+<span class="c1">#     Dimensions</span>
+<span class="c1">#       time_axis                     : 1</span>
+<span class="c1">#       data_axis                     : 0</span>
+<span class="c1">#       sequence_axis                 : 2</span>
+<span class="c1">#   Data</span>
+<span class="c1">#     Dimensions</span>
+<span class="c1">#       time_axis                     : 1</span>
+<span class="c1">#       data_axis                     : 0</span>
+<span class="c1">#       sequence_axis                 : 2</span>
+<span class="c1">#       channel_axis                  : 3</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//tutorial_processing_chain-5.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-5.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-5.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-5.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/tutorial_processing_chain-5.png" src="_images/tutorial_processing_chain-5.png" />
 </div>
 </div>
 <div class="section" id="meta-data-processing">
@@ -1808,9 +1906,9 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//tutorial_processing_chain-2.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-2.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-2.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-2.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//tutorial_processing_chain-6.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-6.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-6.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-6.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/tutorial_processing_chain-2.png" src="_images/tutorial_processing_chain-2.png" />
+<img alt="_images/tutorial_processing_chain-6.png" src="_images/tutorial_processing_chain-6.png" />
 </div>
 <p>Getting event roll for focus segment:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
@@ -1844,24 +1942,27 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
 <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//tutorial_processing_chain-3.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-3.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-3.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-3.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//tutorial_processing_chain-7.py">Source code</a>, <a class="reference external" href=".//tutorial_processing_chain-7.png">png</a>, <a class="reference external" href=".//tutorial_processing_chain-7.hires.png">hires.png</a>, <a class="reference external" href=".//tutorial_processing_chain-7.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/tutorial_processing_chain-3.png" src="_images/tutorial_processing_chain-3.png" />
+<img alt="_images/tutorial_processing_chain-7.png" src="_images/tutorial_processing_chain-7.png" />
 </div>
 </div>
 </div>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorial_applications.html" class="btn btn-neutral float-right" title="Application examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorial_applications.html" class="btn btn-neutral float-right" title="Application examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tutorial_datasets.html" class="btn btn-neutral" title="Datasets" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tutorial_datasets.html" class="btn btn-neutral" title="Datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1894,7 +1995,8 @@ which are contained in the <strong>chain</strong> (a list of processors).</p>
             VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

@@ -34,10 +34,12 @@ ProcessingChain
     ProcessingChain.log_chain
     ProcessingChain.push_processor
     ProcessingChain.process
-    ProcessingChain.call_method
     ProcessingChain.processor_exists
     ProcessingChain.processor_class_reference
     ProcessingChain.processor_class
+    ProcessingChain.chain_item_exists
+    ProcessingChain.chain_item
+    ProcessingChain.call_method
 
 Audio
 :::::
@@ -78,6 +80,17 @@ AggregationProcessor
     AggregationProcessor
     AggregationProcessor.process
 
+RepositoryAggregationProcessor
+------------------------------
+
+*dcase_util.processors.RepositoryAggregationProcessor*
+
+.. autosummary::
+    :toctree: generated/
+
+    RepositoryAggregationProcessor
+    RepositoryAggregationProcessor.process
+
 SequencingProcessor
 -------------------
 
@@ -89,6 +102,16 @@ SequencingProcessor
     SequencingProcessor
     SequencingProcessor.process
 
+RepositorySequencingProcessor
+-----------------------------
+
+*dcase_util.processors.RepositorySequencingProcessor*
+
+.. autosummary::
+    :toctree: generated/
+
+    RepositorySequencingProcessor
+    RepositorySequencingProcessor.process
 
 NormalizationProcessor
 ----------------------
@@ -124,6 +147,17 @@ StackingProcessor
     StackingProcessor
     StackingProcessor.process
 
+RepositoryMaskingProcessor
+--------------------------
+
+*dcase_util.processors.RepositoryMaskingProcessor*
+
+.. autosummary::
+    :toctree: generated/
+
+    RepositoryMaskingProcessor
+    RepositoryMaskingProcessor.process
+
 OneHotEncodingProcessor
 -----------------------
 
@@ -157,8 +191,41 @@ EventRollEncodingProcessor
     EventRollEncodingProcessor
     EventRollEncodingProcessor.process
 
+DataShapingProcessor
+--------------------
+
+*dcase_util.processors.DataShapingProcessor*
+
+.. autosummary::
+    :toctree: generated/
+
+    DataShapingProcessor
+    DataShapingProcessor.process
+
+RepositoryToMatrixProcessor
+---------------------------
+
+*dcase_util.processors.RepositoryToMatrixProcessor*
+
+.. autosummary::
+    :toctree: generated/
+
+    RepositoryToMatrixProcessor
+    RepositoryToMatrixProcessor.process
+
 Features
 ::::::::
+
+FeatureReadingProcessor
+-----------------------
+
+*dcase_util.processors.FeatureReadingProcessor*
+
+.. autosummary::
+    :toctree: generated/
+
+    FeatureReadingProcessor
+    FeatureReadingProcessor.process
 
 RepositoryFeatureExtractorProcessor
 -----------------------------------
@@ -181,6 +248,17 @@ FeatureExtractorProcessor
 
     FeatureExtractorProcessor
     FeatureExtractorProcessor.process
+
+RepositoryFeatureExtractorProcessor
+-----------------------------------
+
+*dcase_util.processors.RepositoryFeatureExtractorProcessor*
+
+.. autosummary::
+    :toctree: generated/
+
+    RepositoryFeatureExtractorProcessor
+    RepositoryFeatureExtractorProcessor.process
 
 MelExtractorProcessor
 ---------------------
@@ -274,27 +352,25 @@ MetadataReadingProcessor
     MetadataReadingProcessor
     MetadataReadingProcessor.process
 
-Mixin
-:::::
+Base object
+:::::::::::
 
-ProcessorMixin
---------------
+Processor
+---------
 
-*dcase_util.processors.ProcessorMixin*
+*dcase_util.processors.Processor*
 
 .. autosummary::
     :toctree: generated/
 
-    ProcessorMixin
-    ProcessorMixin.process
-    ProcessorMixin.get_processing_chain_item
-    ProcessorMixin.push_processing_chain_item
-
+    Processor
+    Processor.process
+    Processor.get_processing_chain_item
 
 """
 
 from .processing_chain import *
-from .mixins import *
+from .processor import *
 from .data import *
 from .metadata import *
 from .audio import *

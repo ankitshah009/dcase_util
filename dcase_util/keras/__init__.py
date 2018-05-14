@@ -10,8 +10,7 @@ Utilities to be used with Keras deep learning library.
 Model
 :::::
 
-
-*dcase_util.keras.* *
+*dcase_util.keras.model.* *
 
 .. autosummary::
     :toctree: generated/
@@ -183,9 +182,48 @@ BaseCallback
 
     BaseCallback
 
+Data processing
+:::::::::::::::
+
+KerasDataSequence
+-----------------
+
+*dcase_util.keras.get_keras_data_sequence*
+
+KerasDataSequence class should be accessed through getter method to avoid importing Keras when importing dcase_util.
+This mechanics allows user to decide when importing the Keras, and set random seeds before this.
+
+.. autosummary::
+    :toctree: generated/
+
+    get_keras_data_sequence_class
+
+data_collector
+--------------
+
+*dcase_util.keras.data_collector*
+
+.. autosummary::
+    :toctree: generated/
+
+    data_collector
+
+Utils
+:::::
+
+*dcase_util.keras.utils.* *
+
+.. autosummary::
+    :toctree: generated/
+
+    setup_keras
+    create_optimizer
+
 """
 
 from .model import *
 from .callbacks import *
+from .data import *
+from .utils import *
 
 __all__ = [_ for _ in dir() if not _.startswith('_')]

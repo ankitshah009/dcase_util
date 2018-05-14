@@ -25,17 +25,21 @@ class CHiMEHome_DomesticAudioTag_DevelopmentSet(AudioTaggingDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'CHiMeHome-audiotag-development'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         sample_mode : str
             Sample rate mode, '16kHz' or '48kHz'
+            Default value '16kHz'
 
         """
 
@@ -127,11 +131,15 @@ class CHiMEHome_DomesticAudioTag_DevelopmentSet(AudioTaggingDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         name = os.path.split(item.filename)[1]
         segment_name = name[0:name.find('_chunk')]
@@ -186,7 +194,10 @@ class CHiMEHome_DomesticAudioTag_DevelopmentSet(AudioTaggingDataset):
                     'identifier': segment_name
                 })
 
-                self.process_meta_item(item=item, absolute_path=False)
+                self.process_meta_item(
+                    item=item,
+                    absolute_path=False
+                )
 
                 meta_data.append(item)
 
@@ -262,7 +273,13 @@ class CHiMEHome_DomesticAudioTag_DevelopmentSet(AudioTaggingDataset):
 
                 train_meta = MetaDataContainer(filename=train_filename)
                 for filename in train_files:
-                    train_meta.append(self.file_meta(filename)[0])
+                    item = self.file_meta(filename)[0]
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
+
+                    train_meta.append(item)
 
                 train_meta.save()
 
@@ -274,7 +291,8 @@ class CHiMEHome_DomesticAudioTag_DevelopmentSet(AudioTaggingDataset):
 
                 test_meta = MetaDataContainer(filename=test_filename)
                 for filename in test_files:
-                    test_meta.append(MetaDataItem({'filename': self.absolute_to_relative(filename)}))
+                    item = MetaDataItem({'filename': self.absolute_to_relative_path(filename)})
+                    test_meta.append(item)
 
                 test_meta.save()
 
@@ -286,7 +304,13 @@ class CHiMEHome_DomesticAudioTag_DevelopmentSet(AudioTaggingDataset):
 
                 eval_meta = MetaDataContainer(filename=eval_filename)
                 for filename in test_files:
-                    eval_meta.append(self.file_meta(filename)[0])
+                    item = self.file_meta(filename)[0]
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
+
+                    eval_meta.append(item)
 
                 eval_meta.save()
 
@@ -311,17 +335,21 @@ class CHiMEHome_DomesticAudioTag_EvaluationSet(CHiMEHome_DomesticAudioTag_Develo
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'CHiMeHome-audiotag-evaluation'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         sample_mode : str
             Sample rate mode, '16kHz' or '48kHz'
+            Default value '16kHz'
 
         """
 
@@ -417,7 +445,10 @@ class CHiMEHome_DomesticAudioTag_EvaluationSet(CHiMEHome_DomesticAudioTag_Develo
                     'identifier': segment_name
                 })
 
-                self.process_meta_item(item=item, absolute_path=False)
+                self.process_meta_item(
+                    item=item,
+                    absolute_path=False
+                )
 
                 meta_data.append(item)
 
@@ -471,7 +502,7 @@ class CHiMEHome_DomesticAudioTag_EvaluationSet(CHiMEHome_DomesticAudioTag_Develo
 
             test_meta = MetaDataContainer(filename=test_filename)
             for filename in self.test_files():
-                test_meta.append(MetaDataItem({'filename': self.absolute_to_relative(filename)}))
+                test_meta.append(MetaDataItem({'filename': self.absolute_to_relative_path(filename)}))
 
             test_meta.save()
 

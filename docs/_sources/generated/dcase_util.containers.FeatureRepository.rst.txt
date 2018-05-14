@@ -20,6 +20,7 @@ dcase_util.containers.FeatureRepository
       ~FeatureRepository.detect_file_format
       ~FeatureRepository.empty
       ~FeatureRepository.exists
+      ~FeatureRepository.filter
       ~FeatureRepository.fromkeys
       ~FeatureRepository.get
       ~FeatureRepository.get_container

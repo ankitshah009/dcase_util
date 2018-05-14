@@ -2,17 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, absolute_import
-from six import iteritems
 
 import os
 import sys
-import numpy
 import logging
 import csv
 import zipfile
 import tarfile
 from tqdm import tqdm
-from dcase_util.utils import setup_logging, FileFormat
+from dcase_util.utils import setup_logging, FileFormat, Path, get_file_hash
 from dcase_util.ui import FancyLogger
 
 
@@ -41,6 +39,7 @@ class ContainerMixin(object):
     @property
     def logger(self):
         """Logger instance"""
+
         logger = logging.getLogger(__name__)
         if not logger.handlers:
             setup_logging()
@@ -54,6 +53,7 @@ class ContainerMixin(object):
         Nothing
 
         """
+
         print(self)
 
     def log(self, level='info'):
@@ -70,7 +70,7 @@ class ContainerMixin(object):
 
         """
 
-        self.ui.line(str(self), level=level)
+        self.ui.line(self.__str__(), level=level)
 
 
 class FileMixin(object):
@@ -120,6 +120,38 @@ class FileMixin(object):
             setup_logging()
         return logger
 
+    @property
+    def md5(self):
+        """Checksum for file.
+
+        Returns
+        -------
+        str
+
+        """
+
+        if self.exists():
+            return get_file_hash(filename=self.filename)
+
+        else:
+            return None
+
+    @property
+    def bytes(self):
+        """File size in bytes
+
+        Returns
+        -------
+        int
+
+        """
+
+        if self.exists():
+            return os.path.getsize(self.filename)
+
+        else:
+            return None
+
     def get_file_information(self):
         """Get file information, filename
 
@@ -141,6 +173,7 @@ class FileMixin(object):
         ----------
         filename : str
             filename
+            Default value None
 
         Raises
         ------
@@ -234,16 +267,22 @@ class FileMixin(object):
 
         if len(self) == 0:
             return True
+
         else:
             return False
 
     def delimiter(self, exclude_delimiters=None):
         """Use csv.sniffer to guess delimiter for CSV file
 
+        Parameters
+        ----------
+        exclude_delimiters : list of str
+            List of delimiter to be excluded
+            Default value None
+
         Returns
         -------
         str
-            Delimiter character
 
         """
 
@@ -265,15 +304,19 @@ class FileMixin(object):
                 if hasattr(dialect, '_delimiter'):
                     if dialect._delimiter in valid_delimiters:
                         delimiter = dialect._delimiter
+
                 elif hasattr(dialect, 'delimiter'):
                     if dialect.delimiter in valid_delimiters:
                         delimiter = dialect.delimiter
+
                 else:
                     # Fall back to default
                     delimiter = '\t'
+
             except csv.Error:
                 # Fall back to default
                 delimiter = '\t'
+
         return delimiter
 
     def is_package(self, filename=None):
@@ -283,6 +326,7 @@ class FileMixin(object):
         ----------
         filename : str
             filename
+            Default value None
 
         Returns
         -------
@@ -323,6 +367,7 @@ class PackageMixin(object):
         logger = logging.getLogger(__name__)
         if not logger.handlers:
             setup_logging()
+
         return logger
 
     @property
@@ -337,6 +382,7 @@ class PackageMixin(object):
 
         if 'package_password' in self:
             return self['package_password']
+
         else:
             return None
 
@@ -344,16 +390,54 @@ class PackageMixin(object):
     def package_password(self, value):
         self['package_password'] = value
 
-    def extract(self, overwrite=False, omit_first_level=True):
-        """Extract the package
+    @property
+    def md5(self):
+        """Checksum for file.
+
+        Returns
+        -------
+        str
+
+        """
+
+        if self.exists():
+            return get_file_hash(filename=self.filename)
+
+        else:
+            return None
+
+    @property
+    def bytes(self):
+        """File size in bytes
+
+        Returns
+        -------
+        int
+
+        """
+
+        if self.exists():
+            return os.path.getsize(self.filename)
+
+        else:
+            return None
+
+    def extract(self, target_path=None, overwrite=False, omit_first_level=False):
+        """Extract the package. Supports Zip and Tar packages.
 
         Parameters
         ----------
+        target_path : str
+            Path to extract the package content. If none given, package is extracted in the same path than package.
+            Default value None
+
         overwrite : bool
             Overwrite existing files.
+            Default value False
 
         omit_first_level : bool
             Omit first directory level.
+            Default value True
 
         Returns
         -------
@@ -361,7 +445,10 @@ class PackageMixin(object):
 
         """
 
-        local_path = os.path.split(self.filename)[0]
+        if target_path is None:
+            target_path = os.path.split(self.filename)[0]
+
+        Path(target_path).create()
 
         if self.format == FileFormat.ZIP:
             with zipfile.ZipFile(self.filename, "r") as z:
@@ -370,6 +457,7 @@ class PackageMixin(object):
                     for name in z.namelist():
                         if not name.endswith('/'):
                             parts.append(name.split('/')[:-1])
+
                     prefix = os.path.commonprefix(parts) or ''
 
                     if prefix:
@@ -384,12 +472,14 @@ class PackageMixin(object):
                 # Start extraction
                 members = z.infolist()
                 file_count = 1
-                progress = tqdm(members,
-                                desc="{0: <25s}".format('Extract'),
-                                file=sys.stdout,
-                                leave=False,
-                                disable=self.disable_progress_bar,
-                                ascii=self.use_ascii_progress_bar)
+                progress = tqdm(
+                    members,
+                    desc="{0: <25s}".format('Extract'),
+                    file=sys.stdout,
+                    leave=False,
+                    disable=self.disable_progress_bar,
+                    ascii=self.use_ascii_progress_bar
+                )
 
                 for i, member in enumerate(progress):
                     if self.disable_progress_bar:
@@ -403,18 +493,28 @@ class PackageMixin(object):
                     if not omit_first_level or len(member.filename) > offset:
                         if omit_first_level:
                             member.filename = member.filename[offset:]
+
                         progress.set_description("{0: >35s}".format(member.filename.split('/')[-1]))
                         progress.update()
-                        if not os.path.isfile(os.path.join(local_path, member.filename)) or overwrite:
+
+                        if not os.path.isfile(os.path.join(target_path, member.filename)) or overwrite:
                             try:
                                 if hasattr(self, 'package_password') and self.package_password:
-                                    z.extract(member=member, path=local_path, pwd=self.package_password)
+                                    z.extract(
+                                        member=member,
+                                        path=target_path,
+                                        pwd=self.package_password
+                                    )
+
                                 else:
-                                    z.extract(member=member, path=local_path)
+                                    z.extract(
+                                        member=member,
+                                        path=target_path
+                                    )
 
                             except KeyboardInterrupt:
                                 # Delete latest file, since most likely it was not extracted fully
-                                os.remove(os.path.join(local_path, member.filename))
+                                os.remove(os.path.join(target_path, member.filename))
 
                                 # Quit
                                 sys.exit()
@@ -423,12 +523,14 @@ class PackageMixin(object):
 
         elif self.format == FileFormat.TAR:
             tar = tarfile.open(self.filename, "r:gz")
-            progress = tqdm(tar,
-                            desc="{0: <25s}".format('Extract'),
-                            file=sys.stdout,
-                            leave=False,
-                            disable=self.disable_progress_bar,
-                            ascii=self.use_ascii_progress_bar)
+            progress = tqdm(
+                tar,
+                desc="{0: <25s}".format('Extract'),
+                file=sys.stdout,
+                leave=False,
+                disable=self.disable_progress_bar,
+                ascii=self.use_ascii_progress_bar
+            )
 
             for i, tar_info in enumerate(progress):
                 if self.disable_progress_bar:
@@ -439,10 +541,192 @@ class PackageMixin(object):
                         file=tar_info.name)
                     )
 
-                if not os.path.isfile(os.path.join(local_path, tar_info.name)) or overwrite:
-                    tar.extract(tar_info, local_path)
+                if not os.path.isfile(os.path.join(target_path, tar_info.name)) or overwrite:
+                    tar.extract(tar_info, target_path)
+
                 tar.members = []
             tar.close()
 
         return self
 
+    def compress(self, filename=None, path=None, file_list=None, size_limit=None, overwrite=False):
+        """Compress the package. Supports Zip and Tar packages.
+
+        Parameters
+        ----------
+        file_list : list of dict
+
+        size_limit : int
+            Size limit in bytes
+            Default value None
+
+        overwrite : bool
+            Overwrite existing package.
+            Default value False
+
+        Returns
+        -------
+        self
+
+        """
+
+        if filename is not None:
+            self.filename = filename
+            self.detect_file_format()
+            self.validate_format()
+
+        if path is not None and file_list is None:
+            files = Path(path=path).file_list(recursive=True)
+            file_list = []
+            for file in files:
+                file_list.append(
+                    {
+                        'source': file,
+                        'target': os.path.relpath(file)
+                    }
+                )
+
+        if size_limit is None:
+            package = None
+
+            if self.format == FileFormat.ZIP:
+                package = zipfile.ZipFile(
+                    file=self.filename,
+                    mode='w'
+                )
+
+            elif self.format == FileFormat.TAR:
+                package = tarfile.open(
+                    name=self.filename,
+                    mode='w:gz'
+                )
+
+            size_uncompressed = 0
+            for item in file_list:
+                if os.path.exists(item['source']):
+                    if self.format == FileFormat.ZIP:
+                        package.write(
+                            filename=item['source'],
+                            arcname=os.path.relpath(item['target']),
+                            compress_type=zipfile.ZIP_DEFLATED
+                        )
+                        file_info = package.getinfo(os.path.relpath(item['target']))
+                        size_uncompressed += file_info.file_size
+
+                    elif self.format == FileFormat.TAR:
+                        package.add(
+                            name=item['source'],
+                            arcname=os.path.relpath(item['target'])
+                        )
+                        file_info = package.gettarinfo(
+                            name=item['source'],
+                            arcname=os.path.relpath(item['target'])
+                        )
+                        size_uncompressed += file_info.size
+
+                else:
+                    package.close()
+                    message = '{name}: Non-existing file [{filename}] detected while compressing a package [{package}]'.format(
+                        name=self.__class__.__name__,
+                        filename=item['source'],
+                        package=self.filename
+                    )
+                    if self.logger:
+                        self.logger.exception(message)
+
+                    raise IOError(message)
+
+            package.close()
+
+        else:
+            base, extension = os.path.splitext(self.filename)
+            filename_template = base + '.{package_id}' + extension
+
+            # Initialize package
+            package_id = 1
+
+            size_uncompressed = 0
+            if self.format == FileFormat.ZIP:
+                package = zipfile.ZipFile(
+                    file=filename_template.format(package_id=package_id),
+                    mode='w'
+                )
+
+            elif self.format == FileFormat.TAR:
+                package = tarfile.open(
+                    name=filename_template.format(package_id=package_id),
+                    mode='w:gz'
+                )
+
+            progress = tqdm(
+                file_list,
+                desc="{0: <25s}".format('Compress'),
+                file=sys.stdout,
+                leave=False,
+                disable=self.disable_progress_bar,
+                ascii=self.use_ascii_progress_bar
+            )
+
+            for item_id, item in enumerate(progress):
+                if self.disable_progress_bar:
+                    self.logger.info('  {title:<15s} [{item_id:d}/{total:d}] {file:<30s}'.format(
+                        title='Compress ',
+                        item_id=item_id,
+                        total=len(progress),
+                        file=item['source'])
+                    )
+
+                if os.path.exists(item['source']):
+                    current_size_uncompressed = os.path.getsize(item['source'])
+                    if size_uncompressed + current_size_uncompressed > size_limit:
+                        # Size limit met, close current package and open a new one.
+                        package.close()
+
+                        package_id += 1
+                        if self.format == FileFormat.ZIP:
+                            package = zipfile.ZipFile(
+                                file=filename_template.format(package_id=package_id),
+                                mode='w'
+                            )
+
+                        elif self.format == FileFormat.TAR:
+                            package = tarfile.open(
+                                name=filename_template.format(package_id=package_id),
+                                mode='w:gz'
+                            )
+
+                        size_uncompressed = 0
+                    if self.format == FileFormat.ZIP:
+                        package.write(
+                            filename=item['source'],
+                            arcname=os.path.relpath(item['target']),
+                            compress_type=zipfile.ZIP_DEFLATED
+                        )
+
+                        file_info = package.getinfo(os.path.relpath(item['target']))
+                        size_uncompressed += file_info.file_size
+
+                    elif self.format == FileFormat.TAR:
+                        package.add(
+                            name=item['source'],
+                            arcname=os.path.relpath(item['target'])
+                        )
+                        file_info = package.gettarinfo(
+                            name=item['source'],
+                            arcname=os.path.relpath(item['target'])
+                        )
+                        size_uncompressed += file_info.size
+
+                else:
+                    package.close()
+                    message = '{name}: Non-existing file [{filename}] detected while compressing a package [{package}]'.format(
+                        name=self.__class__.__name__,
+                        filename=item['source'],
+                        package=filename_template.format(package_id=package_id)
+                    )
+                    if self.logger:
+                        self.logger.exception(message)
+
+                    raise IOError(message)
+
+            package.close()

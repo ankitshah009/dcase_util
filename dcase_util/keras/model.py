@@ -64,12 +64,15 @@ def create_sequential_model(model_parameter_list, input_shape=None, output_shape
 
     input_shape : int
         Size of the input layer
+        Default value None
 
     output_shape : int
         Size of the output layer
+        Default value None
 
     constants : dict or DictContainer
         Constants used in the model_parameter definitions.
+        Default value None
 
     Returns
     -------
@@ -85,7 +88,8 @@ def create_sequential_model(model_parameter_list, input_shape=None, output_shape
         'kernel_size',
         'pool_size',
         'dims',
-        'target_shape'
+        'target_shape',
+        'strides'
     ]
 
     # Get constants for model
@@ -114,25 +118,30 @@ def create_sequential_model(model_parameter_list, input_shape=None, output_shape
         math_eval = SimpleMathStringEvaluator()
 
         if isinstance(value, str):
-            # String field
-            if value in constants_dict:
-                return constants_dict[value]
-
-            elif len(value.split()) > 1:
-                sub_fields = value.split()
+            sub_fields = value.split()
+            if len(sub_fields) > 1:
+                # Inject constants to math formula
                 for subfield_id, subfield in enumerate(sub_fields):
                     if subfield in constants_dict:
                         sub_fields[subfield_id] = str(constants_dict[subfield])
-
-                return math_eval.eval(''.join(sub_fields))
+                value = ''.join(sub_fields)
 
             else:
-                return value
+                # Inject constants
+                if value in constants_dict:
+                    value = str(constants_dict[value])
+
+            return math_eval.eval(value)
 
         elif isinstance(value, list):
             processed_value_list = []
             for item_id, item in enumerate(value):
-                processed_value_list.append(process_field(value=item, constants_dict=constants_dict))
+                processed_value_list.append(
+                    process_field(
+                        value=item,
+                        constants_dict=constants_dict
+                    )
+                )
 
             return processed_value_list
 
@@ -176,7 +185,7 @@ def create_sequential_model(model_parameter_list, input_shape=None, output_shape
 
         # Convert lists into tuples
         for field in tuple_fields:
-            if field in layer_setup['config']:
+            if field in layer_setup['config'] and isinstance(layer_setup['config'][field], list):
                 layer_setup['config'][field] = tuple(layer_setup['config'][field])
 
         # Inject input shape for Input layer if not given
@@ -216,13 +225,17 @@ def create_sequential_model(model_parameter_list, input_shape=None, output_shape
     return keras_model
 
 
-def model_summary_string(keras_model):
-    """Model summary in a string, similar to Keras model summary function.
+def model_summary_string(keras_model, mode='keras'):
+    """Model summary in a formatted string, similar to Keras model summary function.
 
     Parameters
     ----------
     keras_model : keras model
         Keras model
+
+    mode : str
+        Summary mode ['extended', 'keras']. In case 'keras', standard Keras summary is returned.
+        Default value keras
 
     Returns
     -------
@@ -232,68 +245,94 @@ def model_summary_string(keras_model):
     """
 
     ui = FancyStringifier()
-    layer_name_map = {
-        'BatchNormalization': 'BatchNorm',
-    }
-    import keras.backend as keras_backend
-
     output = ''
     output += ui.line('Model summary') + '\n'
-    output += ui.row(
-        'Layer type', 'Output', 'Param', 'Name', 'Connected to', 'Activ.', 'Init',
-        widths=[15, 20, 10, 20, 25, 10, 10],
-        indent=4
-    ) + '\n'
-    output += ui.row('-', '-', '-', '-', '-', '-', '-') + '\n'
 
-    for layer in keras_model.layers:
-        connections = []
-        for node_index, node in enumerate(layer.inbound_nodes):
-            for i in range(len(node.inbound_layers)):
-                inbound_layer = node.inbound_layers[i].name
-                inbound_node_index = node.node_indices[i]
-                inbound_tensor_index = node.tensor_indices[i]
-                connections.append(inbound_layer + '[' + str(inbound_node_index) +
-                                   '][' + str(inbound_tensor_index) + ']')
-
-        config = DictContainer(layer.get_config())
-        layer_name = layer.__class__.__name__
-        if layer_name in layer_name_map:
-            layer_name = layer_name_map[layer_name]
-
-        if config.get_path('kernel_initializer.class_name') == 'VarianceScaling':
-            init = str(config.get_path('kernel_initializer.config.distribution', '---'))
-
-        elif config.get_path('kernel_initializer.class_name') == 'RandomUniform':
-            init = 'uniform'
-
-        else:
-            init = '---'
+    if mode == 'extended':
+        layer_name_map = {
+            'BatchNormalization': 'BatchNorm',
+        }
+        import keras
+        from distutils.version import LooseVersion
+        import keras.backend as keras_backend
 
         output += ui.row(
-            layer_name,
-            str(layer.output_shape),
-            str(layer.count_params()),
-            str(layer.name),
-            str(connections[0]) if len(connections) > 0 else '---',
-            str(config.get('activation', '---')),
-            init
+            'Layer type', 'Output', 'Param', 'Name', 'Connected to', 'Activ.', 'Init',
+            widths=[15, 25, 10, 20, 25, 10, 10],
+            indent=4
         ) + '\n'
+        output += ui.row('-', '-', '-', '-', '-', '-', '-') + '\n'
 
-    trainable_count = int(
-        numpy.sum([keras_backend.count_params(p) for p in set(keras_model.trainable_weights)])
-    )
+        for layer in keras_model.layers:
+            connections = []
+            if LooseVersion(keras.__version__) >= LooseVersion('2.1.3'):
+                for node_index, node in enumerate(layer._inbound_nodes):
+                    for i in range(len(node.inbound_layers)):
+                        inbound_layer = node.inbound_layers[i].name
+                        inbound_node_index = node.node_indices[i]
+                        inbound_tensor_index = node.tensor_indices[i]
+                        connections.append(
+                            inbound_layer + '[' + str(inbound_node_index) + '][' + str(inbound_tensor_index) + ']'
+                        )
 
-    non_trainable_count = int(
-        numpy.sum([keras_backend.count_params(p) for p in set(keras_model.non_trainable_weights)])
-    )
+            else:
+                for node_index, node in enumerate(layer.inbound_nodes):
+                    for i in range(len(node.inbound_layers)):
+                        inbound_layer = node.inbound_layers[i].name
+                        inbound_node_index = node.node_indices[i]
+                        inbound_tensor_index = node.tensor_indices[i]
+                        connections.append(
+                            inbound_layer + '[' + str(inbound_node_index) + '][' + str(inbound_tensor_index) + ']'
+                        )
+
+            config = DictContainer(layer.get_config())
+            layer_name = layer.__class__.__name__
+            if layer_name in layer_name_map:
+                layer_name = layer_name_map[layer_name]
+
+            if config.get_path('kernel_initializer.class_name') == 'VarianceScaling':
+                init = str(config.get_path('kernel_initializer.config.distribution', '---'))
+
+            elif config.get_path('kernel_initializer.class_name') == 'RandomUniform':
+                init = 'uniform'
+
+            else:
+                init = '---'
+
+            output += ui.row(
+                layer_name,
+                str(layer.output_shape),
+                str(layer.count_params()),
+                str(layer.name),
+                str(connections[0]) if len(connections) > 0 else '---',
+                str(config.get('activation', '---')),
+                init
+            ) + '\n'
+
+        trainable_count = int(
+            numpy.sum([keras_backend.count_params(p) for p in set(keras_model.trainable_weights)])
+        )
+
+        non_trainable_count = int(
+            numpy.sum([keras_backend.count_params(p) for p in set(keras_model.non_trainable_weights)])
+        )
+
+        output += ui.line('') + '\n'
+        output += ui.line('Parameters', indent=4,) + '\n'
+        output += ui.data(indent=6, field='Total', value=trainable_count + non_trainable_count) + '\n'
+        output += ui.data(indent=6, field='Trainable', value=trainable_count) + '\n'
+        output += ui.data(indent=6, field='Non-Trainable', value=non_trainable_count) + '\n'
+
+    else:
+        output_buffer = []
+        keras_model.summary(print_fn=output_buffer.append)
+        for line in output_buffer:
+            output += ui.line(line, indent=4) + '\n'
 
     output += ui.line('') + '\n'
-    output += ui.line('Parameters') + '\n'
-    output += ui.data(indent=4, field='Trainable', value=trainable_count) + '\n'
-    output += ui.data(indent=4, field='Non-Trainable', value=non_trainable_count) + '\n'
-    output += ui.data(indent=4, field='Total', value=trainable_count + non_trainable_count) + '\n'
-    output += ui.line('') + '\n'
+
+    output += ui.data(indent=4, field='Input shape', value=keras_model.input_shape) + '\n'
+    output += ui.data(indent=4, field='Output shape', value=keras_model.output_shape) + '\n'
 
     return output
 

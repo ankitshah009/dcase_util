@@ -20,6 +20,7 @@ dcase_util.containers.DictContainer
       ~DictContainer.detect_file_format
       ~DictContainer.empty
       ~DictContainer.exists
+      ~DictContainer.filter
       ~DictContainer.fromkeys
       ~DictContainer.get
       ~DictContainer.get_dump_content

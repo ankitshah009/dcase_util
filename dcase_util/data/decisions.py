@@ -3,8 +3,6 @@
 
 from __future__ import print_function, absolute_import
 import numpy
-import math
-import logging
 import copy
 import scipy
 
@@ -19,14 +17,14 @@ class DecisionEncoder(ObjectContainer):
         ----------
         label_list : list or str
             Label list
-            Default value "None"
+            Default value None
 
         """
         super(DecisionEncoder, self).__init__(**kwargs)
 
         self.label_list = label_list
 
-    def majority_vote(self, frame_decisions, frame_axis=0):
+    def majority_vote(self, frame_decisions, time_axis=1):
         """Majority vote.
 
         Parameters
@@ -34,8 +32,9 @@ class DecisionEncoder(ObjectContainer):
         frame_decisions : numpy.ndarray [shape=(d,t) or (t,d)]
             Frame decisions
 
-        frame_axis : int
-            Axis index for frames in the matrix
+        time_axis : int
+            Axis index for time in the matrix
+            Default value 1
 
         Returns
         -------
@@ -44,12 +43,82 @@ class DecisionEncoder(ObjectContainer):
 
         """
 
+        # Get data_axis
+        if time_axis == 0:
+            class_axis = 1
+        else:
+            class_axis = 0
+
         if isinstance(frame_decisions, numpy.ndarray) and len(frame_decisions.shape) == 2:
             # We have matrix
-            frame_decisions = numpy.argmax(frame_decisions, axis=frame_axis)
+            frame_decisions = numpy.argmax(frame_decisions, axis=class_axis)
 
         counts = numpy.bincount(frame_decisions)
+
         return self.label_list[numpy.argmax(counts)]
+
+    def many_hot(self, frame_decisions, label_list=None, time_axis=1):
+        """Many hot
+
+        Parameters
+        ----------
+        frame_decisions : numpy.ndarray [shape=(d,t) or (t,d)]
+            Frame decisions
+
+        label_list : list or str
+            Label list, if None given one for class initializer is used.
+            Default value None
+
+        time_axis : int
+            Axis index for frames in the matrix
+            Default value 1
+
+        Raises
+        ------
+        ValueError
+            No label list given as method parameter or class initializer parameter
+
+        Returns
+        -------
+        list
+
+        """
+
+        if label_list is None:
+            label_list = self.label_list
+
+        if label_list is None:
+            message = '{name}: No label_list parameter given to method or class initializer.'.format(
+                name=self.__class__.__name__
+            )
+
+            self.logger.exception(message)
+            raise ValueError(message)
+
+        # Get data_axis
+        if time_axis == 0:
+            class_axis = 1
+        else:
+            class_axis = 0
+
+        encoded = []
+        for frame_id in range(0, frame_decisions.shape[time_axis]):
+            # Get decisions for current frame
+            if class_axis == 0:
+                current_frame = frame_decisions[:, frame_id].T
+
+            elif class_axis == 1:
+                current_frame = frame_decisions[frame_id, :]
+
+            # Encode current frame decisions
+            current_frame_encoded = []
+            for label_id in numpy.where(current_frame == 1)[0]:
+                current_frame_encoded.append(label_list[label_id])
+
+            # Store
+            encoded.append(current_frame_encoded)
+
+        return encoded
 
     def find_contiguous_regions(self, activity_array):
         """Find contiguous regions from bool valued numpy.array.
@@ -84,7 +153,7 @@ class DecisionEncoder(ObjectContainer):
         # Reshape the result into two columns
         return change_indices.reshape((-1, 2))
 
-    def process_activity(self, activity_matrix, window_length, operator="median_filtering"):
+    def process_activity(self, activity_matrix, window_length, operator="median_filtering", time_axis=1):
         """Process activity array (binary)
 
         Parameters
@@ -95,8 +164,14 @@ class DecisionEncoder(ObjectContainer):
         window_length : int
             Window length in analysis frame amount
 
-        operator : str ('median_filtering')
-            Operator to be used
+        operator : str
+            Operator to be used ['median_filtering']
+            Default value 'median_filtering'
+
+        time_axis : int
+            Time axis
+            Default value 1
+
         Raises
         ------
         AssertionError
@@ -116,13 +191,40 @@ class DecisionEncoder(ObjectContainer):
             )
 
             self.logger.exception(message)
-            raise AssertionError(message)
+            raise ValueError(message)
+
+        if time_axis > 1:
+            message = '{name}: Unknown time_axis [{time_axis}].'.format(
+                name=self.__class__.__name__,
+                time_axis=time_axis
+            )
+
+            self.logger.exception(message)
+            raise ValueError(message)
+
+        # Get class axis
+        if time_axis == 0:
+            class_axis = 1
+
+        else:
+            class_axis = 0
+
+        # Get a copy of the activity_matrix to prevent data contamination
+        activity_matrix = copy.deepcopy(activity_matrix)
 
         if operator == 'median_filtering':
-            for row_id in range(0,activity_matrix.shape[0]):
-                activity_matrix[row_id, :] = scipy.signal.medfilt(
-                    volume=activity_matrix[row_id, :],
-                    kernel_size=window_length
-                )
+            for class_id in range(0, activity_matrix.shape[class_axis]):
+                # Loop along classes axis, and apply filtering
+                if time_axis == 0:
+                    activity_matrix[:, class_id] = scipy.signal.medfilt(
+                        volume=activity_matrix[:, class_id],
+                        kernel_size=window_length
+                    )
+
+                elif time_axis == 1:
+                    activity_matrix[class_id, :] = scipy.signal.medfilt(
+                        volume=activity_matrix[class_id, :],
+                        kernel_size=window_length
+                    )
 
         return activity_matrix

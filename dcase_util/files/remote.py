@@ -142,6 +142,7 @@ class RemoteFile(DictContainer):
 
         if self.local_exists() and self._local_md5 is None:
             self._local_md5 = get_file_hash(filename=self.filename)
+
         return self._local_md5
 
     @property
@@ -207,6 +208,7 @@ class RemoteFile(DictContainer):
                 name=self.__class__.__name__,
                 url=value
             )
+
             self.logger.exception(message)
             raise ValueError(message)
 
@@ -298,7 +300,7 @@ class RemoteFile(DictContainer):
                 if 'Content-Encoding' not in resp.headers or resp.headers['Content-Encoding'] != 'gzip':
                     self.remote_bytes = int(resp.headers['Content-Length'])
 
-            if 'Content-MD5' in resp.headers and self.remote_md5 is None:
+            if 'Content-MD5' in resp.headers:
                 self.remote_md5 = resp.headers['Content-MD5']
 
         elif resp.status_code in [301, 302] and 'Location' in resp.headers:
@@ -312,11 +314,12 @@ class RemoteFile(DictContainer):
                     if 'Content-Encoding' not in resp.headers or resp.headers['Content-Encoding'] != 'gzip':
                         self.remote_bytes = int(resp.headers['Content-Length'])
 
-                if 'Content-MD5' in resp.headers and self.remote_md5 is None:
+                if 'Content-MD5' in resp.headers:
                     self.remote_md5 = resp.headers['Content-MD5']
 
         if 'Last-Modified' in resp.headers:
             self.remote_modified = time.mktime(time.strptime(resp.headers['Last-Modified'], '%a, %d %b %Y %H:%M:%S %Z'))
+
         elif 'Date' in resp.headers:
             self.remote_modified = time.mktime(time.strptime(resp.headers['Date'], '%a, %d %b %Y %H:%M:%S %Z'))
 
@@ -333,6 +336,7 @@ class RemoteFile(DictContainer):
 
         if self.remote_status in [200, 301, 302]:
             return True
+
         else:
             return False
 
@@ -364,12 +368,14 @@ class RemoteFile(DictContainer):
             # Remote md5 hash available use md5 hashes to check content
             if self.local_md5 == self.remote_md5:
                 return False
+
             else:
                 return True
         else:
             # Use file modification time and size to see if local and remote are the same.
             if self.local_modified > self.remote_modified and self.local_bytes == self.remote_bytes:
                 return False
+
             else:
                 return True
 
@@ -412,6 +418,7 @@ class RemoteFile(DictContainer):
                         """
                         if tsize is not None:
                             t.total = tsize
+
                         t.update((b - last_b[0]) * bsize)
                         last_b[0] = b
 
@@ -428,18 +435,31 @@ class RemoteFile(DictContainer):
                           disable=self.disable_progress_bar,
                           ascii=self.use_ascii_progress_bar) as t:
 
-                    local_filename, headers = urlretrieve(
-                        url=self.remote_file,
-                        filename=tmp_file,
-                        reporthook=progress_hook(t),
-                        data=None
-                    )
+                    try:
+                        local_filename, headers = urlretrieve(
+                            url=self.remote_file,
+                            filename=tmp_file,
+                            reporthook=progress_hook(t),
+                            data=None
+                        )
+                    except IOError:
+                        # Second attempt by ignoring SSL context.
+                        import ssl
+                        ssl._create_default_https_context = ssl._create_unverified_context
+
+                        local_filename, headers = urlretrieve(
+                            url=self.remote_file,
+                            filename=tmp_file,
+                            reporthook=progress_hook(t),
+                            data=None
+                        )
 
                 tmp_md5 = get_file_hash(filename=tmp_file)
                 file_valid = True
                 if self.remote_md5 is not None:
                     if tmp_md5 == self.remote_md5:
                         file_valid = True
+
                     else:
                         message = '{name}: Download failed [{filename}] [md5 mismatch]'.format(
                             name=self.__class__.__name__,

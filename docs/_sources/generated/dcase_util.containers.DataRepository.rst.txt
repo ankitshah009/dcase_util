@@ -20,6 +20,7 @@ dcase_util.containers.DataRepository
       ~DataRepository.detect_file_format
       ~DataRepository.empty
       ~DataRepository.exists
+      ~DataRepository.filter
       ~DataRepository.fromkeys
       ~DataRepository.get
       ~DataRepository.get_container

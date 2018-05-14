@@ -5,6 +5,7 @@ A collection of utilities for Detection and Classification of Acoustic Scenes an
 
 [![Build Status](https://travis-ci.org/DCASE-REPO/dcase_util.svg?branch=master)](https://travis-ci.org/DCASE-REPO/dcase_util)
 [![Coverage Status](https://coveralls.io/repos/github/DCASE-REPO/dcase_util/badge.svg?branch=master)](https://coveralls.io/github/DCASE-REPO/dcase_util?branch=master)
+[![Code Health](https://landscape.io/github/DCASE-REPO/dcase_util/master/landscape.svg?style=flat)](https://landscape.io/github/DCASE-REPO/dcase_util/master)
 [![PyPI](https://img.shields.io/pypi/v/dcase_util.svg)](https://pypi.python.org/pypi/dcase_util)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -28,31 +29,6 @@ Installation instructions
 
 The latest stable release is available on PyPI, and you can install with pip:
 `pip install dcase_util` 
-
-Changelog
-=========
-
-#### 0.1.6 / 2017-11-14
-
-* Fixing audio reading when target sampling rate is not set
-* Some minor tweaks to ui utilities. 
-* Example audio is now 16-bit audio file in wav-format instead of FLAC used earlier.
-* ProbabilityContainer API is more compatible with MetaDataContainer now.
-* MetaDataItem is now compatible with field naming used previously in DCASE baselines
-* Add CHiMEHome_DomesticAudioTag_EvaluationSet dataset.
-* Some minor bug fixes.
-
-#### 0.1.5 / 2017-11-10
-
-* Fixing PYPI package
-
-#### 0.1.4 / 2017-11-10
-
-* Release PYPI package
-
-#### 0.1.0 / 2017-11-09
-
-* Initial public release
 
 License
 =======

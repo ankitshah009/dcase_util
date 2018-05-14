@@ -20,8 +20,9 @@ from dcase_util.utils import FileFormat, is_int
 class AudioContainer(ContainerMixin, FileMixin):
     """Audio container class."""
     valid_formats = [FileFormat.WAV, FileFormat.FLAC,
+                     FileFormat.OGG,
                      FileFormat.M4A, FileFormat.WEBM,
-                     FileFormat.MP3]  #: Valid file formats
+                     FileFormat.MP3, FileFormat.MP4]  #: Valid file formats
 
     def __init__(self,
                  data=None, fs=44100,
@@ -51,10 +52,15 @@ class AudioContainer(ContainerMixin, FileMixin):
         self.time_axis = 1
 
         # Audio data
+        if data is None:
+            # Initialize with array
+            data = numpy.ndarray((0, ))
+
         self._data = data
         self.data_synced_with_file = False
 
         self.fs = fs
+        self.filetype_info = None
 
         # Filename
         if self.filename:
@@ -79,6 +85,7 @@ class AudioContainer(ContainerMixin, FileMixin):
             '_data': self._data,
             'data_synced_with_file': self.data_synced_with_file,
             'fs': self.fs,
+            'filetype_info': self.filetype_info,
             'filename': self.filename,
             '_focus_start': self._focus_start,
             '_focus_stop': self._focus_stop,
@@ -96,6 +103,7 @@ class AudioContainer(ContainerMixin, FileMixin):
         self._data = d['_data']
         self.data_synced_with_file = d['data_synced_with_file']
         self.fs = d['fs']
+        self.filetype_info = d['filetype_info']
         self.filename = d['filename']
         self._focus_start = None
         self._focus_stop = None
@@ -109,53 +117,143 @@ class AudioContainer(ContainerMixin, FileMixin):
         ui = FancyStringifier()
         output += ui.class_name(self.__class__.__name__) + '\n'
         if self.filename:
-            output += ui.data(field='Filename', value=self.filename) + '\n'
-            output += ui.data(field='Synced', value='Yes' if self.data_synced_with_file else 'No') + '\n'
+            output += ui.data(
+                field='Filename',
+                value=self.filename
+            ) + '\n'
 
-        output += ui.data(field='Sampling rate', value=str(self.fs)) + '\n'
+            if self.filetype_info and self.filetype_info.values:
+                output += ui.data(
+                    field='Format',
+                    value=self.format + ' (' + ', '.join(self.filetype_info.values()) + ')'
+                ) + '\n'
 
-        output += ui.data(indent=4, field='Channels', value=str(self.channels)) + '\n'
+            else:
+                output += ui.data(field='Format', value=self.format) + '\n'
+
+            output += ui.data(
+                field='Synced',
+                value='Yes' if self.data_synced_with_file else 'No'
+            ) + '\n'
+
+        output += ui.data(
+            field='Sampling rate',
+            value=str(self.fs), unit='hz'
+        ) + '\n'
+
+        output += ui.data(
+            field='Channels',
+            value=str(self.channels)
+        ) + '\n'
 
         output += ui.line(field='Duration') + '\n'
-        output += ui.data(indent=4, field='Seconds', value=self.duration_sec, unit='sec') + '\n'
-        output += ui.data(indent=4, field='Milliseconds', value=self.duration_ms, unit='ms') + '\n'
-        output += ui.data(indent=4, field='Samples', value=self.duration_samples, unit='samples') + '\n'
+        output += ui.data(
+            indent=4,
+            field='Seconds',
+            value=self.duration_sec,
+            unit='sec'
+        ) + '\n'
+
+        output += ui.data(
+            indent=4,
+            field='Milliseconds',
+            value=self.duration_ms,
+            unit='ms'
+        ) + '\n'
+
+        output += ui.data(
+            indent=4,
+            field='Samples',
+            value=self.duration_samples,
+            unit='samples'
+        ) + '\n'
 
         if self._focus_channel is not None or self._focus_start is not None or self._focus_stop is not None:
             output += ui.line(field='Focus segment') + '\n'
             if self.focus_channel is not None:
                 if self.channels == 2:
                     if self._focus_channel == 0:
-                        output += ui.data(indent=4,
-                                          field='Channel',
-                                          value='{channel} [{label}]'.format(channel=self._focus_channel,
-                                                                             label='Left Channel')) + '\n'
+                        output += ui.data(
+                            indent=4,
+                            field='Channel',
+                            value='{channel} [{label}]'.format(
+                                channel=self._focus_channel,
+                                label='Left Channel'
+                            )
+                        ) + '\n'
 
                     elif self._focus_channel == 1:
-                        output += ui.data(indent=4,
-                                          field='Channel',
-                                          value='{channel} [{label}]'.format(channel=self._focus_channel,
-                                                                             label='Right Channel')) + '\n'
+                        output += ui.data(
+                            indent=4,
+                            field='Channel',
+                            value='{channel} [{label}]'.format(
+                                channel=self._focus_channel,
+                                label='Right Channel'
+                            )
+                        ) + '\n'
 
                 else:
-                    output += ui.data(indent=4, field='Channel', value=self._focus_channel) + '\n'
+                    output += ui.data(
+                        indent=4,
+                        field='Channel',
+                        value=self._focus_channel
+                    ) + '\n'
 
-            output += ui.line(indent=4, field='Duration') + '\n'
-            output += ui.data(indent=6, field='Seconds',
-                              value=self.focus_stop_seconds - self.focus_start_seconds,
-                              unit='sec') + '\n'
+            output += ui.line(
+                indent=4,
+                field='Duration'
+            ) + '\n'
 
-            output += ui.data(indent=6, field='Samples',
-                              value=self.focus_stop_samples - self.focus_start_samples,
-                              unit='sec') + '\n'
+            output += ui.data(
+                indent=6,
+                field='Seconds',
+                value=self.focus_stop_seconds - self.focus_start_seconds,
+                unit='sec'
+            ) + '\n'
 
-            output += ui.line(indent=4, field='Start point') + '\n'
-            output += ui.data(indent=6, field='Seconds', value=self.focus_start_seconds, unit='sec') + '\n'
-            output += ui.data(indent=6, field='Samples', value=self.focus_start_samples, unit='samples') + '\n'
+            output += ui.data(
+                indent=6,
+                field='Samples',
+                value=self.focus_stop_samples - self.focus_start_samples,
+                unit='sec'
+            ) + '\n'
 
-            output += ui.line(indent=4, field='Stop point') + '\n'
-            output += ui.data(indent=6, field='Seconds', value=self.focus_stop_seconds, unit='sec') + '\n'
-            output += ui.data(indent=6, field='Samples', value=self.focus_stop_samples, unit='samples') + '\n'
+            output += ui.line(
+                indent=4,
+                field='Start point'
+            ) + '\n'
+
+            output += ui.data(
+                indent=6,
+                field='Seconds',
+                value=self.focus_start_seconds,
+                unit='sec') + '\n'
+
+            output += ui.data(
+                indent=6,
+                field='Samples',
+                value=self.focus_start_samples,
+                unit='samples'
+            ) + '\n'
+
+            output += ui.line(
+                indent=4,
+                field='Stop point'
+            ) + '\n'
+
+            output += ui.data(
+                indent=6,
+                field='Seconds',
+                value=self.focus_stop_seconds,
+                unit='sec'
+            ) + '\n'
+
+            output += ui.data(
+                indent=6,
+                field='Samples',
+                value=self.focus_stop_samples,
+                unit='samples'
+            ) + '\n'
 
         return output
 
@@ -163,11 +261,43 @@ class AudioContainer(ContainerMixin, FileMixin):
         return self.loaded
 
     def __getitem__(self, i):
-        """
-        Get ith sample of first channel
-        """
+        """Get ith sample, in case of multiple channels array is across channels is returned"""
 
-        return self._data[0][i]
+        if not isinstance(i, int):
+            raise TypeError("Index should be integer")
+
+        if i < 0 or i > self.length:
+            raise KeyError(i)
+
+        if len(self._data.shape) == 1:
+            return self._data[i]
+
+        elif len(self._data.shape) > 1:
+            return self._data[:, i]
+
+        else:
+            return None
+
+    def __setitem__(self, i, value):
+        """Set ith sample"""
+
+        if not isinstance(i, int):
+            raise TypeError("Index should be integer")
+
+        if i < 0 or i > self.length:
+            raise KeyError(i)
+
+        if len(self._data.shape) == 1:
+            self._data[i] = value
+
+        elif len(self._data.shape) > 1:
+            self._data[:, i] = value
+
+    def __iter__(self):
+        return iter(self._data)
+
+    def __len__(self):
+        return self.length
 
     @property
     def data(self):
@@ -535,6 +665,11 @@ class AudioContainer(ContainerMixin, FileMixin):
             if self.format == FileFormat.WAV:
                 info = soundfile.info(file=self.filename)
 
+                self.filetype_info = {
+                    'subtype': info.subtype,
+                    'subtype_info': info.subtype_info
+                }
+
                 # Handle segment start and stop
                 if start is not None and stop is not None:
                     start_sample = int(start * info.samplerate)
@@ -566,7 +701,6 @@ class AudioContainer(ContainerMixin, FileMixin):
                 else:
                     # Target sampling frequency defined, possibly re-sample signal.
                     if fs != source_fs:
-                        import librosa
                         self._data = librosa.core.resample(
                             self._data,
                             source_fs,
@@ -577,9 +711,9 @@ class AudioContainer(ContainerMixin, FileMixin):
                     # Store sampling frequency
                     self.fs = fs
 
-            elif self.format in [FileFormat.FLAC, FileFormat.M4A, FileFormat.WEBM]:
-                import librosa
-
+            elif self.format in [FileFormat.FLAC, FileFormat.OGG,
+                                 FileFormat.MP3,
+                                 FileFormat.M4A, FileFormat.MP4, FileFormat.WEBM]:
                 # Handle segment start and stop
                 if start is not None and stop is not None:
                     offset = start
@@ -633,16 +767,21 @@ class AudioContainer(ContainerMixin, FileMixin):
 
         return self
 
-    def save(self, filename=None, bit_depth=16):
+    def save(self, filename=None, bit_depth=16, bit_rate=None):
         """Save audio
 
         Parameters
         ----------
         filename : str, optional
             File path, if None given filename parameter given to class constructor is used.
+            Default value None
 
         bit_depth : int, optional
             Bit depth for audio
+            Default value 16
+
+        bit_rate : int, optional
+            Bit rate for compressed audio formats
 
         Raises
         ------
@@ -677,42 +816,151 @@ class AudioContainer(ContainerMixin, FileMixin):
 
         if self.format == FileFormat.WAV:
             if bit_depth == 16:
-                soundfile.write(file=self.filename,
-                                data=self._data.T,
-                                samplerate=self.fs,
-                                subtype='PCM_16')
+                subtype = 'PCM_16'
 
             elif bit_depth == 24:
-                soundfile.write(file=self.filename,
-                                data=self._data.T,
-                                samplerate=self.fs,
-                                subtype='PCM_24')
+                subtype = 'PCM_24'
 
             elif bit_depth == 32:
-                soundfile.write(file=self.filename,
-                                data=self._data.T,
-                                samplerate=self.fs,
-                                subtype='PCM_32')
-
-            elif bit_depth is None:
-                soundfile.write(file=self.filename,
-                                data=self._data.T,
-                                samplerate=self.fs)
+                subtype = 'PCM_32'
 
             else:
-                message = '{name}: Unexpected bit depth [{bitdepth}]'.format(name=self.__class__.__name__,
-                                                                             bitdepth=bit_depth)
+                message = '{name}: Unexpected bit depth [{bitdepth}]'.format(
+                    name=self.__class__.__name__,
+                    bitdepth=bit_depth
+                )
+
                 self.logger.exception(message)
                 raise IOError(message)
 
+            soundfile.write(
+                file=self.filename,
+                data=self._data.T,
+                samplerate=self.fs,
+                subtype=subtype
+            )
+
         elif self.format == FileFormat.FLAC:
-            soundfile.write(file=self.filename,
-                            data=self._data.T,
-                            samplerate=self.fs)
+            if bit_depth == 16:
+                subtype = 'PCM_16'
+
+            elif bit_depth == 24:
+                subtype = 'PCM_24'
+
+            elif bit_depth == 32:
+                subtype = 'PCM_32'
+
+            else:
+                message = '{name}: Unexpected bit depth [{bitdepth}]'.format(
+                    name=self.__class__.__name__,
+                    bitdepth=bit_depth
+                )
+
+                self.logger.exception(message)
+                raise IOError(message)
+
+            soundfile.write(
+                file=self.filename,
+                data=self._data.T,
+                samplerate=self.fs,
+                format='flac',
+                subtype=subtype
+            )
+
+        elif self.format == FileFormat.OGG:
+            soundfile.write(
+                file=self.filename,
+                data=self._data.T,
+                samplerate=self.fs,
+                format='OGG',
+                subtype='VORBIS'
+            )
+
+        elif self.format == FileFormat.MP3:
+            # Notice: Saving with MP3 format results in slightly longer signal than original.
+            # Difference is due to padding in the compression algorithm, and is usually around 200 - 1000 samples.
+            import subprocess
+            import platform
+
+            if platform.system() == 'Windows':
+                ffmpeg_binary = "ffmpeg.exe"
+
+            else:
+                ffmpeg_binary = "ffmpeg"
+
+            if bit_rate not in [8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320]:
+                message = '{name}: Unsupported bit rate [{bitrate}]'.format(
+                    name=self.__class__.__name__,
+                    bitrate=bit_rate
+                )
+
+                self.logger.exception(message)
+                raise IOError(message)
+
+            command = [
+                ffmpeg_binary,
+                '-y',                                               # enable overwrite file
+                '-f', 's16le',                                      # input format
+                '-acodec', 'pcm_s16le',                             # input bit depth
+                '-r', str(self.fs),                                 # sampling rate
+                '-ac', str(self.channels),                          # amount of channels
+                '-i', '-',                                          # input from pipe
+                '-vn',                                              # no video input
+                '-acodec', 'libmp3lame',                            # output audio codec
+                '-b:a', "{bitrate:d}k".format(bitrate=bit_rate),    # bit rate
+                self.filename                                       # output filename
+            ]
+
+            popen_parameters = {
+                'stdin': subprocess.PIPE,
+                'stdout': subprocess.PIPE,
+                'stderr': subprocess.PIPE
+            }
+
+            pipe = subprocess.Popen(
+                command,
+                **popen_parameters
+            )
+
+            # Convert signal data from float [-1,1] to signed 16-bit
+            audio_signal = numpy.asarray(self.data).T
+            signal_max_value = 2 ** (16 - 1)
+            audio_signal = (audio_signal * signal_max_value).clip(
+                -signal_max_value,
+                signal_max_value - 1
+            ).astype('int16')
+
+            try:
+                try:
+                    pipe.stdin.write(
+                        audio_signal.tobytes()
+                    )
+
+                except NameError:
+                    pipe.stdin.write(
+                        audio_signal.tostring()
+                    )
+
+            except IOError as error:
+                pipe_error = pipe.stderr.read()
+                error = str(error)
+                error += "\n\nFFMPEG encountered the following error {filename}:".format(filename=self.filename)
+                error += "\n\n" + str(pipe_error)
+
+                raise IOError(error)
+
+            pipe.stdin.close()
+            if pipe.stderr is not None:
+                pipe.stderr.close()
+
+            pipe.wait()
 
         else:
-            message = '{name}: Unknown format for saving [{format}]'.format(name=self.__class__.__name__,
-                                                                            format=self.filename)
+            message = '{name}: Unknown format for saving [{format}]'.format(
+                name=self.__class__.__name__,
+                format=self.filename
+            )
+
             self.logger.exception(message)
             raise IOError(message)
 
@@ -781,6 +1029,12 @@ class AudioContainer(ContainerMixin, FileMixin):
 
             # Get temp file
             tmp_file = tempfile.NamedTemporaryFile(suffix='.'+youtube_audio.extension)
+            
+            # Get temporary filename
+            tmp_filename = tmp_file.name
+            
+            # Remove temporary file (avoid FileExistsError on Windows)
+            tmp_file.close()
 
             download_progress_bar = None
             if not silent:
@@ -800,7 +1054,7 @@ class AudioContainer(ContainerMixin, FileMixin):
 
             # Download audio
             youtube_audio.download(
-                filepath=tmp_file.name,
+                filepath=tmp_filename,
                 quiet=True,
                 callback=callback
             )
@@ -825,7 +1079,7 @@ class AudioContainer(ContainerMixin, FileMixin):
 
             # Load audio segment
             self.load(
-                filename=tmp_file.name,
+                filename=tmp_filename,
                 mono=mono,
                 fs=self.fs,
                 res_type='kaiser_best',
@@ -951,8 +1205,7 @@ class AudioContainer(ContainerMixin, FileMixin):
     def set_focus(self,
                   start=None, stop=None, duration=None,
                   start_seconds=None, stop_seconds=None, duration_seconds=None,
-                  channel=None
-                  ):
+                  channel=None):
         """Set focus segment
 
         Parameters
@@ -989,20 +1242,24 @@ class AudioContainer(ContainerMixin, FileMixin):
         if start is not None or stop is not None or duration is not None:
             # Sample based setting
             if start is not None and stop is not None:
+                self.reset_focus()
                 self.focus_start_samples = start
                 self.focus_stop_samples = stop
 
             elif start is not None and duration is not None:
+                self.reset_focus()
                 self.focus_start_samples = start
                 self.focus_stop_samples = start + duration
 
         elif start_seconds is not None or stop_seconds is not None or duration_seconds is not None:
             # Time based setting
             if start_seconds is not None and stop_seconds is not None:
+                self.reset_focus()
                 self.focus_start_samples = self._time_to_sample(time=start_seconds)
                 self.focus_stop_samples = self._time_to_sample(time=stop_seconds)
 
             elif start_seconds is not None and duration_seconds is not None:
+                self.reset_focus()
                 self.focus_start_samples = self._time_to_sample(time=start_seconds)
                 self.focus_stop_samples = self._time_to_sample(time=start_seconds + duration_seconds)
 
@@ -1057,7 +1314,7 @@ class AudioContainer(ContainerMixin, FileMixin):
         if self.focus_channel is not None and is_int(self.focus_channel) and 0 <= self.focus_channel < self.channels:
             return focused_data[self.focus_channel, :]
 
-        elif self.focus_channel == 'mixdown':
+        elif self.focus_channel == 'mixdown' and self.channels > 1:
             return numpy.mean(focused_data, axis=self.channel_axis)
 
         else:
@@ -1077,7 +1334,229 @@ class AudioContainer(ContainerMixin, FileMixin):
 
         return self
 
-    def plot(self, plot_type='wave'):
+    def frames(self,
+               frame_length=None, hop_length=None,
+               frame_length_seconds=None, hop_length_seconds=None):
+        """Slice audio into overlapping frames.
+
+        Parameters
+        ----------
+        frame_length : int, optional
+            Frame length in samples. Set either frame_length or frame_length_seconds.
+            Default value None
+
+        hop_length : int, optional
+            Frame hop length in samples. Set either hop_length or hop_length_seconds.
+            Default value None
+
+        frame_length_seconds : float, optional
+            Frame length in seconds, converted into samples based on sampling rate.
+            Default value None
+
+        hop_length_seconds: float, optional
+            Frame hop length in seconds, converted into samples based on sampling rate.
+            Default value None
+
+        Raises
+        ------
+        ValueError:
+            No frame_length and no frame_length_seconds given.
+            No hop_length and no hop_length_seconds given.
+
+        Returns
+        -------
+        numpy.ndarray
+
+        """
+
+        if not frame_length and frame_length_seconds:
+            frame_length = int(self.fs * frame_length_seconds)
+
+        if not hop_length and hop_length_seconds:
+            hop_length = int(self.fs * hop_length_seconds)
+
+        if not frame_length:
+            message = '{name}: Specify frame_length parameter for frame splitting.'.format(
+                name=self.__class__.__name__
+            )
+            self.logger.exception(message)
+            raise ValueError(message)
+
+        if not hop_length:
+            message = '{name}: Specify hop_length parameter for frame splitting.'.format(
+                name=self.__class__.__name__
+            )
+            self.logger.exception(message)
+            raise ValueError(message)
+
+        if self.channels == 1:
+            return librosa.util.frame(
+                y=self.get_focused(),
+                frame_length=frame_length,
+                hop_length=hop_length
+            )
+
+        else:
+            data = []
+            for channel_id, channel_data in enumerate(self.get_focused()):
+                data.append(
+                    librosa.util.frame(
+                        y=channel_data,
+                        frame_length=frame_length,
+                        hop_length=hop_length
+                    )
+                )
+            return numpy.array(data)
+
+    def segments(self,
+                 segment_length=None, segment_length_seconds=None,
+                 segments=None,
+                 skip_segments=None):
+        """Slice audio into segments.
+
+        Parameters
+        ----------
+        segment_length : int, optional
+            Segment length in samples. Set either segment_length or segment_length_seconds. Used to produce
+            consecutive non-overlapping segments.
+            Default value None
+
+        segment_length_seconds : float, optional
+            Segment length in seconds, converted into samples based on sampling rate. Used to produce consecutive
+            non-overlapping segments.
+            Set either segment_length or segment_length_seconds.
+            Default value None
+
+        segments : list of dict or MetaDataContainer, optional
+            List of time segments (onset and offset). If none given, segment length is used to produce consecutive
+            non-overlapping segments.
+            Default value None
+
+        skip_segments : list of dict or MetaDataContainer, optional
+            List of time segments (onset and offset) to be skipped when creating segments.
+            Only used when segment_length or segment_length_seconds are given and segments are generated
+            within this method.
+            Default value None
+
+        Raises
+        ------
+        ValueError:
+            No segments and no segment_length given.
+
+        Returns
+        -------
+        list, MetaDataContainer
+
+        """
+        from dcase_util.containers import MetaDataContainer
+
+        if not segment_length and segment_length_seconds:
+            # Get segment_length from segment_length_seconds
+            segment_length = int(self.fs * segment_length_seconds)
+
+        if segments is None and segment_length is not None:
+            if skip_segments is not None:
+                # Make sure skip segments is MetaDataContainer
+                skip_segments = MetaDataContainer(skip_segments)
+
+            # No segments given, get segments based on segment_length
+            segment_start = 0
+            segments = MetaDataContainer()
+            while True:
+                # Segment stop
+                segment_stop = segment_start + segment_length
+                if skip_segments is not None:
+                    # Go through skip segments and adjust segment start and stop to avoid segments
+                    for item in skip_segments:
+                        if item.active_within_segment(
+                                start=segment_start/float(self.fs),
+                                stop=segment_stop/float(self.fs)
+                        ):
+                            # Adjust segment start to avoid current skip segment
+                            segment_start = int(self.fs * item.offset)
+                            # Adjust segment stop accordingly
+                            segment_stop = segment_start + segment_length
+
+                if segment_stop < self.length:
+                    # Valid segment found, store it
+                    segments.append(
+                        {
+                            'onset': segment_start/float(self.fs),
+                            'offset': segment_stop/float(self.fs),
+                        }
+                    )
+
+                # Set next segment start
+                segment_start = segment_stop
+
+                # Stop loop if segment_start is out of signal
+                if segment_start > self.length:
+                    break
+
+        elif segments is not None:
+            # Make sure segments is MetadataContainer
+            segments = MetaDataContainer(segments)
+
+        else:
+            message = '{name}: Specify segments parameter or segment_length for segment creation.'.format(
+                name=self.__class__.__name__
+            )
+            self.logger.exception(message)
+            raise ValueError(message)
+
+        # Get audio segments
+        data = []
+        for segment in segments:
+            segment_start_samples = int(self.fs * segment.onset)
+            segment_stop_samples = int(self.fs * segment.offset)
+            if self.channels > 1:
+                data.append(
+                    self._data[:, segment_start_samples:segment_stop_samples]
+                )
+
+            else:
+                data.append(
+                    self._data[segment_start_samples:segment_stop_samples]
+                )
+
+        return data, segments
+
+    def pad(self, type='silence', length=None, length_seconds=None):
+        """Generate signal
+
+        Parameters
+        ----------
+        type : str
+            Default value 'silence'
+
+        length : int, optional
+            Default value None
+
+        length_seconds : float, optional
+            Default value None
+
+        Returns
+        -------
+        list, MetaDataContainer
+
+        """
+
+        if not length and length_seconds is not None:
+            # Get length from length_seconds
+            length = int(self.fs * length_seconds)
+
+        if self.length < length:
+            if type=='silence':
+                if len(self.data.shape) == 1:
+                    self._data = numpy.pad(
+                        array=self._data,
+                        pad_width=(0,length-self.length),
+                        mode='constant'
+                    )
+
+        return self
+
+    def plot(self, plot_type='wave', **kwargs):
         """Visualize audio data
 
         Parameters
@@ -1093,11 +1572,13 @@ class AudioContainer(ContainerMixin, FileMixin):
         """
 
         if plot_type == 'wave':
-            self.plot_wave()
-        elif plot_type == 'spec':
-            self.plot_spec()
+            self.plot_wave(**kwargs)
 
-    def plot_wave(self, x_axis='time', max_points=50000.0, offset=0.0, color='#333333', alpha=1.0):
+        elif plot_type == 'spec':
+            self.plot_spec(**kwargs)
+
+    def plot_wave(self, x_axis='time', max_points=50000.0, offset=0.0, color='#333333', alpha=1.0,
+                  show_filename=True, plot=True):
         """Visualize audio data as waveform.
 
         Parameters
@@ -1105,18 +1586,32 @@ class AudioContainer(ContainerMixin, FileMixin):
 
         x_axis : str
             X-axis type
+            Default value 'time'
 
         max_points : float
             Maximum number of time-points to plot (see `librosa.display.waveplot`).
+            Default value 50000
 
         offset : float
             Horizontal offset (in time) to start the waveform plot (see `librosa.display.waveplot`).
+            Default value 0.0
 
         color : str
             Waveform fill color in hex-code.
+            Default value '#333333'
 
         alpha : float
             Alpha of the waveform fill color.
+            Default value 1.0
+
+        show_filename : bool
+            Show filename as figure title
+            Default value True
+
+        plot : bool
+            If true, figure is shown automatically. Set to False if collecting multiple plots into same figure
+            outside this method.
+            Default value True
 
         Returns
         -------
@@ -1126,12 +1621,40 @@ class AudioContainer(ContainerMixin, FileMixin):
 
         import matplotlib.pyplot as plt
         from librosa.display import waveplot
-        plt.figure()
-        for channel_id, channel_data in enumerate(self.get_focused()):
-            plt.subplot(self.channels, 1, channel_id + 1)
+        if plot:
+            plt.figure()
 
+        if self.channels > 1:
+            # Plotting for multi-channel audio
+            for channel_id, channel_data in enumerate(self.get_focused()):
+                plt.subplot(self.channels, 1, channel_id + 1)
+                if channel_id + 1 != self.channels:
+                    current_x_axis = None
+                else:
+                    current_x_axis = x_axis
+
+                waveplot(
+                    y=channel_data.ravel(),
+                    sr=self.fs,
+                    x_axis=current_x_axis,
+                    max_points=max_points,
+                    offset=offset,
+                    color=color,
+                    alpha=alpha
+                )
+
+                plt.ylabel('Channel {channel:d}'.format(channel=channel_id))
+                if channel_id == 0 and show_filename:
+                    if self.filename:
+                        plt.title(self.filename)
+
+                if channel_id+1 != self.channels:
+                    plt.xlabel('')
+
+        else:
+            # Plotting for single channel audio
             waveplot(
-                y=channel_data.ravel(),
+                y=self.get_focused().ravel(),
                 sr=self.fs,
                 x_axis=x_axis,
                 max_points=max_points,
@@ -1140,16 +1663,18 @@ class AudioContainer(ContainerMixin, FileMixin):
                 alpha=alpha
             )
 
-            plt.ylabel('Channel {channel:d}'.format(channel=channel_id))
-            if channel_id == 0:
-                if self.filename:
-                    plt.title(self.filename)
+            plt.ylabel('Channel {channel:d}'.format(channel=0))
 
-        plt.show()
+            if self.filename and show_filename:
+                plt.title(self.filename)
+
+        if plot:
+            plt.show()
 
         return self
 
-    def plot_spec(self, spec_type='log', hop_length=512, cmap='magma'):
+    def plot_spec(self, spec_type='log', hop_length=512, cmap='magma',
+                  show_filename=True, show_colorbar=True, plot=True):
         """Visualize audio data as spectrogram.
 
         Parameters
@@ -1157,12 +1682,28 @@ class AudioContainer(ContainerMixin, FileMixin):
 
         spec_type : str
             Spectrogram type, use 'linear', 'log', 'cqt', 'cqt_hz', and 'cqt_note'.
+            Default value 'log'
 
         hop_length : float
             Hop length, also used to determine time scale in x-axis (see `librosa.display.specshow`).
+            Default value 512
 
         cmap : float
             Color map (see `librosa.display.specshow`).
+            Default value 'magma'
+
+        show_filename : bool
+            Show filename as figure title
+            Default value True
+
+        show_colorbar : bool
+            Show color bar next to plot
+            Default value True
+
+        plot : bool
+            If true, figure is shown automatically. Set to False if collecting multiple plots into same
+            figure outside this method.
+            Default value True
 
         Returns
         -------
@@ -1173,14 +1714,80 @@ class AudioContainer(ContainerMixin, FileMixin):
         from librosa.display import specshow
         import matplotlib.pyplot as plt
 
-        plt.figure()
-        for channel_id, channel_data in enumerate(self.get_focused()):
-            plt.subplot(self.channels, 1, channel_id+1)
+        if plot:
+            plt.figure()
+
+        if self.channels > 1:
+            for channel_id, channel_data in enumerate(self.get_focused()):
+                plt.subplot(self.channels, 1, channel_id+1)
+
+                if spec_type in ['linear', 'log']:
+                    D = librosa.core.amplitude_to_db(numpy.abs(librosa.stft(channel_data.ravel())) ** 2, ref=numpy.max)
+
+                elif spec_type.startswith('cqt'):
+                    D = librosa.core.amplitude_to_db(librosa.cqt(channel_data.ravel(), sr=self.fs), ref=numpy.max)
+
+                if spec_type == 'linear':
+                    specshow(
+                        data=D,
+                        sr=self.fs,
+                        y_axis='linear',
+                        x_axis='time',
+                        hop_length=hop_length,
+                        cmap=cmap
+                    )
+
+                elif spec_type == 'log':
+                    specshow(
+                        data=D,
+                        sr=self.fs,
+                        y_axis='log',
+                        x_axis='time',
+                        hop_length=hop_length,
+                        cmap=cmap
+                    )
+
+                elif spec_type == 'cqt_hz' or 'cqt':
+                    specshow(
+                        data=D,
+                        sr=self.fs,
+                        y_axis='cqt_hz',
+                        x_axis='time',
+                        hop_length=hop_length,
+                        cmap=cmap
+                    )
+
+                elif spec_type == 'cqt_note':
+                    specshow(
+                        data=D,
+                        sr=self.fs,
+                        y_axis='cqt_note',
+                        x_axis='time',
+                        hop_length=hop_length,
+                        cmap=cmap
+                    )
+
+                if show_colorbar:
+                    plt.colorbar(format='%+2.0f dB')
+
+                plt.ylabel('Channel {channel:d}'.format(channel=channel_id))
+                if channel_id == 0 and self.filename:
+                    plt.title(self.filename)
+
+        else:
+            channel_id = 0
 
             if spec_type in ['linear', 'log']:
-                D = librosa.logamplitude(numpy.abs(librosa.stft(channel_data.ravel())) ** 2, ref_power=numpy.max)
+                D = librosa.core.amplitude_to_db(
+                    numpy.abs(librosa.stft(self.get_focused().ravel())) ** 2,
+                    ref=numpy.max
+                )
+
             elif spec_type.startswith('cqt'):
-                D = librosa.amplitude_to_db(librosa.cqt(channel_data.ravel(), sr=self.fs), ref=numpy.max)
+                D = librosa.core.amplitude_to_db(
+                    librosa.cqt(self.get_focused().ravel(), sr=self.fs),
+                    ref=numpy.max
+                )
 
             if spec_type == 'linear':
                 specshow(
@@ -1222,12 +1829,15 @@ class AudioContainer(ContainerMixin, FileMixin):
                     cmap=cmap
                 )
 
-            plt.colorbar(format='%+2.0f dB')
+            if show_colorbar:
+                plt.colorbar(format='%+2.0f dB')
+
             plt.ylabel('Channel {channel:d}'.format(channel=channel_id))
-            if channel_id == 0 and self.filename:
+            if show_filename and channel_id == 0:
                 plt.title(self.filename)
 
-        plt.show()
+        if plot:
+            plt.show()
 
     def _time_to_sample(self, time):
         """Time to sample index.
@@ -1260,3 +1870,4 @@ class AudioContainer(ContainerMixin, FileMixin):
         """
 
         return sample / float(self.fs)
+

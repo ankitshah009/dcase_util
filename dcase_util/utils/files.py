@@ -8,6 +8,8 @@ import os
 import argparse
 import itertools
 import platform
+import logging
+from dcase_util.utils import setup_logging
 
 
 def argument_file_exists(filename):
@@ -85,12 +87,20 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
 
         """
 
         self.path = path
         self.path = self.posix()
+
+    @property
+    def logger(self):
+        """Logger instance"""
+        logger = logging.getLogger(__name__)
+        if not logger.handlers:
+            setup_logging()
+        return logger
 
     def posix(self, path=None):
         """Converts path to POSIX format
@@ -99,7 +109,7 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
 
         Returns
         -------
@@ -112,6 +122,7 @@ class Path(object):
 
         if path is not None:
             return os.path.normpath(path).replace('\\', '/')
+
         else:
             return None
 
@@ -122,7 +133,7 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
 
         Returns
         -------
@@ -144,25 +155,31 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
+
         recursive : bool
             Do recursive search to sub-directories
-            Default value "True"
+            Default value True
+
         extensions : str or list
             List valid file extensions or comma-separated string.
-            Default value "None"
+            Default value None
+
         case_sensitive : bool
             Use case sensitive file extension matching.
-            Default value "False"
+            Default value False
+
         absolute_paths : bool
             Return absolute paths instead of relative ones.
-            Default value "False"
+            Default value False
+
         offset : int
             Offset of files to be included.
-            Default value "0"
+            Default value 0
+
         limit : int
             Amount of files to be included.
-            Default value "None"
+            Default value None
 
         Returns
         -------
@@ -234,7 +251,7 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
 
         Returns
         -------
@@ -254,7 +271,7 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
 
         Returns
         -------
@@ -278,7 +295,7 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
 
         Returns
         -------
@@ -302,10 +319,11 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
+
         show_bytes : bool
             Show exact byte count
-            Default value "False"
+            Default value False
 
         Returns
         -------
@@ -324,7 +342,7 @@ class Path(object):
         ----------
         path : str
             Path, if none given one given to class constructor is used.
-            Default value "None"
+            Default value None
 
         Returns
         -------
@@ -341,19 +359,23 @@ class Path(object):
             except OSError as exception:
                 pass
 
-    def create(self, paths):
+    def create(self, paths=None):
         """Create given paths.
 
         Parameters
         ----------
         paths : str, dict or list or str
-            Paths
+            Paths. If None given, path given to initializer is used instead.
+            Default value None
 
         Returns
         -------
         nothing
 
         """
+
+        if paths is None:
+            paths = self.path
 
         if isinstance(paths, str):
             self.makedirs(paths)
@@ -366,6 +388,60 @@ class Path(object):
             for value in paths:
                 self.makedirs(value)
 
+        else:
+            message = '{name}: Unknown data type for paths.'.format(name=self.__class__.__name__)
+            self.logger.exception(message)
+            raise ValueError(message)
+
+    def modify(self, path=None, path_base=None, filename_extension=None, filename_prefix=None, filename_postfix=None):
+        """Modify path
+        Parameters
+        ----------
+        path : str
+            Path, if none given one given to class constructor is used.
+            Default value None
+        path_base : str
+            Replacement path base, e.g. path base for "/test/audio/audio.wav" is "/test/audio".
+            Default value None
+
+        filename_extension : str
+            Replacement file extension
+            Default value None
+
+        filename_prefix : str
+            Prefix to be added to the filename body
+            Default value None
+
+        filename_postfix : str
+            Postfix to be added to the filename body
+            Default value None
+
+        Returns
+        -------
+        str
+
+        """
+
+        if path is None:
+            path = self.path
+
+        current_path_base, current_last_level_path = os.path.split(path)
+        current_filename_base, current_extension = os.path.splitext(current_last_level_path)
+
+        if path_base:
+            current_path_base = path_base
+
+        if filename_extension:
+            current_extension = filename_extension
+
+        if filename_prefix:
+            current_filename_base = filename_prefix + current_filename_base
+
+        if filename_postfix:
+            current_filename_base = current_filename_base + filename_postfix
+
+        return os.path.join(current_path_base, current_filename_base+current_extension)
+
 
 class ApplicationPaths(Path):
     """Utility class for application paths, paths are automatically generated based on parameters through parameter hash."""
@@ -376,7 +452,7 @@ class ApplicationPaths(Path):
         ----------
         parameter_container : ParameterContainer
             Application parameter container
-            Default value "None"
+            Default value None
 
         """
 
@@ -389,6 +465,7 @@ class ApplicationPaths(Path):
         ----------
         path_base : str
             Path base, this is used as base of all paths
+
         structure : dict
             Dictionary where key is path name, and value is list of parameter paths
 
@@ -444,6 +521,7 @@ class ApplicationPaths(Path):
         ----------
         prefix : str
             Prefix
+
         param_hash : str
             Parameter hash
 
@@ -467,8 +545,10 @@ class ApplicationPaths(Path):
         ----------
         path_base : str
             Base path
+
         structure : dict
             Dictionary where key is path name, and value is list of parameter paths
+
         parameter_filename : str
             Default value "parameters.yaml"
 
@@ -562,16 +642,21 @@ class ApplicationPaths(Path):
                 path_parts = list(itertools.product(path_parts[0], path_parts[1], path_parts[2], path_parts[3],
                                                     path_parts[4], path_parts[5], path_parts[6], path_parts[7]))
 
-        out_path = []
-        for l in path_parts:
-            out_path.append(os.path.join(*l))
+            out_path = []
+            for l in path_parts:
+                out_path.append(os.path.join(*l))
 
-        return out_path
+            return out_path
+
+        else:
+            return path_parts
 
 
 class FileFormat(object):
     YAML = 'YAML'  #: YAML file
     CPICKLE = 'CPICKLE'  #: pickled Python object
+    NUMPY = 'NPY'  #: Numpy data object
+    NUMPYZ = 'NPZ'  #: Numpy zip data object
     XML = 'XML'  #: Extensible Markup Language (XML) file
     JSON = 'JSON'  #: JavaScript Object Notation (JSON) file
     MARSHAL = 'MARSHAL'  #: Marshal Data Migration Model File
@@ -579,6 +664,7 @@ class FileFormat(object):
     TXT = 'TXT'  #: TXT file
     CSV = 'CSV'  #: Comma-separated values (CSV) file
     ANN = 'ANN'  #: Annotation file
+    META = 'META' #: Annotation file
 
     WAV = 'WAV'  #: Audio file, Waveform Audio File Format (WAVE) file
     FLAC = 'FLAC'  #: Audio file, Free Lossless Audio Codec (FLAC) file
@@ -649,6 +735,12 @@ class FileFormat(object):
         elif extension in ['.cpickle', '.pickle', '.pkl']:
             return cls.CPICKLE
 
+        elif extension == '.npy':
+            return cls.NUMPY
+
+        elif extension == '.npz':
+            return cls.NUMPYZ
+
         elif extension == '.marshal':
             return cls.MARSHAL
 
@@ -663,6 +755,9 @@ class FileFormat(object):
 
         elif extension == '.ann':
             return cls.ANN
+
+        elif extension == '.meta':
+            return cls.META
 
         elif extension == '.wav':
             return cls.WAV
@@ -941,9 +1036,10 @@ class FileFormat(object):
         ----------
         filename : str
             Path to the file
+
         use_content_for_unknown : bool
-            Use content to get the format if file exists.
-            Default value "True"
+            Use file content to detect the file format if file exists.
+            Default value True
 
         Returns
         -------
@@ -963,3 +1059,20 @@ class FileFormat(object):
                     return result2
 
         return result1
+
+    @classmethod
+    def validate_label(cls, label):
+        """Validate file format label against labels known by this class
+
+        Parameters
+        ----------
+        label : str
+            file format label
+
+        Returns
+        -------
+        bool
+
+        """
+
+        return label in list(cls.__dict__.keys())

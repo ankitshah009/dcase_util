@@ -38,6 +38,7 @@ Usage examples:
     Dataset.initialize
     Dataset.download_packages
     Dataset.extract_packages
+    Dataset.debug_packages
     Dataset.prepare
     Dataset.process_meta_item
 
@@ -91,7 +92,7 @@ Usage examples:
     Dataset.file_features
 
     Dataset.relative_to_absolute_path
-    Dataset.absolute_to_relative
+    Dataset.absolute_to_relative_path
 
     Dataset.dataset_bytes
     Dataset.dataset_size_string
@@ -117,6 +118,9 @@ Specialized classes inherited AcousticSceneDataset:
     TUTAcousticScenes_2017_EvaluationSet
     TUTAcousticScenes_2016_DevelopmentSet
     TUTAcousticScenes_2016_EvaluationSet
+    TUTUrbanAcousticScenes_2018_DevelopmentSet
+    TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet
+    DCASE2018_Task5_DevelopmentSet
 
 SoundEventDataset
 -----------------
@@ -164,6 +168,7 @@ from .datasets import *
 from .dcase2013 import *
 from .dcase2016 import *
 from .dcase2017 import *
+from .dcase2018 import *
 from .tut import *
 
 __all__ = [_ for _ in dir() if not _.startswith('_')]

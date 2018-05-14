@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -48,6 +50,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +87,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#pypi">PyPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#source">Source</a></li>
@@ -118,6 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#creating-container">Creating container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#loading-and-saving">Loading and Saving</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#focus-segment">Focus segment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#frames-and-segments">Frames and Segments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#processing">Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial_audio.html#visualizations">Visualizations</a></li>
 </ul>
@@ -141,6 +148,8 @@
 <li class="toctree-l3"><a class="reference internal" href="tutorial_data.html#event-roll">Event roll</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_data.html#probability-encoding">Probability encoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_data.html#decision-encoding">Decision encoding</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_metadata.html">Metadata</a><ul>
@@ -366,6 +375,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.set_focus.html">dcase_util.containers.AudioContainer.set_focus</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.get_focused.html">dcase_util.containers.AudioContainer.get_focused</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.freeze.html">dcase_util.containers.AudioContainer.freeze</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.frames.html">dcase_util.containers.AudioContainer.frames</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.normalize.html">dcase_util.containers.AudioContainer.normalize</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.resample.html">dcase_util.containers.AudioContainer.resample</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AudioContainer.mixdown.html">dcase_util.containers.AudioContainer.mixdown</a></li>
@@ -415,6 +425,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataItem.offset.html">dcase_util.containers.MetaDataItem.offset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataItem.identifier.html">dcase_util.containers.MetaDataItem.identifier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataItem.source_label.html">dcase_util.containers.MetaDataItem.source_label</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataItem.set_label.html">dcase_util.containers.MetaDataItem.set_label</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataItem.tags.html">dcase_util.containers.MetaDataItem.tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataItem.active_within_segment.html">dcase_util.containers.MetaDataItem.active_within_segment</a></li>
 </ul>
@@ -432,6 +443,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.event_count.html">dcase_util.containers.MetaDataContainer.event_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.scene_label_count.html">dcase_util.containers.MetaDataContainer.scene_label_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.event_label_count.html">dcase_util.containers.MetaDataContainer.event_label_count</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.identifier_count.html">dcase_util.containers.MetaDataContainer.identifier_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.tag_count.html">dcase_util.containers.MetaDataContainer.tag_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.unique_files.html">dcase_util.containers.MetaDataContainer.unique_files</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.unique_event_labels.html">dcase_util.containers.MetaDataContainer.unique_event_labels</a></li>
@@ -449,6 +461,9 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.event_stat_counts.html">dcase_util.containers.MetaDataContainer.event_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.tag_stat_counts.html">dcase_util.containers.MetaDataContainer.tag_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.to_event_roll.html">dcase_util.containers.MetaDataContainer.to_event_roll</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.intersection.html">dcase_util.containers.MetaDataContainer.intersection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.intersection_report.html">dcase_util.containers.MetaDataContainer.intersection_report</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.MetaDataContainer.difference.html">dcase_util.containers.MetaDataContainer.difference</a></li>
 </ul>
 </li>
 </ul>
@@ -462,9 +477,15 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.html">dcase_util.containers.AppParameterContainer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.reset.html">dcase_util.containers.AppParameterContainer.reset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.process.html">dcase_util.containers.AppParameterContainer.process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.process_set.html">dcase_util.containers.AppParameterContainer.process_set</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.override.html">dcase_util.containers.AppParameterContainer.override</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.get_path_translated.html">dcase_util.containers.AppParameterContainer.get_path_translated</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.set_path_translated.html">dcase_util.containers.AppParameterContainer.set_path_translated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.update_parameter_set.html">dcase_util.containers.AppParameterContainer.update_parameter_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.set_ids.html">dcase_util.containers.AppParameterContainer.set_ids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.set_id_exists.html">dcase_util.containers.AppParameterContainer.set_id_exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.active_set.html">dcase_util.containers.AppParameterContainer.active_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.containers.AppParameterContainer.get_set.html">dcase_util.containers.AppParameterContainer.get_set</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="containers.html#dcaseappparametercontainer">DCASEAppParameterContainer</a><ul>
@@ -660,6 +681,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.load.html">dcase_util.data.DecisionEncoder.load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.save.html">dcase_util.data.DecisionEncoder.save</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.majority_vote.html">dcase_util.data.DecisionEncoder.majority_vote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.many_hot.html">dcase_util.data.DecisionEncoder.many_hot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.find_contiguous_regions.html">dcase_util.data.DecisionEncoder.find_contiguous_regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.data.DecisionEncoder.process_activity.html">dcase_util.data.DecisionEncoder.process_activity</a></li>
 </ul>
@@ -674,6 +696,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.initialize.html">dcase_util.datasets.Dataset.initialize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.download_packages.html">dcase_util.datasets.Dataset.download_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.extract_packages.html">dcase_util.datasets.Dataset.extract_packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.debug_packages.html">dcase_util.datasets.Dataset.debug_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.prepare.html">dcase_util.datasets.Dataset.prepare</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.process_meta_item.html">dcase_util.datasets.Dataset.process_meta_item</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.check_filelist.html">dcase_util.datasets.Dataset.check_filelist</a></li>
@@ -711,7 +734,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_error_meta.html">dcase_util.datasets.Dataset.file_error_meta</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_features.html">dcase_util.datasets.Dataset.file_features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.relative_to_absolute_path.html">dcase_util.datasets.Dataset.relative_to_absolute_path</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.absolute_to_relative.html">dcase_util.datasets.Dataset.absolute_to_relative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.absolute_to_relative_path.html">dcase_util.datasets.Dataset.absolute_to_relative_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_bytes.html">dcase_util.datasets.Dataset.dataset_bytes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_string.html">dcase_util.datasets.Dataset.dataset_size_string</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_on_disk.html">dcase_util.datasets.Dataset.dataset_size_on_disk</a></li>
@@ -723,6 +746,9 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.TUTAcousticScenes_2017_EvaluationSet.html">dcase_util.datasets.TUTAcousticScenes_2017_EvaluationSet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.TUTAcousticScenes_2016_DevelopmentSet.html">dcase_util.datasets.TUTAcousticScenes_2016_DevelopmentSet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet.html">dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet.html">dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet.html">dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.datasets.DCASE2018_Task5_DevelopmentSet.html">dcase_util.datasets.DCASE2018_Task5_DevelopmentSet</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#soundeventdataset">SoundEventDataset</a><ul>
@@ -763,6 +789,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="features.html#spectralfeatureextractor">SpectralFeatureExtractor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.html">dcase_util.features.SpectralFeatureExtractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.extract.html">dcase_util.features.SpectralFeatureExtractor.extract</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.get_window_function.html">dcase_util.features.SpectralFeatureExtractor.get_window_function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.features.SpectralFeatureExtractor.get_spectrogram.html">dcase_util.features.SpectralFeatureExtractor.get_spectrogram</a></li>
 </ul>
@@ -816,6 +843,15 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.File.empty.html">dcase_util.files.File.empty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.File.delimiter.html">dcase_util.files.File.delimiter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.File.is_package.html">dcase_util.files.File.is_package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="files.html#package">Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.html">dcase_util.files.Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.extract.html">dcase_util.files.Package.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.compress.html">dcase_util.files.Package.compress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.detect_file_format.html">dcase_util.files.Package.detect_file_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.validate_format.html">dcase_util.files.Package.validate_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.files.Package.exists.html">dcase_util.files.Package.exists</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="files.html#filelock">FileLock</a><ul>
@@ -912,6 +948,22 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="keras.html#data-processing">Data processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keras.html#kerasdatasequence">KerasDataSequence</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.keras.get_keras_data_sequence_class.html">dcase_util.keras.get_keras_data_sequence_class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="keras.html#data-collector">data_collector</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.keras.data_collector.html">dcase_util.keras.data_collector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keras.html#utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.keras.setup_keras.html">dcase_util.keras.setup_keras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.keras.create_optimizer.html">dcase_util.keras.create_optimizer</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="processors.html">Processors</a><ul>
@@ -926,10 +978,12 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.log_chain.html">dcase_util.processors.ProcessingChain.log_chain</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.push_processor.html">dcase_util.processors.ProcessingChain.push_processor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.process.html">dcase_util.processors.ProcessingChain.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.processor_exists.html">dcase_util.processors.ProcessingChain.processor_exists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.processor_class_reference.html">dcase_util.processors.ProcessingChain.processor_class_reference</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.processor_class.html">dcase_util.processors.ProcessingChain.processor_class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.chain_item_exists.html">dcase_util.processors.ProcessingChain.chain_item_exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.chain_item.html">dcase_util.processors.ProcessingChain.chain_item</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 </ul>
 </li>
 </ul>
@@ -953,9 +1007,19 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.AggregationProcessor.process.html">dcase_util.processors.AggregationProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositoryaggregationprocessor">RepositoryAggregationProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryAggregationProcessor.html">dcase_util.processors.RepositoryAggregationProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryAggregationProcessor.process.html">dcase_util.processors.RepositoryAggregationProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#sequencingprocessor">SequencingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.SequencingProcessor.html">dcase_util.processors.SequencingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.SequencingProcessor.process.html">dcase_util.processors.SequencingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositorysequencingprocessor">RepositorySequencingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositorySequencingProcessor.html">dcase_util.processors.RepositorySequencingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositorySequencingProcessor.process.html">dcase_util.processors.RepositorySequencingProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#normalizationprocessor">NormalizationProcessor</a><ul>
@@ -973,6 +1037,11 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.StackingProcessor.process.html">dcase_util.processors.StackingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositorymaskingprocessor">RepositoryMaskingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryMaskingProcessor.html">dcase_util.processors.RepositoryMaskingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryMaskingProcessor.process.html">dcase_util.processors.RepositoryMaskingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#onehotencodingprocessor">OneHotEncodingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.OneHotEncodingProcessor.html">dcase_util.processors.OneHotEncodingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.OneHotEncodingProcessor.process.html">dcase_util.processors.OneHotEncodingProcessor.process</a></li>
@@ -988,9 +1057,24 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.EventRollEncodingProcessor.process.html">dcase_util.processors.EventRollEncodingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#datashapingprocessor">DataShapingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.DataShapingProcessor.html">dcase_util.processors.DataShapingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.DataShapingProcessor.process.html">dcase_util.processors.DataShapingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#repositorytomatrixprocessor">RepositoryToMatrixProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryToMatrixProcessor.html">dcase_util.processors.RepositoryToMatrixProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryToMatrixProcessor.process.html">dcase_util.processors.RepositoryToMatrixProcessor.process</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="processors.html#features">Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#featurereadingprocessor">FeatureReadingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureReadingProcessor.html">dcase_util.processors.FeatureReadingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureReadingProcessor.process.html">dcase_util.processors.FeatureReadingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#repositoryfeatureextractorprocessor">RepositoryFeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
@@ -999,6 +1083,11 @@
 <li class="toctree-l3"><a class="reference internal" href="processors.html#featureextractorprocessor">FeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureExtractorProcessor.html">dcase_util.processors.FeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.FeatureExtractorProcessor.process.html">dcase_util.processors.FeatureExtractorProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#id2">RepositoryFeatureExtractorProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="processors.html#melextractorprocessor">MelExtractorProcessor</a><ul>
@@ -1046,12 +1135,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="processors.html#mixin">Mixin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="processors.html#processormixin">ProcessorMixin</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.html">dcase_util.processors.ProcessorMixin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.process.html">dcase_util.processors.ProcessorMixin.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.get_processing_chain_item.html">dcase_util.processors.ProcessorMixin.get_processing_chain_item</a></li>
-<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.ProcessorMixin.push_processing_chain_item.html">dcase_util.processors.ProcessorMixin.push_processing_chain_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processors.html#base-object">Base object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="processors.html#processor">Processor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.Processor.html">dcase_util.processors.Processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.Processor.process.html">dcase_util.processors.Processor.process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.processors.Processor.get_processing_chain_item.html">dcase_util.processors.Processor.get_processing_chain_item</a></li>
 </ul>
 </li>
 </ul>
@@ -1063,6 +1151,8 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.html">dcase_util.ui.FancyLogger</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.line.html">dcase_util.ui.FancyLogger.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.row.html">dcase_util.ui.FancyLogger.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.row_reset.html">dcase_util.ui.FancyLogger.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.row_sep.html">dcase_util.ui.FancyLogger.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.title.html">dcase_util.ui.FancyLogger.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.section_header.html">dcase_util.ui.FancyLogger.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyLogger.sub_header.html">dcase_util.ui.FancyLogger.sub_header</a></li>
@@ -1079,6 +1169,8 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.html">dcase_util.ui.FancyPrinter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.line.html">dcase_util.ui.FancyPrinter.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.row.html">dcase_util.ui.FancyPrinter.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.row_reset.html">dcase_util.ui.FancyPrinter.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.row_sep.html">dcase_util.ui.FancyPrinter.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.title.html">dcase_util.ui.FancyPrinter.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.section_header.html">dcase_util.ui.FancyPrinter.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyPrinter.sub_header.html">dcase_util.ui.FancyPrinter.sub_header</a></li>
@@ -1103,6 +1195,8 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.sep.html">dcase_util.ui.FancyStringifier.sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.table.html">dcase_util.ui.FancyStringifier.table</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.row.html">dcase_util.ui.FancyStringifier.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.row_reset.html">dcase_util.ui.FancyStringifier.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.row_sep.html">dcase_util.ui.FancyStringifier.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/dcase_util.ui.FancyStringifier.class_name.html">dcase_util.ui.FancyStringifier.class_name</a></li>
 </ul>
 </li>
@@ -1155,6 +1249,7 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.detect.html">dcase_util.utils.FileFormat.detect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.detect_based_on_filename.html">dcase_util.utils.FileFormat.detect_based_on_filename</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.detect_based_on_content.html">dcase_util.utils.FileFormat.detect_based_on_content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/dcase_util.utils.FileFormat.validate_label.html">dcase_util.utils.FileFormat.validate_label</a></li>
 </ul>
 </li>
 </ul>
@@ -1250,6 +1345,11 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-2-0">v0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-9">v0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-8">v0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-7">v0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-6">v0.1.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-5">v0.1.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-4">v0.1.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-1-0">v0.1.0</a></li>
@@ -1268,8 +1368,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">DCASE Utilities</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DCASE Utilities</a>
+        
       </nav>
 
 
@@ -1278,21 +1380,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Datasets</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Datasets</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -1349,127 +1468,130 @@
 <tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.extract_packages.html#dcase_util.datasets.Dataset.extract_packages" title="dcase_util.datasets.Dataset.extract_packages"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.extract_packages</span></code></a>()</td>
 <td>Extract the dataset packages</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.prepare.html#dcase_util.datasets.Dataset.prepare" title="dcase_util.datasets.Dataset.prepare"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.prepare</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.debug_packages.html#dcase_util.datasets.Dataset.debug_packages" title="dcase_util.datasets.Dataset.debug_packages"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.debug_packages</span></code></a>()</td>
+<td>Debug remote packages associated to the dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.prepare.html#dcase_util.datasets.Dataset.prepare" title="dcase_util.datasets.Dataset.prepare"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.prepare</span></code></a>()</td>
 <td>Prepare dataset for the usage.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.process_meta_item.html#dcase_util.datasets.Dataset.process_meta_item" title="dcase_util.datasets.Dataset.process_meta_item"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.process_meta_item</span></code></a>(item[,&nbsp;absolute_path])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.process_meta_item.html#dcase_util.datasets.Dataset.process_meta_item" title="dcase_util.datasets.Dataset.process_meta_item"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.process_meta_item</span></code></a>(item[,&nbsp;absolute_path])</td>
 <td>Process single meta data item</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.check_filelist.html#dcase_util.datasets.Dataset.check_filelist" title="dcase_util.datasets.Dataset.check_filelist"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.check_filelist</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.check_filelist.html#dcase_util.datasets.Dataset.check_filelist" title="dcase_util.datasets.Dataset.check_filelist"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.check_filelist</span></code></a>()</td>
 <td>Generates hash from file list and check does it matches with one saved in filelist.hash.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.show.html#dcase_util.datasets.Dataset.show" title="dcase_util.datasets.Dataset.show"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.show</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.show.html#dcase_util.datasets.Dataset.show" title="dcase_util.datasets.Dataset.show"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.show</span></code></a>()</td>
 <td>Print dataset information.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.log.html#dcase_util.datasets.Dataset.log" title="dcase_util.datasets.Dataset.log"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.log</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.log.html#dcase_util.datasets.Dataset.log" title="dcase_util.datasets.Dataset.log"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.log</span></code></a>()</td>
 <td>Log dataset information.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.load.html#dcase_util.datasets.Dataset.load" title="dcase_util.datasets.Dataset.load"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.load</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.load.html#dcase_util.datasets.Dataset.load" title="dcase_util.datasets.Dataset.load"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.load</span></code></a>()</td>
 <td>Load dataset meta data and cross-validation sets into the container.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.load_meta.html#dcase_util.datasets.Dataset.load_meta" title="dcase_util.datasets.Dataset.load_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.load_meta</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.load_meta.html#dcase_util.datasets.Dataset.load_meta" title="dcase_util.datasets.Dataset.load_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.load_meta</span></code></a>()</td>
 <td>Load meta data into the container.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.load_crossvalidation_data.html#dcase_util.datasets.Dataset.load_crossvalidation_data" title="dcase_util.datasets.Dataset.load_crossvalidation_data"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.load_crossvalidation_data</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.load_crossvalidation_data.html#dcase_util.datasets.Dataset.load_crossvalidation_data" title="dcase_util.datasets.Dataset.load_crossvalidation_data"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.load_crossvalidation_data</span></code></a>()</td>
 <td>Load cross-validation into the container.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.audio_files.html#dcase_util.datasets.Dataset.audio_files" title="dcase_util.datasets.Dataset.audio_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.audio_files</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.audio_files.html#dcase_util.datasets.Dataset.audio_files" title="dcase_util.datasets.Dataset.audio_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.audio_files</span></code></a></td>
 <td>Get all audio files in the dataset</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.audio_file_count.html#dcase_util.datasets.Dataset.audio_file_count" title="dcase_util.datasets.Dataset.audio_file_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.audio_file_count</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.audio_file_count.html#dcase_util.datasets.Dataset.audio_file_count" title="dcase_util.datasets.Dataset.audio_file_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.audio_file_count</span></code></a></td>
 <td>Get number of audio files in dataset</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.meta.html#dcase_util.datasets.Dataset.meta" title="dcase_util.datasets.Dataset.meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.meta</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.meta.html#dcase_util.datasets.Dataset.meta" title="dcase_util.datasets.Dataset.meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.meta</span></code></a></td>
 <td>Get meta data for dataset.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.meta_count.html#dcase_util.datasets.Dataset.meta_count" title="dcase_util.datasets.Dataset.meta_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.meta_count</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.meta_count.html#dcase_util.datasets.Dataset.meta_count" title="dcase_util.datasets.Dataset.meta_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.meta_count</span></code></a></td>
 <td>Number of meta data items.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.error_meta.html#dcase_util.datasets.Dataset.error_meta" title="dcase_util.datasets.Dataset.error_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.error_meta</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.error_meta.html#dcase_util.datasets.Dataset.error_meta" title="dcase_util.datasets.Dataset.error_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.error_meta</span></code></a></td>
 <td>Get audio error meta data for dataset.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.error_meta_count.html#dcase_util.datasets.Dataset.error_meta_count" title="dcase_util.datasets.Dataset.error_meta_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.error_meta_count</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.error_meta_count.html#dcase_util.datasets.Dataset.error_meta_count" title="dcase_util.datasets.Dataset.error_meta_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.error_meta_count</span></code></a></td>
 <td>Number of error meta data items.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.folds.html#dcase_util.datasets.Dataset.folds" title="dcase_util.datasets.Dataset.folds"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.folds</span></code></a>([mode])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.folds.html#dcase_util.datasets.Dataset.folds" title="dcase_util.datasets.Dataset.folds"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.folds</span></code></a>([mode])</td>
 <td>List of fold ids</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.fold_count.html#dcase_util.datasets.Dataset.fold_count" title="dcase_util.datasets.Dataset.fold_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.fold_count</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.fold_count.html#dcase_util.datasets.Dataset.fold_count" title="dcase_util.datasets.Dataset.fold_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.fold_count</span></code></a></td>
 <td>Number of fold in the evaluation setup.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.evaluation_setup_filename.html#dcase_util.datasets.Dataset.evaluation_setup_filename" title="dcase_util.datasets.Dataset.evaluation_setup_filename"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.evaluation_setup_filename</span></code></a>([...])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.evaluation_setup_filename.html#dcase_util.datasets.Dataset.evaluation_setup_filename" title="dcase_util.datasets.Dataset.evaluation_setup_filename"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.evaluation_setup_filename</span></code></a>([...])</td>
 <td>Evaluation setup filename generation.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.train.html#dcase_util.datasets.Dataset.train" title="dcase_util.datasets.Dataset.train"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.train</span></code></a>([fold])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.train.html#dcase_util.datasets.Dataset.train" title="dcase_util.datasets.Dataset.train"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.train</span></code></a>([fold,&nbsp;absolute_paths])</td>
 <td>List of training items.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.test.html#dcase_util.datasets.Dataset.test" title="dcase_util.datasets.Dataset.test"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.test</span></code></a>([fold])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.test.html#dcase_util.datasets.Dataset.test" title="dcase_util.datasets.Dataset.test"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.test</span></code></a>([fold,&nbsp;absolute_paths])</td>
 <td>List of testing items.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.eval.html#dcase_util.datasets.Dataset.eval" title="dcase_util.datasets.Dataset.eval"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.eval</span></code></a>([fold])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.eval.html#dcase_util.datasets.Dataset.eval" title="dcase_util.datasets.Dataset.eval"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.eval</span></code></a>([fold,&nbsp;absolute_paths])</td>
 <td>List of evaluation items.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.train_files.html#dcase_util.datasets.Dataset.train_files" title="dcase_util.datasets.Dataset.train_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.train_files</span></code></a>([fold])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.train_files.html#dcase_util.datasets.Dataset.train_files" title="dcase_util.datasets.Dataset.train_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.train_files</span></code></a>([fold,&nbsp;absolute_paths])</td>
 <td>List of training files.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.test_files.html#dcase_util.datasets.Dataset.test_files" title="dcase_util.datasets.Dataset.test_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.test_files</span></code></a>([fold])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.test_files.html#dcase_util.datasets.Dataset.test_files" title="dcase_util.datasets.Dataset.test_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.test_files</span></code></a>([fold,&nbsp;absolute_paths])</td>
 <td>List of testing files.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.eval_files.html#dcase_util.datasets.Dataset.eval_files" title="dcase_util.datasets.Dataset.eval_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.eval_files</span></code></a>([fold])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.eval_files.html#dcase_util.datasets.Dataset.eval_files" title="dcase_util.datasets.Dataset.eval_files"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.eval_files</span></code></a>([fold,&nbsp;absolute_paths])</td>
 <td>List of evaluation files.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_split.html#dcase_util.datasets.Dataset.validation_split" title="dcase_util.datasets.Dataset.validation_split"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_split</span></code></a>([fold,&nbsp;split_type,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_split.html#dcase_util.datasets.Dataset.validation_split" title="dcase_util.datasets.Dataset.validation_split"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_split</span></code></a>([fold,&nbsp;...])</td>
 <td>List of validation files.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_files_dataset.html#dcase_util.datasets.Dataset.validation_files_dataset" title="dcase_util.datasets.Dataset.validation_files_dataset"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_files_dataset</span></code></a>([fold,&nbsp;verbose])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_files_dataset.html#dcase_util.datasets.Dataset.validation_files_dataset" title="dcase_util.datasets.Dataset.validation_files_dataset"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_files_dataset</span></code></a>([fold,&nbsp;verbose])</td>
 <td>List of validation files delivered by the dataset.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_files_random.html#dcase_util.datasets.Dataset.validation_files_random" title="dcase_util.datasets.Dataset.validation_files_random"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_files_random</span></code></a>([fold,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_files_random.html#dcase_util.datasets.Dataset.validation_files_random" title="dcase_util.datasets.Dataset.validation_files_random"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_files_random</span></code></a>([fold,&nbsp;...])</td>
 <td>List of validation files selected randomly from the training material.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_files_balanced.html#dcase_util.datasets.Dataset.validation_files_balanced" title="dcase_util.datasets.Dataset.validation_files_balanced"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_files_balanced</span></code></a>([fold,&nbsp;...])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.validation_files_balanced.html#dcase_util.datasets.Dataset.validation_files_balanced" title="dcase_util.datasets.Dataset.validation_files_balanced"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.validation_files_balanced</span></code></a>([fold,&nbsp;...])</td>
 <td>List of validation files randomly selecting while maintaining data balance.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.scene_labels.html#dcase_util.datasets.Dataset.scene_labels" title="dcase_util.datasets.Dataset.scene_labels"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.scene_labels</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.scene_labels.html#dcase_util.datasets.Dataset.scene_labels" title="dcase_util.datasets.Dataset.scene_labels"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.scene_labels</span></code></a>()</td>
 <td>List of unique scene labels in the meta data.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.scene_label_count.html#dcase_util.datasets.Dataset.scene_label_count" title="dcase_util.datasets.Dataset.scene_label_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.scene_label_count</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.scene_label_count.html#dcase_util.datasets.Dataset.scene_label_count" title="dcase_util.datasets.Dataset.scene_label_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.scene_label_count</span></code></a>()</td>
 <td>Number of unique scene labels in the meta data.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.event_labels.html#dcase_util.datasets.Dataset.event_labels" title="dcase_util.datasets.Dataset.event_labels"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.event_labels</span></code></a>(**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.event_labels.html#dcase_util.datasets.Dataset.event_labels" title="dcase_util.datasets.Dataset.event_labels"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.event_labels</span></code></a>(\*\*kwargs)</td>
 <td>List of unique event labels in the meta data.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.event_label_count.html#dcase_util.datasets.Dataset.event_label_count" title="dcase_util.datasets.Dataset.event_label_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.event_label_count</span></code></a>(**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.event_label_count.html#dcase_util.datasets.Dataset.event_label_count" title="dcase_util.datasets.Dataset.event_label_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.event_label_count</span></code></a>(\*\*kwargs)</td>
 <td>Number of unique event labels in the meta data.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.tags.html#dcase_util.datasets.Dataset.tags" title="dcase_util.datasets.Dataset.tags"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.tags</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.tags.html#dcase_util.datasets.Dataset.tags" title="dcase_util.datasets.Dataset.tags"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.tags</span></code></a>()</td>
 <td>List of unique audio tags in the meta data.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.tag_count.html#dcase_util.datasets.Dataset.tag_count" title="dcase_util.datasets.Dataset.tag_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.tag_count</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.tag_count.html#dcase_util.datasets.Dataset.tag_count" title="dcase_util.datasets.Dataset.tag_count"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.tag_count</span></code></a>()</td>
 <td>Number of unique audio tags in the meta data.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_meta.html#dcase_util.datasets.Dataset.file_meta" title="dcase_util.datasets.Dataset.file_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.file_meta</span></code></a>(filename)</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_meta.html#dcase_util.datasets.Dataset.file_meta" title="dcase_util.datasets.Dataset.file_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.file_meta</span></code></a>(filename)</td>
 <td>Meta data for given file</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_error_meta.html#dcase_util.datasets.Dataset.file_error_meta" title="dcase_util.datasets.Dataset.file_error_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.file_error_meta</span></code></a>(filename)</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_error_meta.html#dcase_util.datasets.Dataset.file_error_meta" title="dcase_util.datasets.Dataset.file_error_meta"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.file_error_meta</span></code></a>(filename)</td>
 <td>Error meta data for given file</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_features.html#dcase_util.datasets.Dataset.file_features" title="dcase_util.datasets.Dataset.file_features"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.file_features</span></code></a>(filename)</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.file_features.html#dcase_util.datasets.Dataset.file_features" title="dcase_util.datasets.Dataset.file_features"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.file_features</span></code></a>(filename)</td>
 <td>Pre-calculated acoustic features for given file</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.relative_to_absolute_path.html#dcase_util.datasets.Dataset.relative_to_absolute_path" title="dcase_util.datasets.Dataset.relative_to_absolute_path"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.relative_to_absolute_path</span></code></a>(path)</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.relative_to_absolute_path.html#dcase_util.datasets.Dataset.relative_to_absolute_path" title="dcase_util.datasets.Dataset.relative_to_absolute_path"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.relative_to_absolute_path</span></code></a>(path)</td>
 <td>Converts relative path into absolute path.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.absolute_to_relative.html#dcase_util.datasets.Dataset.absolute_to_relative" title="dcase_util.datasets.Dataset.absolute_to_relative"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.absolute_to_relative</span></code></a>(path)</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.absolute_to_relative_path.html#dcase_util.datasets.Dataset.absolute_to_relative_path" title="dcase_util.datasets.Dataset.absolute_to_relative_path"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.absolute_to_relative_path</span></code></a>(path)</td>
 <td>Converts absolute path into relative path.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_bytes.html#dcase_util.datasets.Dataset.dataset_bytes" title="dcase_util.datasets.Dataset.dataset_bytes"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.dataset_bytes</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_bytes.html#dcase_util.datasets.Dataset.dataset_bytes" title="dcase_util.datasets.Dataset.dataset_bytes"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.dataset_bytes</span></code></a>()</td>
 <td>Total download size of the dataset in bytes.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_string.html#dcase_util.datasets.Dataset.dataset_size_string" title="dcase_util.datasets.Dataset.dataset_size_string"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.dataset_size_string</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_string.html#dcase_util.datasets.Dataset.dataset_size_string" title="dcase_util.datasets.Dataset.dataset_size_string"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.dataset_size_string</span></code></a>()</td>
 <td>Total download size of the dataset in a string.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_on_disk.html#dcase_util.datasets.Dataset.dataset_size_on_disk" title="dcase_util.datasets.Dataset.dataset_size_on_disk"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.dataset_size_on_disk</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.Dataset.dataset_size_on_disk.html#dcase_util.datasets.Dataset.dataset_size_on_disk" title="dcase_util.datasets.Dataset.dataset_size_on_disk"><code class="xref py py-obj docutils literal"><span class="pre">Dataset.dataset_size_on_disk</span></code></a>()</td>
 <td>Total size of the dataset currently stored locally.</td>
 </tr>
 </tbody>
@@ -1484,8 +1606,8 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.AcousticSceneDataset.html#dcase_util.datasets.AcousticSceneDataset" title="dcase_util.datasets.AcousticSceneDataset"><code class="xref py py-obj docutils literal"><span class="pre">AcousticSceneDataset</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.AcousticSceneDataset.html#dcase_util.datasets.AcousticSceneDataset" title="dcase_util.datasets.AcousticSceneDataset"><code class="xref py py-obj docutils literal"><span class="pre">AcousticSceneDataset</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
+<td>Acoustic scene dataset baseclass</td>
 </tr>
 </tbody>
 </table>
@@ -1508,6 +1630,15 @@
 <tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet.html#dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet" title="dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet"><code class="xref py py-obj docutils literal"><span class="pre">TUTAcousticScenes_2016_EvaluationSet</span></code></a>([...])</td>
 <td>TUT Acoustic scenes 2016 evaluation dataset</td>
 </tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet.html#dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet" title="dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet"><code class="xref py py-obj docutils literal"><span class="pre">TUTUrbanAcousticScenes_2018_DevelopmentSet</span></code></a>([...])</td>
+<td>TUT Urban Acoustic Scenes 2018 Development dataset</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet.html#dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet" title="dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet"><code class="xref py py-obj docutils literal"><span class="pre">TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet</span></code></a>([...])</td>
+<td>TUT Urban Acoustic Scenes 2018 Mobile Development dataset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.DCASE2018_Task5_DevelopmentSet.html#dcase_util.datasets.DCASE2018_Task5_DevelopmentSet" title="dcase_util.datasets.DCASE2018_Task5_DevelopmentSet"><code class="xref py py-obj docutils literal"><span class="pre">DCASE2018_Task5_DevelopmentSet</span></code></a>([...])</td>
+<td>Task 5, Monitoring of domestic activities based on multi-channel acoustics, development set</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1520,8 +1651,8 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.html#dcase_util.datasets.SoundEventDataset" title="dcase_util.datasets.SoundEventDataset"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.html#dcase_util.datasets.SoundEventDataset" title="dcase_util.datasets.SoundEventDataset"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
+<td>Sound event dataset baseclass</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.event_label_count.html#dcase_util.datasets.SoundEventDataset.event_label_count" title="dcase_util.datasets.SoundEventDataset.event_label_count"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset.event_label_count</span></code></a>([...])</td>
 <td>Number of unique scene labels in the meta data.</td>
@@ -1529,10 +1660,10 @@
 <tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.event_labels.html#dcase_util.datasets.SoundEventDataset.event_labels" title="dcase_util.datasets.SoundEventDataset.event_labels"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset.event_labels</span></code></a>([scene_label])</td>
 <td>List of unique event labels in the meta data.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.train.html#dcase_util.datasets.SoundEventDataset.train" title="dcase_util.datasets.SoundEventDataset.train"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset.train</span></code></a>([fold,&nbsp;scene_label,&nbsp;...])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.train.html#dcase_util.datasets.SoundEventDataset.train" title="dcase_util.datasets.SoundEventDataset.train"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset.train</span></code></a>([fold,&nbsp;...])</td>
 <td>List of training items.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.test.html#dcase_util.datasets.SoundEventDataset.test" title="dcase_util.datasets.SoundEventDataset.test"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset.test</span></code></a>([fold,&nbsp;scene_label,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.SoundEventDataset.test.html#dcase_util.datasets.SoundEventDataset.test" title="dcase_util.datasets.SoundEventDataset.test"><code class="xref py py-obj docutils literal"><span class="pre">SoundEventDataset.test</span></code></a>([fold,&nbsp;...])</td>
 <td>List of testing items.</td>
 </tr>
 </tbody>
@@ -1577,8 +1708,8 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.AudioTaggingDataset.html#dcase_util.datasets.AudioTaggingDataset" title="dcase_util.datasets.AudioTaggingDataset"><code class="xref py py-obj docutils literal"><span class="pre">AudioTaggingDataset</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/dcase_util.datasets.AudioTaggingDataset.html#dcase_util.datasets.AudioTaggingDataset" title="dcase_util.datasets.AudioTaggingDataset"><code class="xref py py-obj docutils literal"><span class="pre">AudioTaggingDataset</span></code></a>(\*args,&nbsp;\*\*kwargs)</td>
+<td>Audio tag dataset baseclass</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/dcase_util.datasets.DCASE2017_Task4tagging_DevelopmentSet.html#dcase_util.datasets.DCASE2017_Task4tagging_DevelopmentSet" title="dcase_util.datasets.DCASE2017_Task4tagging_DevelopmentSet"><code class="xref py py-obj docutils literal"><span class="pre">DCASE2017_Task4tagging_DevelopmentSet</span></code></a>([...])</td>
 <td>DCASE 2017 Large-scale weakly supervised sound event detection for smart cars</td>
@@ -1596,15 +1727,18 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="generated/dcase_util.datasets.Dataset.html" class="btn btn-neutral float-right" title="dcase_util.datasets.Dataset" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="generated/dcase_util.datasets.Dataset.html" class="btn btn-neutral float-right" title="dcase_util.datasets.Dataset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="generated/dcase_util.data.DecisionEncoder.process_activity.html" class="btn btn-neutral" title="dcase_util.data.DecisionEncoder.process_activity" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="generated/dcase_util.data.DecisionEncoder.process_activity.html" class="btn btn-neutral" title="dcase_util.data.DecisionEncoder.process_activity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1637,7 +1771,8 @@
             VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

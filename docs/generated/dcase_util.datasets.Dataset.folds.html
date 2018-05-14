@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -49,6 +51,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -85,7 +88,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation instructions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#pypi">PyPI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#source">Source</a></li>
@@ -119,6 +125,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../tutorial_audio.html#creating-container">Creating container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial_audio.html#loading-and-saving">Loading and Saving</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial_audio.html#focus-segment">Focus segment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial_audio.html#frames-and-segments">Frames and Segments</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial_audio.html#processing">Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tutorial_audio.html#visualizations">Visualizations</a></li>
 </ul>
@@ -142,6 +149,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../tutorial_data.html#event-roll">Event roll</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial_data.html#probability-encoding">Probability encoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial_data.html#decision-encoding">Decision encoding</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial_metadata.html">Metadata</a><ul>
@@ -367,6 +376,7 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AudioContainer.set_focus.html">dcase_util.containers.AudioContainer.set_focus</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AudioContainer.get_focused.html">dcase_util.containers.AudioContainer.get_focused</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AudioContainer.freeze.html">dcase_util.containers.AudioContainer.freeze</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AudioContainer.frames.html">dcase_util.containers.AudioContainer.frames</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AudioContainer.normalize.html">dcase_util.containers.AudioContainer.normalize</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AudioContainer.resample.html">dcase_util.containers.AudioContainer.resample</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AudioContainer.mixdown.html">dcase_util.containers.AudioContainer.mixdown</a></li>
@@ -416,6 +426,7 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataItem.offset.html">dcase_util.containers.MetaDataItem.offset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataItem.identifier.html">dcase_util.containers.MetaDataItem.identifier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataItem.source_label.html">dcase_util.containers.MetaDataItem.source_label</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataItem.set_label.html">dcase_util.containers.MetaDataItem.set_label</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataItem.tags.html">dcase_util.containers.MetaDataItem.tags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataItem.active_within_segment.html">dcase_util.containers.MetaDataItem.active_within_segment</a></li>
 </ul>
@@ -433,6 +444,7 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.event_count.html">dcase_util.containers.MetaDataContainer.event_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.scene_label_count.html">dcase_util.containers.MetaDataContainer.scene_label_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.event_label_count.html">dcase_util.containers.MetaDataContainer.event_label_count</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.identifier_count.html">dcase_util.containers.MetaDataContainer.identifier_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.tag_count.html">dcase_util.containers.MetaDataContainer.tag_count</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.unique_files.html">dcase_util.containers.MetaDataContainer.unique_files</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.unique_event_labels.html">dcase_util.containers.MetaDataContainer.unique_event_labels</a></li>
@@ -450,6 +462,9 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.event_stat_counts.html">dcase_util.containers.MetaDataContainer.event_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.tag_stat_counts.html">dcase_util.containers.MetaDataContainer.tag_stat_counts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.to_event_roll.html">dcase_util.containers.MetaDataContainer.to_event_roll</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.intersection.html">dcase_util.containers.MetaDataContainer.intersection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.intersection_report.html">dcase_util.containers.MetaDataContainer.intersection_report</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.MetaDataContainer.difference.html">dcase_util.containers.MetaDataContainer.difference</a></li>
 </ul>
 </li>
 </ul>
@@ -463,9 +478,15 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.html">dcase_util.containers.AppParameterContainer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.reset.html">dcase_util.containers.AppParameterContainer.reset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.process.html">dcase_util.containers.AppParameterContainer.process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.process_set.html">dcase_util.containers.AppParameterContainer.process_set</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.override.html">dcase_util.containers.AppParameterContainer.override</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.get_path_translated.html">dcase_util.containers.AppParameterContainer.get_path_translated</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.set_path_translated.html">dcase_util.containers.AppParameterContainer.set_path_translated</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.update_parameter_set.html">dcase_util.containers.AppParameterContainer.update_parameter_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.set_ids.html">dcase_util.containers.AppParameterContainer.set_ids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.set_id_exists.html">dcase_util.containers.AppParameterContainer.set_id_exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.active_set.html">dcase_util.containers.AppParameterContainer.active_set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.containers.AppParameterContainer.get_set.html">dcase_util.containers.AppParameterContainer.get_set</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../containers.html#dcaseappparametercontainer">DCASEAppParameterContainer</a><ul>
@@ -661,6 +682,7 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.data.DecisionEncoder.load.html">dcase_util.data.DecisionEncoder.load</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.data.DecisionEncoder.save.html">dcase_util.data.DecisionEncoder.save</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.data.DecisionEncoder.majority_vote.html">dcase_util.data.DecisionEncoder.majority_vote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.data.DecisionEncoder.many_hot.html">dcase_util.data.DecisionEncoder.many_hot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.data.DecisionEncoder.find_contiguous_regions.html">dcase_util.data.DecisionEncoder.find_contiguous_regions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.data.DecisionEncoder.process_activity.html">dcase_util.data.DecisionEncoder.process_activity</a></li>
 </ul>
@@ -675,6 +697,7 @@
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.initialize.html">dcase_util.datasets.Dataset.initialize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.download_packages.html">dcase_util.datasets.Dataset.download_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.extract_packages.html">dcase_util.datasets.Dataset.extract_packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.debug_packages.html">dcase_util.datasets.Dataset.debug_packages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.prepare.html">dcase_util.datasets.Dataset.prepare</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.process_meta_item.html">dcase_util.datasets.Dataset.process_meta_item</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.check_filelist.html">dcase_util.datasets.Dataset.check_filelist</a></li>
@@ -712,7 +735,7 @@
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.file_error_meta.html">dcase_util.datasets.Dataset.file_error_meta</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.file_features.html">dcase_util.datasets.Dataset.file_features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.relative_to_absolute_path.html">dcase_util.datasets.Dataset.relative_to_absolute_path</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.absolute_to_relative.html">dcase_util.datasets.Dataset.absolute_to_relative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.absolute_to_relative_path.html">dcase_util.datasets.Dataset.absolute_to_relative_path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.dataset_bytes.html">dcase_util.datasets.Dataset.dataset_bytes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.dataset_size_string.html">dcase_util.datasets.Dataset.dataset_size_string</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.Dataset.dataset_size_on_disk.html">dcase_util.datasets.Dataset.dataset_size_on_disk</a></li>
@@ -724,6 +747,9 @@
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.TUTAcousticScenes_2017_EvaluationSet.html">dcase_util.datasets.TUTAcousticScenes_2017_EvaluationSet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.TUTAcousticScenes_2016_DevelopmentSet.html">dcase_util.datasets.TUTAcousticScenes_2016_DevelopmentSet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet.html">dcase_util.datasets.TUTAcousticScenes_2016_EvaluationSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet.html">dcase_util.datasets.TUTUrbanAcousticScenes_2018_DevelopmentSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet.html">dcase_util.datasets.TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.datasets.DCASE2018_Task5_DevelopmentSet.html">dcase_util.datasets.DCASE2018_Task5_DevelopmentSet</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../datasets.html#soundeventdataset">SoundEventDataset</a><ul>
@@ -764,6 +790,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../features.html#spectralfeatureextractor">SpectralFeatureExtractor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.features.SpectralFeatureExtractor.html">dcase_util.features.SpectralFeatureExtractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.features.SpectralFeatureExtractor.extract.html">dcase_util.features.SpectralFeatureExtractor.extract</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.features.SpectralFeatureExtractor.get_window_function.html">dcase_util.features.SpectralFeatureExtractor.get_window_function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.features.SpectralFeatureExtractor.get_spectrogram.html">dcase_util.features.SpectralFeatureExtractor.get_spectrogram</a></li>
 </ul>
@@ -817,6 +844,15 @@
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.files.File.empty.html">dcase_util.files.File.empty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.files.File.delimiter.html">dcase_util.files.File.delimiter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.files.File.is_package.html">dcase_util.files.File.is_package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../files.html#package">Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.files.Package.html">dcase_util.files.Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.files.Package.extract.html">dcase_util.files.Package.extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.files.Package.compress.html">dcase_util.files.Package.compress</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.files.Package.detect_file_format.html">dcase_util.files.Package.detect_file_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.files.Package.validate_format.html">dcase_util.files.Package.validate_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.files.Package.exists.html">dcase_util.files.Package.exists</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../files.html#filelock">FileLock</a><ul>
@@ -913,6 +949,22 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../keras.html#data-processing">Data processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../keras.html#kerasdatasequence">KerasDataSequence</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.keras.get_keras_data_sequence_class.html">dcase_util.keras.get_keras_data_sequence_class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../keras.html#data-collector">data_collector</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.keras.data_collector.html">dcase_util.keras.data_collector</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../keras.html#utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.keras.setup_keras.html">dcase_util.keras.setup_keras</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.keras.create_optimizer.html">dcase_util.keras.create_optimizer</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../processors.html">Processors</a><ul>
@@ -927,10 +979,12 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.log_chain.html">dcase_util.processors.ProcessingChain.log_chain</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.push_processor.html">dcase_util.processors.ProcessingChain.push_processor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.process.html">dcase_util.processors.ProcessingChain.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.processor_exists.html">dcase_util.processors.ProcessingChain.processor_exists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.processor_class_reference.html">dcase_util.processors.ProcessingChain.processor_class_reference</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.processor_class.html">dcase_util.processors.ProcessingChain.processor_class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.chain_item_exists.html">dcase_util.processors.ProcessingChain.chain_item_exists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.chain_item.html">dcase_util.processors.ProcessingChain.chain_item</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessingChain.call_method.html">dcase_util.processors.ProcessingChain.call_method</a></li>
 </ul>
 </li>
 </ul>
@@ -954,9 +1008,19 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.AggregationProcessor.process.html">dcase_util.processors.AggregationProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#repositoryaggregationprocessor">RepositoryAggregationProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryAggregationProcessor.html">dcase_util.processors.RepositoryAggregationProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryAggregationProcessor.process.html">dcase_util.processors.RepositoryAggregationProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../processors.html#sequencingprocessor">SequencingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.SequencingProcessor.html">dcase_util.processors.SequencingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.SequencingProcessor.process.html">dcase_util.processors.SequencingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#repositorysequencingprocessor">RepositorySequencingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositorySequencingProcessor.html">dcase_util.processors.RepositorySequencingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositorySequencingProcessor.process.html">dcase_util.processors.RepositorySequencingProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../processors.html#normalizationprocessor">NormalizationProcessor</a><ul>
@@ -974,6 +1038,11 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.StackingProcessor.process.html">dcase_util.processors.StackingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#repositorymaskingprocessor">RepositoryMaskingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryMaskingProcessor.html">dcase_util.processors.RepositoryMaskingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryMaskingProcessor.process.html">dcase_util.processors.RepositoryMaskingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../processors.html#onehotencodingprocessor">OneHotEncodingProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.OneHotEncodingProcessor.html">dcase_util.processors.OneHotEncodingProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.OneHotEncodingProcessor.process.html">dcase_util.processors.OneHotEncodingProcessor.process</a></li>
@@ -989,9 +1058,24 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.EventRollEncodingProcessor.process.html">dcase_util.processors.EventRollEncodingProcessor.process</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#datashapingprocessor">DataShapingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.DataShapingProcessor.html">dcase_util.processors.DataShapingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.DataShapingProcessor.process.html">dcase_util.processors.DataShapingProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#repositorytomatrixprocessor">RepositoryToMatrixProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryToMatrixProcessor.html">dcase_util.processors.RepositoryToMatrixProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryToMatrixProcessor.process.html">dcase_util.processors.RepositoryToMatrixProcessor.process</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../processors.html#features">Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#featurereadingprocessor">FeatureReadingProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.FeatureReadingProcessor.html">dcase_util.processors.FeatureReadingProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.FeatureReadingProcessor.process.html">dcase_util.processors.FeatureReadingProcessor.process</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../processors.html#repositoryfeatureextractorprocessor">RepositoryFeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
@@ -1000,6 +1084,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../processors.html#featureextractorprocessor">FeatureExtractorProcessor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.FeatureExtractorProcessor.html">dcase_util.processors.FeatureExtractorProcessor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.FeatureExtractorProcessor.process.html">dcase_util.processors.FeatureExtractorProcessor.process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#id2">RepositoryFeatureExtractorProcessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryFeatureExtractorProcessor.html">dcase_util.processors.RepositoryFeatureExtractorProcessor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.RepositoryFeatureExtractorProcessor.process.html">dcase_util.processors.RepositoryFeatureExtractorProcessor.process</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../processors.html#melextractorprocessor">MelExtractorProcessor</a><ul>
@@ -1047,12 +1136,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../processors.html#mixin">Mixin</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../processors.html#processormixin">ProcessorMixin</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessorMixin.html">dcase_util.processors.ProcessorMixin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessorMixin.process.html">dcase_util.processors.ProcessorMixin.process</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessorMixin.get_processing_chain_item.html">dcase_util.processors.ProcessorMixin.get_processing_chain_item</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.ProcessorMixin.push_processing_chain_item.html">dcase_util.processors.ProcessorMixin.push_processing_chain_item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processors.html#base-object">Base object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../processors.html#processor">Processor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.Processor.html">dcase_util.processors.Processor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.Processor.process.html">dcase_util.processors.Processor.process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.processors.Processor.get_processing_chain_item.html">dcase_util.processors.Processor.get_processing_chain_item</a></li>
 </ul>
 </li>
 </ul>
@@ -1064,6 +1152,8 @@
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.html">dcase_util.ui.FancyLogger</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.line.html">dcase_util.ui.FancyLogger.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.row.html">dcase_util.ui.FancyLogger.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.row_reset.html">dcase_util.ui.FancyLogger.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.row_sep.html">dcase_util.ui.FancyLogger.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.title.html">dcase_util.ui.FancyLogger.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.section_header.html">dcase_util.ui.FancyLogger.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyLogger.sub_header.html">dcase_util.ui.FancyLogger.sub_header</a></li>
@@ -1080,6 +1170,8 @@
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.html">dcase_util.ui.FancyPrinter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.line.html">dcase_util.ui.FancyPrinter.line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.row.html">dcase_util.ui.FancyPrinter.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.row_reset.html">dcase_util.ui.FancyPrinter.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.row_sep.html">dcase_util.ui.FancyPrinter.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.title.html">dcase_util.ui.FancyPrinter.title</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.section_header.html">dcase_util.ui.FancyPrinter.section_header</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyPrinter.sub_header.html">dcase_util.ui.FancyPrinter.sub_header</a></li>
@@ -1104,6 +1196,8 @@
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyStringifier.sep.html">dcase_util.ui.FancyStringifier.sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyStringifier.table.html">dcase_util.ui.FancyStringifier.table</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyStringifier.row.html">dcase_util.ui.FancyStringifier.row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyStringifier.row_reset.html">dcase_util.ui.FancyStringifier.row_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyStringifier.row_sep.html">dcase_util.ui.FancyStringifier.row_sep</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dcase_util.ui.FancyStringifier.class_name.html">dcase_util.ui.FancyStringifier.class_name</a></li>
 </ul>
 </li>
@@ -1156,6 +1250,7 @@
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.utils.FileFormat.detect.html">dcase_util.utils.FileFormat.detect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.utils.FileFormat.detect_based_on_filename.html">dcase_util.utils.FileFormat.detect_based_on_filename</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcase_util.utils.FileFormat.detect_based_on_content.html">dcase_util.utils.FileFormat.detect_based_on_content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcase_util.utils.FileFormat.validate_label.html">dcase_util.utils.FileFormat.validate_label</a></li>
 </ul>
 </li>
 </ul>
@@ -1251,6 +1346,11 @@
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-2-0">v0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-1-9">v0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-1-8">v0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-1-7">v0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-1-6">v0.1.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-1-5">v0.1.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-1-4">v0.1.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../changelog.html#v0-1-0">v0.1.0</a></li>
@@ -1269,8 +1369,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">DCASE Utilities</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DCASE Utilities</a>
+        
       </nav>
 
 
@@ -1279,23 +1381,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../datasets.html">Datasets</a> &raquo;</li>
-      
-    <li>dcase_util.datasets.Dataset.folds</li>
+        
+      <li>dcase_util.datasets.Dataset.folds</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -1314,7 +1433,8 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>mode</strong> : str {&#8216;folds&#8217;,&#8217;full&#8217;}</p>
 <blockquote>
 <div><p>Fold setup type, possible values are &#8216;folds&#8217; and &#8216;full&#8217;. In &#8216;full&#8217; mode fold number is set 0 and
-all data is used for training.</p>
+all data is used for training.
+Default value &#8216;folds&#8217;</p>
 </div></blockquote>
 </td>
 </tr>
@@ -1332,15 +1452,18 @@ all data is used for training.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dcase_util.datasets.Dataset.fold_count.html" class="btn btn-neutral float-right" title="dcase_util.datasets.Dataset.fold_count" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dcase_util.datasets.Dataset.fold_count.html" class="btn btn-neutral float-right" title="dcase_util.datasets.Dataset.fold_count" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dcase_util.datasets.Dataset.error_meta_count.html" class="btn btn-neutral" title="dcase_util.datasets.Dataset.error_meta_count" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dcase_util.datasets.Dataset.error_meta_count.html" class="btn btn-neutral" title="dcase_util.datasets.Dataset.error_meta_count" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1373,7 +1496,8 @@ all data is used for training.</p>
             VERSION:'1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

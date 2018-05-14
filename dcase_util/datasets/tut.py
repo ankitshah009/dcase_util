@@ -21,6 +21,447 @@ from dcase_util.containers import MetaDataContainer, MetaDataItem, OneToOneMappi
 from dcase_util.utils import Path
 
 # =====================================================
+# DCASE 2018
+# =====================================================
+
+
+class TUTUrbanAcousticScenes_2018_DevelopmentSet(AcousticSceneDataset):
+    """TUT Urban Acoustic Scenes 2018 Development dataset
+
+    This dataset is used in DCASE2018 - Task 1, Acoustic scene classification / Subtask A
+
+    """
+
+    def __init__(self,
+                 storage_name='TUT-urban-acoustic-scenes-2018-development',
+                 data_path=None,
+                 included_content_types=None,
+                 **kwargs):
+        """
+        Constructor
+
+        Parameters
+        ----------
+
+        storage_name : str
+            Name to be used when storing dataset on disk
+            Default value 'TUT-urban-acoustic-scenes-2018-development'
+
+        data_path : str
+            Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
+            is used.
+            Default value None
+
+        included_content_types : list of str or str
+            Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
+
+        """
+
+        kwargs['included_content_types'] = included_content_types
+        kwargs['data_path'] = data_path
+        kwargs['storage_name'] = storage_name
+        kwargs['dataset_group'] = 'scene'
+        kwargs['dataset_meta'] = {
+            'authors': 'Toni Heittola, Annamaria Mesaros, and Tuomas Virtanen',
+            'title': 'TUT Urban Acoustic Scenes 2018, development dataset',
+            'url': None,
+            'audio_source': 'Field recording',
+            'audio_type': 'Natural',
+            'recording_device_model': 'Zoom F8',
+            'microphone_model': 'Soundman OKM II Klassik/studio A3 electret microphone',
+            'licence': 'free non-commercial'
+        }
+        kwargs['crossvalidation_folds'] = 1
+        kwargs['meta_filename'] ='meta.csv'
+
+        filename_base = 'TUT-urban-acoustic-scenes-2018-development'
+        source_url = 'https://zenodo.org/record/1228142/files/'
+
+        kwargs['package_list'] = [
+            {
+                'content_type': 'documentation',
+                'remote_file': source_url + filename_base + '.doc.zip',
+                'remote_bytes': 10517,
+                'remote_md5': '28a4a9c46a6f46709ecc8eece365a3a4',
+                'filename': filename_base + '.doc.zip'
+            },
+            {
+                'content_type': 'meta',
+                'remote_file': source_url + filename_base + '.meta.zip',
+                'remote_bytes': 69272,
+                'remote_md5': 'e196065ee83c07af03a11a310364377d',
+                'filename': filename_base + '.meta.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.1.zip',
+                'remote_bytes': 1657811579,
+                'remote_md5': '62f97087c447e29def8716204469bf89',
+                'filename': filename_base + '.audio.1.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.2.zip',
+                'remote_bytes': 1783489370,
+                'remote_md5': '8e569a92025d82bff6b02b956d7c6dc9',
+                'filename': filename_base + '.audio.2.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.3.zip',
+                'remote_bytes': 1809675304,
+                'remote_md5': '00d2020582a4535af5e65322fb2bad56',
+                'filename': filename_base + '.audio.3.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.4.zip',
+                'remote_bytes': 1756582525,
+                'remote_md5': 'd691eb4271f83ba6ba9a28797accc497',
+                'filename': filename_base + '.audio.4.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.5.zip',
+                'remote_bytes': 1724002546,
+                'remote_md5': 'c4d64b5483b60f85e9fe080b3435a6be',
+                'filename': filename_base + '.audio.5.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.6.zip',
+                'remote_bytes': 1645753049,
+                'remote_md5': '2f0feee78f216697eb19497714d97642',
+                'filename': filename_base + '.audio.6.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.7.zip',
+                'remote_bytes': 1671903917,
+                'remote_md5': '07cfefe80a0731de6819181841239f3a',
+                'filename': filename_base + '.audio.7.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.8.zip',
+                'remote_bytes': 1673304843,
+                'remote_md5': '213f3c012859c2e9dcb74aacc8558458',
+                'filename': filename_base + '.audio.8.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.9.zip',
+                'remote_bytes': 1674839259,
+                'remote_md5': 'b724442b09abcb3bd095ebff497cef85',
+                'filename': filename_base + '.audio.9.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.10.zip',
+                'remote_bytes': 1662932947,
+                'remote_md5': 'a27a32fa52e283ed8013375b8a16f269',
+                'filename': filename_base + '.audio.10.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.11.zip',
+                'remote_bytes': 1751473843,
+                'remote_md5': '7073a121e825ffef99832507f30d6644',
+                'filename': filename_base + '.audio.11.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.12.zip',
+                'remote_bytes': 1742332198,
+                'remote_md5': '6567aa61db12776568b6267ce122fb18',
+                'filename': filename_base + '.audio.12.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.13.zip',
+                'remote_bytes': 798990513,
+                'remote_md5': 'd00eeb2db0e093d8975521323a96c519',
+                'filename': filename_base + '.audio.13.zip'
+            }
+        ]
+        kwargs['audio_paths'] = [
+            'audio'
+        ]
+        super(TUTUrbanAcousticScenes_2018_DevelopmentSet, self).__init__(**kwargs)
+
+    def process_meta_item(self, item, absolute_path=True, **kwargs):
+        """Process single meta data item
+
+        Parameters
+        ----------
+        item :  MetaDataItem
+            Meta data item
+
+        absolute_path : bool
+            Convert file paths to be absolute
+            Default value True
+
+        """
+
+        if absolute_path:
+            item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
+
+        if not item.identifier:
+            item.identifier = '-'.join(os.path.splitext(os.path.split(item.filename)[-1])[0].split('-')[1:-2])
+
+    def prepare(self):
+        """Prepare dataset for the usage.
+
+        Returns
+        -------
+        self
+
+        """
+
+        if not self.meta_container.exists():
+            meta_data = collections.OrderedDict()
+            for fold in self.folds():
+                # Read train files in
+                fold_data = MetaDataContainer(
+                    filename=self.evaluation_setup_filename(
+                        setup_part='train',
+                        fold=fold
+                    )
+                ).load()
+
+                # Read eval files in
+                fold_data += MetaDataContainer(
+                    filename=self.evaluation_setup_filename(
+                        setup_part='evaluate',
+                        fold=fold
+                    )
+                ).load()
+
+                # Process, make sure each file is included only once.
+                for item in fold_data:
+                    if item.filename not in meta_data:
+                        self.process_meta_item(
+                            item=item,
+                            absolute_path=False
+                        )
+
+                        meta_data[item.filename] = item
+
+            # Save meta
+            MetaDataContainer(list(meta_data.values())).save(
+                filename=self.meta_file
+            )
+
+            # Load meta and cross validation
+            self.load()
+
+        return self
+
+
+class TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet(AcousticSceneDataset):
+    """TUT Urban Acoustic Scenes 2018 Mobile Development dataset
+
+    This dataset is used in DCASE2018 - Task 1, Acoustic scene classification / Subtask B
+
+    """
+
+    def __init__(self,
+                 storage_name='TUT-urban-acoustic-scenes-2018-mobile-development',
+                 data_path=None,
+                 included_content_types=None,
+                 **kwargs):
+        """
+        Constructor
+
+        Parameters
+        ----------
+
+        storage_name : str
+            Name to be used when storing dataset on disk
+            Default value 'TUT-urban-acoustic-scenes-2018-mobile-development'
+
+        data_path : str
+            Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
+            is used.
+            Default value None
+
+        included_content_types : list of str or str
+            Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
+
+        """
+
+        kwargs['included_content_types'] = included_content_types
+        kwargs['data_path'] = data_path
+        kwargs['storage_name'] = storage_name
+        kwargs['dataset_group'] = 'scene'
+        kwargs['dataset_meta'] = {
+            'authors': 'Toni Heittola, Annamaria Mesaros, and Tuomas Virtanen',
+            'title': 'TUT Urban Acoustic Scenes 2018 Mobile, development dataset',
+            'url': None,
+            'audio_source': 'Field recording',
+            'audio_type': 'Natural',
+            'recording_device_model': 'Various',
+            'microphone_model': 'Various',
+            'licence': 'free non-commercial'
+        }
+        kwargs['crossvalidation_folds'] = 1
+        kwargs['meta_filename'] = 'meta.csv'
+
+        filename_base = 'TUT-urban-acoustic-scenes-2018-mobile-development'
+        source_url = 'https://zenodo.org/record/1228235/files/'
+        kwargs['package_list'] = [
+            {
+                'content_type': 'documentation',
+                'remote_file': source_url + filename_base + '.doc.zip',
+                'remote_bytes': 12144,
+                'remote_md5': '5694e9cdffa11cef8ec270673dc19ba0',
+                'filename': filename_base + '.doc.zip'
+            },
+            {
+                'content_type': 'meta',
+                'remote_file': source_url + filename_base + '.meta.zip',
+                'remote_bytes': 88425,
+                'remote_md5': 'b557b6d5d620aa4f15564ab38f1594d4',
+                'filename': filename_base + '.meta.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.1.zip',
+                'remote_bytes': 1692337547,
+                'remote_md5': 'd6f2671af84032b97f393354c124517d',
+                'filename': filename_base + '.audio.1.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.2.zip',
+                'remote_bytes': 1769203601,
+                'remote_md5': 'db8b3603af5d4e559869a592930a7620',
+                'filename': filename_base + '.audio.2.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.3.zip',
+                'remote_bytes': 1674610746,
+                'remote_md5': '703bf73523a6ad1f40d4923cb8ba3ff0',
+                'filename': filename_base + '.audio.3.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.4.zip',
+                'remote_bytes': 1634599587,
+                'remote_md5': '18af04ab5d6f15a72c66f16bfec0ca07',
+                'filename': filename_base + '.audio.4.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.5.zip',
+                'remote_bytes': 1640894390,
+                'remote_md5': 'a579efb032f209a7e77fe22e4808e9ca',
+                'filename': filename_base + '.audio.5.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.6.zip',
+                'remote_bytes': 1693974078,
+                'remote_md5': 'c2c56691047b3be3d98cb0ffd6858d9f',
+                'filename': filename_base + '.audio.6.zip'
+            },
+            {
+                'content_type': 'audio',
+                'remote_file': source_url + filename_base + '.audio.7.zip',
+                'remote_bytes': 1165383562,
+                'remote_md5': 'e182e5300867f4ed4b580389cc5b931e',
+                'filename': filename_base + '.audio.7.zip'
+            }
+        ]
+        kwargs['audio_paths'] = [
+            'audio'
+        ]
+        super(TUTUrbanAcousticScenes_2018_Mobile_DevelopmentSet, self).__init__(**kwargs)
+
+    def process_meta_item(self, item, absolute_path=True, **kwargs):
+        """Process single meta data item
+
+        Parameters
+        ----------
+        item :  MetaDataItem
+            Meta data item
+
+        absolute_path : bool
+            Convert file paths to be absolute
+            Default value True
+
+        """
+
+        if absolute_path:
+            item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
+
+        if not item.identifier:
+            item.identifier = '-'.join(os.path.splitext(os.path.split(item.filename)[-1])[0].split('-')[1:-2])
+
+        if not item.source_label:
+            item.source_label = os.path.splitext(os.path.split(item.filename)[-1])[0].split('-')[-1]
+
+    def prepare(self):
+        """Prepare dataset for the usage.
+
+        Returns
+        -------
+        self
+
+        """
+
+        if not self.meta_container.exists():
+            meta_data = collections.OrderedDict()
+            for fold in self.folds():
+                # Read train files in
+                fold_data = MetaDataContainer(
+                    filename=self.evaluation_setup_filename(
+                        setup_part='train',
+                        fold=fold
+                    )
+                ).load()
+
+                # Read eval files in
+                fold_data += MetaDataContainer(
+                    filename=self.evaluation_setup_filename(
+                        setup_part='evaluate',
+                        fold=fold
+                    )
+                ).load()
+
+                # Process, make sure each file is included only once.
+                for item in fold_data:
+                    if item.filename not in meta_data:
+                        self.process_meta_item(
+                            item=item,
+                            absolute_path=False
+                        )
+
+                        meta_data[item.filename] = item
+
+            # Save meta
+            MetaDataContainer(list(meta_data.values())).save(
+                filename=self.meta_file
+            )
+
+            # Load meta and cross validation
+            self.load()
+
+        return self
+
+
+# =====================================================
 # DCASE 2017
 # =====================================================
 
@@ -45,14 +486,17 @@ class TUTAcousticScenes_2017_DevelopmentSet(AcousticSceneDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-acoustic-scenes-2017-development'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -181,13 +625,15 @@ class TUTAcousticScenes_2017_DevelopmentSet(AcousticSceneDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+
         else:
-            item.filename = self.absolute_to_relative(item.filename)
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         raw_path, raw_filename = os.path.split(item.filename)
         item.identifier = raw_filename.split('_')[0]
@@ -217,7 +663,11 @@ class TUTAcousticScenes_2017_DevelopmentSet(AcousticSceneDataset):
                 # Process, make sure each file is included only once.
                 for item in fold_data:
                     if item.filename not in meta_data:
-                        self.process_meta_item(item=item, absolute_path=False)
+                        self.process_meta_item(
+                            item=item,
+                            absolute_path=False
+                        )
+
                         meta_data[item.filename] = item
             # Save meta
             MetaDataContainer(list(meta_data.values())).save(filename=self.meta_file)
@@ -248,14 +698,17 @@ class TUTAcousticScenes_2017_EvaluationSet(AcousticSceneDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-acoustic-scenes-2017-evaluation'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -334,14 +787,19 @@ class TUTAcousticScenes_2017_EvaluationSet(AcousticSceneDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         filename_map : OneToOneMappingContainer
             Filename map
+            Default value None
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         if filename_map and item.filename in filename_map:
             filename_mapped = filename_map.map(item.filename)
@@ -374,7 +832,12 @@ class TUTAcousticScenes_2017_EvaluationSet(AcousticSceneDataset):
 
                 for item in data:
                     if item.filename not in meta_data:
-                        self.process_meta_item(item=item, absolute_path=False, filename_map=filename_map)
+                        self.process_meta_item(
+                            item=item,
+                            absolute_path=False,
+                            filename_map=filename_map
+                        )
+
                         meta_data[item.filename] = item
 
                 # Save meta
@@ -408,14 +871,25 @@ class TUTRareSoundEvents_2017_DevelopmentSet(SyntheticSoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-rare-sound-events-2017-development'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
+
+        synth_parameters : dict
+            Data synthesis parameters.
+            Default value None
+
+        dcase_compatibility : bool
+            Ensure that dataset is generated same way than in DCASE2017 Challenge setup
+            Default value True
 
         """
 
@@ -438,7 +912,7 @@ class TUTRareSoundEvents_2017_DevelopmentSet(SyntheticSoundEventDataset):
         }
         kwargs['crossvalidation_folds'] = 1
 
-        source_url = 'http://www.cs.tut.fi/sgn/arg/dcase2017/data/TUT-rare-sound-events-2017-development/'
+        source_url = 'https://zenodo.org/record/401395/files/'
         kwargs['package_list'] = [
             {
                 'content_type': 'documentation',
@@ -735,11 +1209,18 @@ class TUTRareSoundEvents_2017_DevelopmentSet(SyntheticSoundEventDataset):
                     )
 
                     if os.path.isfile(event_list_filename):
-                        current_meta = MetaDataContainer(filename=event_list_filename).load()
+                        current_meta = MetaDataContainer(
+                            filename=event_list_filename
+                        ).load(
+                            fields=['filename', 'onset', 'offset', 'event_label']
+                        )
+
                         for item in current_meta:
                             item.filename = os.path.join(mixture_path, item.filename)
                             item.scene_label = scene_label
+
                         meta_data += current_meta
+
             # Save meta
             meta_data.save(filename=self.meta_file)
 
@@ -815,7 +1296,11 @@ class TUTRareSoundEvents_2017_DevelopmentSet(SyntheticSoundEventDataset):
                     mixture_meta_path_train,
                     'event_list_' + subset_map['train'] + '_' + class_label + '.csv'
                 )
-                current_meta = MetaDataContainer(filename=event_list_filename).load()
+                current_meta = MetaDataContainer(
+                    filename=event_list_filename
+                ).load(
+                    fields=['filename', 'onset', 'offset', 'event_label']
+                )
                 for item in current_meta:
                     item.filename = os.path.join(mixture_path_train, item.filename)
                     item.scene_label = scene_label
@@ -829,7 +1314,11 @@ class TUTRareSoundEvents_2017_DevelopmentSet(SyntheticSoundEventDataset):
                     mixture_meta_path_test,
                     'event_list_' + subset_map['test'] + '_' + class_label + '.csv'
                 )
-                current_meta = MetaDataContainer(filename=event_list_filename).load()
+                current_meta = MetaDataContainer(
+                    filename=event_list_filename
+                ).load(
+                    fields=['filename', 'onset', 'offset', 'event_label']
+                )
                 current_meta_ = MetaDataContainer()
                 for item in current_meta:
                     item.filename = os.path.join(mixture_path_test, item.filename)
@@ -848,7 +1337,11 @@ class TUTRareSoundEvents_2017_DevelopmentSet(SyntheticSoundEventDataset):
                     mixture_meta_path_test,
                     'event_list_' + subset_map['test'] + '_' + class_label + '.csv'
                 )
-                current_meta = MetaDataContainer(filename=event_list_filename).load()
+                current_meta = MetaDataContainer(
+                    filename=event_list_filename
+                ).load(
+                    fields=['filename', 'onset', 'offset', 'event_label']
+                )
                 for item in current_meta:
                     item.filename = os.path.join(mixture_path_test, item.filename)
                     item.scene_label = scene_label
@@ -1044,21 +1537,24 @@ class TUTRareSoundEvents_2017_EvaluationSet(SyntheticSoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-rare-sound-events-2017-evaluation'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
         kwargs['included_content_types'] = included_content_types
         kwargs['data_path'] = data_path
         kwargs['storage_name'] = storage_name
-        kwargs['reference_data_present'] = False
+        kwargs['reference_data_present'] = True
         kwargs['dataset_group'] = 'event'
         kwargs['dataset_meta'] = {
             'authors': 'Aleksandr Diment, Annamaria Mesaros, Toni Heittola, and Tuomas Virtanen',
@@ -1071,42 +1567,63 @@ class TUTRareSoundEvents_2017_EvaluationSet(SyntheticSoundEventDataset):
         }
         kwargs['crossvalidation_folds'] = None
 
-        source_url = 'http://www.cs.tut.fi/sgn/arg/dcase2017/data/TUT-rare-sound-events-2017-evaluation/'
+        source_url = 'https://zenodo.org/record/1160455/files/'
         kwargs['package_list'] = [
             {
-                'content_type': 'audio',
-                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.1.zip',
-                'remote_bytes': 1072283898,
-                'remote_md5': '9db7740e57813cf9dcc7fc5e75bf3845',
-                'filename': 'TUT-rare-sound-events-2017-evaluation.1.zip'
+                'content_type': 'documentation',
+                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.doc.zip',
+                'remote_bytes': 11701,
+                'remote_md5': '36db98a94ce871c6bdc5bd5238383114',
+                'filename': 'TUT-rare-sound-events-2017-evaluation.doc.zip'
+            },
+            {
+                'content_type': 'documentation',
+                'remote_file': source_url + 'LICENSE.txt',
+                'remote_bytes': 0,
+                'remote_md5': '0707857098fc74d17beb824416fb74b1',
+                'filename': 'LICENSE.txt'
+            },
+            {
+                'content_type': 'documentation',
+                'remote_file': source_url + 'FREESOUNDCREDITS.txt',
+                'remote_bytes': 0,
+                'remote_md5': '3ecea52bdb0eadd6e1af52a21f735d6d',
+                'filename': 'FREESOUNDCREDITS.txt'
+            },
+            {
+                'content_type': ['audio', 'meta'],
+                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.mixture_data.1.zip',
+                'remote_bytes': 1071143794,
+                'remote_md5': 'db4aecd5175dead27ceb2692e7f28bb1',
+                'filename': 'TUT-rare-sound-events-2017-evaluation.mixture_data.1.zip'
             },
             {
                 'content_type': 'audio',
-                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.2.zip',
-                'remote_bytes': 1070947558,
-                'remote_md5': '080fcbff19c39cbca410853f8438b5d8',
-                'filename': 'TUT-rare-sound-events-2017-evaluation.2.zip'
+                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.mixture_data.2.zip',
+                'remote_bytes': 1071773516,
+                'remote_md5': 'e97d5842c46805cdb94e6d4017870cde',
+                'filename': 'TUT-rare-sound-events-2017-evaluation.mixture_data.2.zip'
             },
             {
                 'content_type': 'audio',
-                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.3.zip',
-                'remote_bytes': 1072470355,
-                'remote_md5': '7a58cd495b0326381d8faecfa8b2ef9c',
-                'filename': 'TUT-rare-sound-events-2017-evaluation.3.zip'
+                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.mixture_data.3.zip',
+                'remote_bytes': 1073505512,
+                'remote_md5': '1fe20c762cecd26979e2c5303c8e9f48',
+                'filename': 'TUT-rare-sound-events-2017-evaluation.mixture_data.3.zip'
             },
             {
                 'content_type': 'audio',
-                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.4.zip',
-                'remote_bytes': 1073265283,
-                'remote_md5': 'f8bb2e729d54b08305e601096dfacc01',
-                'filename': 'TUT-rare-sound-events-2017-evaluation.4.zip'
+                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.mixture_data.4.zip',
+                'remote_bytes': 1071132551,
+                'remote_md5': '5042cd00aed9af6b37a253e24f88554f',
+                'filename': 'TUT-rare-sound-events-2017-evaluation.mixture_data.4.zip'
             },
             {
                 'content_type': 'audio',
-                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.5.zip',
-                'remote_bytes': 306612051,
-                'remote_md5': 'e08c30e98161b0104ad381c0f68838a8',
-                'filename': 'TUT-rare-sound-events-2017-evaluation.5.zip'
+                'remote_file': source_url + 'TUT-rare-sound-events-2017-evaluation.mixture_data.5.zip',
+                'remote_bytes': 308314939,
+                'remote_md5': '72180597ed5bfaa73491755f74b84738',
+                'filename': 'TUT-rare-sound-events-2017-evaluation.mixture_data.5.zip'
             }
         ]
         kwargs['audio_paths'] = ['audio']
@@ -1144,46 +1661,165 @@ class TUTRareSoundEvents_2017_EvaluationSet(SyntheticSoundEventDataset):
         """
 
         scene_label = 'synthetic'
-
+        subset_map = {'test': 'evaltest'}
+        param_hash = 'bbb81504db15a03680a0044474633b67'
         # Make sure evaluation_setup directory exists
         Path().makedirs(path=os.path.join(self.local_path, self.evaluation_setup_folder))
 
         if not self.meta_container.exists() and self.reference_data_present:
-            message = '{name}: Meta file not found [{filename}]'.format(
+            # Collect meta data
+            meta_data = MetaDataContainer()
+            for class_label in self.event_labels():
+                for subset_label, subset_name_on_disk in iteritems(subset_map):
+                    subset_name_on_disk = subset_map[subset_label]
+
+                    mixture_path = os.path.join(
+                        'data',
+                        'mixture_data',
+                        subset_name_on_disk,
+                        param_hash,
+                        'audio'
+                    )
+
+                    mixture_meta_path = os.path.join(
+                        self.local_path,
+                        'data',
+                        'mixture_data',
+                        subset_name_on_disk,
+                        param_hash,
+                        'meta'
+                    )
+
+                    event_list_filename = os.path.join(
+                        mixture_meta_path,
+                        'event_list_' + subset_name_on_disk + '_' + class_label + '.csv'
+                    )
+
+                    if os.path.isfile(event_list_filename):
+                        current_meta = MetaDataContainer(
+                            filename=event_list_filename
+                        ).load(
+                            fields=['filename', 'onset', 'offset', 'event_label']
+                        )
+
+                        for item in current_meta:
+                            item.filename = os.path.join(mixture_path, item.filename)
+                            item.scene_label = scene_label
+
+                        meta_data += current_meta
+
+            # Save meta
+            meta_data.save(filename=self.meta_file)
+
+
+        test_filename = self.evaluation_setup_filename(
+            setup_part='test',
+            fold=None,
+            file_extension='txt'
+        )
+
+        evaluate_filename = self.evaluation_setup_filename(
+            setup_part='evaluate',
+            fold=None,
+            file_extension='txt'
+        )
+
+        # Check that evaluation setup exists
+        evaluation_setup_exists = True
+        if not os.path.isfile(test_filename) or not os.path.isfile(evaluate_filename):
+            evaluation_setup_exists = False
+
+        if not evaluation_setup_exists:
+            # Get parameter hash
+            mixture_meta_path_test = os.path.join(
+                self.local_path,
+                'data',
+                'mixture_data',
+                subset_map['test'],
+                param_hash,
+                'meta'
+            )
+            mixture_path_test = os.path.join(
+                'data',
+                'mixture_data',
+                subset_map['test'],
+                param_hash,
+                'audio'
+            )
+
+            test_meta = MetaDataContainer()
+            for class_label in self.event_labels():
+                event_list_filename = os.path.join(
+                    mixture_meta_path_test,
+                    'event_list_' + subset_map['test'] + '_' + class_label + '.csv'
+                )
+                current_meta = MetaDataContainer(
+                    filename=event_list_filename
+                ).load(
+                    fields=['filename', 'onset', 'offset', 'event_label']
+                )
+                current_meta_ = MetaDataContainer()
+                for item in current_meta:
+                    item.filename = os.path.join(mixture_path_test, item.filename)
+                    current_meta_.append(MetaDataItem(
+                        {
+                            'filename': item.filename,
+                            'scene_label': scene_label
+                        }
+                    ))
+                test_meta += current_meta_
+            test_meta.save(filename=test_filename)
+
+            eval_meta = MetaDataContainer()
+            for class_label in self.event_labels():
+                event_list_filename = os.path.join(
+                    mixture_meta_path_test,
+                    'event_list_' + subset_map['test'] + '_' + class_label + '.csv'
+                )
+                current_meta = MetaDataContainer(
+                    filename=event_list_filename
+                ).load(
+                    fields=['filename', 'onset', 'offset', 'event_label']
+                )
+                for item in current_meta:
+                    item.filename = os.path.join(mixture_path_test, item.filename)
+                    item.scene_label = scene_label
+
+                eval_meta += current_meta
+            eval_meta.save(filename=evaluate_filename)
+
+            # Load meta and cross validation
+            self.load()
+
+        return self
+
+    def evaluation_setup_filename(self, setup_part='train', fold=None, scene_label=None, file_extension='txt'):
+        parts = []
+
+        if setup_part == 'test' or setup_part == 'evaluate':
+            subset_label = 'test'
+        else:
+            subset_label = 'train'
+
+        if setup_part == 'train':
+            parts.append('train')
+
+        elif setup_part == 'test':
+            parts.append('test')
+
+        elif setup_part == 'evaluate':
+            parts.append('evaluate')
+
+        else:
+            message = '{name}: Unknown setup_part [{setup_part}]'.format(
                 name=self.__class__.__name__,
-                filename=self.meta_container.filename
+                setup_part=setup_part
             )
 
             self.logger.exception(message)
-            raise IOError(message)
+            raise ValueError(message)
 
-        if not self.reference_data_present:
-            test_filename = self.evaluation_setup_filename(
-                setup_part='test',
-                file_extension='txt',
-                scene_label=scene_label
-            )
-
-            if not os.path.isfile(test_filename):
-                files = Path().file_list(
-                    path=os.path.join(self.local_path, 'audio'),
-                    extensions=self.default_audio_extension
-                )
-                test_meta = MetaDataContainer()
-                for audio_filename in files:
-                    item = MetaDataItem(
-                        {
-                            'filename': os.path.join('audio', os.path.split(audio_filename)[1]),
-                            'scene_label': scene_label
-                        }
-                    )
-                    test_meta.append(item)
-
-                test_meta.save(filename=test_filename)
-
-                # Load meta and cross validation
-                self.load()
-        return self
+        return os.path.join(self.evaluation_setup_path, '_'.join(parts) + '.' + file_extension)
 
     def train(self, fold=None, scene_label=None, event_label=None, filename_contains=None, **kwargs):
         """List of training items.
@@ -1192,23 +1828,27 @@ class TUTRareSoundEvents_2017_EvaluationSet(SyntheticSoundEventDataset):
         ----------
         fold : int
             Fold id, if None all meta data is returned.
-            Default value "None"
+            Default value None
+
         scene_label : str
             Scene label
-            Default value "None"
+            Default value None"
+
         event_label : str
             Event label
-            Default value "None"
+            Default value None"
+
         filename_contains : str:
             String found in filename
-             Default value "None"
+             Default value None
 
         Returns
         -------
-        list : list of dicts
+        list
             List containing all meta data assigned to training set for given fold.
 
         """
+
         if fold is None or fold == 0:
             fold = 'all_data'
 
@@ -1236,20 +1876,23 @@ class TUTRareSoundEvents_2017_EvaluationSet(SyntheticSoundEventDataset):
         ----------
         fold : int
             Fold id, if None all meta data is returned.
-            Default value "None"
+            Default value None
+
         scene_label : str
             Scene label
-            Default value "None"
+            Default value None
+
         event_label : str
             Event label
-            Default value "None"
+            Default value None
+
         filename_contains : str:
             String found in filename
-             Default value "None"
+             Default value None
 
         Returns
         -------
-        list : list of dicts
+        list
             List containing all meta data assigned to testing set for given fold.
 
         """
@@ -1281,20 +1924,23 @@ class TUTRareSoundEvents_2017_EvaluationSet(SyntheticSoundEventDataset):
         ----------
         fold : int
             Fold id, if None all meta data is returned.
-            Default value "None"
+            Default value None
+
         scene_label : str
             Scene label
-            Default value "None"
+            Default value None
+
         event_label : str
             Event label
-            Default value "None"
+            Default value None
+
         filename_contains : str:
             String found in filename
-             Default value "None"
+             Default value None
 
         Returns
         -------
-        list : list of dicts
+        list
             List containing all meta data assigned to testing set for given fold.
 
         """
@@ -1340,14 +1986,17 @@ class TUTSoundEvents_2017_DevelopmentSet(SoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-sound-events-2017-development'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -1411,11 +2060,15 @@ class TUTSoundEvents_2017_DevelopmentSet(SoundEventDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         raw_path, raw_filename = os.path.split(item.filename)
         item.identifier = raw_filename.split('_')[0]
@@ -1435,7 +2088,11 @@ class TUTSoundEvents_2017_DevelopmentSet(SoundEventDataset):
             for annotation_filename in annotation_files:
                 data = MetaDataContainer(filename=annotation_filename).load()
                 for item in data:
-                    self.process_meta_item(item=item, absolute_path=False)
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
+
                 meta_data += data
 
             # Save meta
@@ -1467,14 +2124,17 @@ class TUTSoundEvents_2017_EvaluationSet(SoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-sound-events-2017-evaluation'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -1536,11 +2196,15 @@ class TUTSoundEvents_2017_EvaluationSet(SoundEventDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         raw_path, raw_filename = os.path.split(item.filename)
         item.identifier = os.path.splitext(raw_filename)[0]
@@ -1567,7 +2231,11 @@ class TUTSoundEvents_2017_EvaluationSet(SoundEventDataset):
                 meta_data = MetaDataContainer()
                 eval_file.load()
                 for item in eval_file:
-                    self.process_meta_item(item=item, absolute_path=False)
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
+
                 meta_data += eval_file
 
                 # Save meta
@@ -1585,7 +2253,11 @@ class TUTSoundEvents_2017_EvaluationSet(SoundEventDataset):
                 for annotation_filename in annotation_files:
                     data = MetaDataContainer(filename=annotation_filename).load()
                     for item in data:
-                        self.process_meta_item(item=item, absolute_path=False)
+                        self.process_meta_item(
+                            item=item,
+                            absolute_path=False
+                        )
+
                     meta_data += data
 
                 # Save meta
@@ -1622,14 +2294,17 @@ class TUTAcousticScenes_2016_DevelopmentSet(AcousticSceneDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-acoustic-scenes-2016-development'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -1758,7 +2433,11 @@ class TUTAcousticScenes_2016_DevelopmentSet(AcousticSceneDataset):
 
                 for item in fold_data:
                     if item.filename not in meta_data:
-                        self.process_meta_item(item=item, absolute_path=False)
+                        self.process_meta_item(
+                            item=item,
+                            absolute_path=False
+                        )
+
                         meta_data[item.filename] = item
 
             # Save meta
@@ -1778,11 +2457,14 @@ class TUTAcousticScenes_2016_DevelopmentSet(AcousticSceneDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         raw_path, raw_filename = os.path.split(item.filename)
         item.identifier = raw_filename.split('_')[0]
@@ -1808,14 +2490,17 @@ class TUTAcousticScenes_2016_EvaluationSet(AcousticSceneDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-acoustic-scenes-2016-evaluation'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -1886,11 +2571,15 @@ class TUTAcousticScenes_2016_EvaluationSet(AcousticSceneDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         if item.filename_original is not None:
             raw_path, raw_filename = os.path.split(item.filename_original)
@@ -1917,7 +2606,11 @@ class TUTAcousticScenes_2016_EvaluationSet(AcousticSceneDataset):
                 meta_data = {}
                 for item in eval_data:
                     if item.filename not in meta_data:
-                        self.process_meta_item(item, absolute_path=False)
+                        self.process_meta_item(
+                            item=item,
+                            absolute_path=False
+                        )
+
                         meta_data[item.filename] = item
 
                 # Save meta
@@ -1949,14 +2642,17 @@ class TUTSoundEvents_2016_DevelopmentSet(SoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-acoustic-scenes-2016-development'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -2016,11 +2712,15 @@ class TUTSoundEvents_2016_DevelopmentSet(SoundEventDataset):
 
         absolute_path : bool
             Convert file paths to be absolute
+            Default value True
 
         """
 
         if absolute_path:
             item.filename = self.relative_to_absolute_path(item.filename)
+
+        else:
+            item.filename = self.absolute_to_relative_path(item.filename)
 
         raw_path, raw_filename = os.path.split(item.filename)
         item.identifier = os.path.splitext(raw_filename)[0]
@@ -2048,7 +2748,11 @@ class TUTSoundEvents_2016_DevelopmentSet(SoundEventDataset):
                     item.filename = audio_filename
                     item.scene_label = scene_label
 
-                    self.process_meta_item(item=item, absolute_path=False)
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
+
                 meta_data += data
 
             # Save meta
@@ -2079,14 +2783,17 @@ class TUTSoundEvents_2016_EvaluationSet(SoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-sound-events-2016-evaluation'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -2163,7 +2870,11 @@ class TUTSoundEvents_2016_EvaluationSet(SoundEventDataset):
                     item.filename = audio_filename
                     item.scene_label = scene_label
 
-                    self.process_meta_item(item=item, absolute_path=False)
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
+
                 meta_data += data
 
             # Save meta
@@ -2197,14 +2908,17 @@ class TUT_SED_Synthetic_2016(SoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'TUT-SED-synthetic-2016'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -2297,7 +3011,10 @@ class TUT_SED_Synthetic_2016(SoundEventDataset):
                     item.filename = audio_filename
                     item.scene_label = 'synthetic'
                     item.source_label = 'm'
-                    self.process_meta_item(item=item, absolute_path=False)
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
 
                 meta_data += data
 
@@ -2319,10 +3036,13 @@ class TUT_SED_Synthetic_2016(SoundEventDataset):
 
         if setup_part == 'train':
             return os.path.join(self.evaluation_setup_path, 'train+validate' + '.' + file_extension)
+
         elif setup_part == 'test':
             return os.path.join(self.evaluation_setup_path, 'test' + '.' + file_extension)
+
         elif setup_part == 'validate':
             return os.path.join(self.evaluation_setup_path, 'validate' + '.' + file_extension)
+
         elif setup_part == 'evaluate':
             return os.path.join(self.evaluation_setup_path, 'evaluate' + '.' + file_extension)
 
@@ -2351,10 +3071,11 @@ class TUT_SED_Synthetic_2016(SoundEventDataset):
 
         """
 
-        filename_ = self.absolute_to_relative(filename).replace('audio/', 'features/')
+        filename_ = self.absolute_to_relative_path(filename).replace('audio/', 'features/')
         filename_ = os.path.splitext(filename_)[0] + '.cpickle'
         if os.path.isfile(os.path.join(self.local_path, filename_)):
             feature_data = pickle.load(open(os.path.join(self.local_path, filename_), "rb"))
             return feature_data['feat']
+
         else:
             return None

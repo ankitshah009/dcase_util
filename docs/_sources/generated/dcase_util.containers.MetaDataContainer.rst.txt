@@ -19,6 +19,7 @@ dcase_util.containers.MetaDataContainer
       ~MetaDataContainer.count
       ~MetaDataContainer.delimiter
       ~MetaDataContainer.detect_file_format
+      ~MetaDataContainer.difference
       ~MetaDataContainer.empty
       ~MetaDataContainer.event_stat_counts
       ~MetaDataContainer.exists
@@ -27,16 +28,20 @@ dcase_util.containers.MetaDataContainer
       ~MetaDataContainer.filter_time_segment
       ~MetaDataContainer.get_dump_content
       ~MetaDataContainer.get_field
+      ~MetaDataContainer.get_field_unique
       ~MetaDataContainer.get_file_information
       ~MetaDataContainer.get_string
       ~MetaDataContainer.index
       ~MetaDataContainer.insert
+      ~MetaDataContainer.intersection
+      ~MetaDataContainer.intersection_report
       ~MetaDataContainer.is_package
       ~MetaDataContainer.load
       ~MetaDataContainer.log
       ~MetaDataContainer.log_all
       ~MetaDataContainer.pop
       ~MetaDataContainer.process_events
+      ~MetaDataContainer.push_processing_chain_item
       ~MetaDataContainer.remove
       ~MetaDataContainer.remove_field
       ~MetaDataContainer.reverse
@@ -63,6 +68,7 @@ dcase_util.containers.MetaDataContainer
       ~MetaDataContainer.event_count
       ~MetaDataContainer.event_label_count
       ~MetaDataContainer.file_count
+      ~MetaDataContainer.identifier_count
       ~MetaDataContainer.logger
       ~MetaDataContainer.max_offset
       ~MetaDataContainer.scene_label_count

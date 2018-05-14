@@ -5,6 +5,7 @@ from __future__ import print_function, absolute_import
 import importlib
 from dcase_util.containers import DictContainer, ListDictContainer
 from dcase_util.ui import FancyLogger, FancyStringifier
+from dcase_util.utils import FileFormat
 
 
 class ProcessingChainItemType(object):
@@ -21,9 +22,51 @@ class ProcessingChainItem(DictContainer):
     def __init__(self, *args, **kwargs):
         super(ProcessingChainItem, self).__init__(*args, **kwargs)
 
+        self.processor_class = None
+        # Initialize processor class
+        self.init_processor_class()
+
+    def __getstate__(self):
+        d = super(ProcessingChainItem, self).__getstate__()
+        return d
+
+    def __setstate__(self, d):
+        super(ProcessingChainItem, self).__setstate__(d)
+        self.init_processor_class()
+
+    def init_processor_class(self):
+        """Initialize processor class
+
+        Returns
+        -------
+        self
+
+        """
+        processor_name = self.get('processor_name')
+        processor_init_parameters = self.get('init_parameters', {})
+        if processor_name:
+            try:
+                # Get module
+                if len(processor_name.split('.')) == 1:
+                    processor_name = 'dcase_util.processors.' + processor_name
+
+                processor_module = importlib.import_module('.'.join(processor_name.split('.')[:-1]))
+                self.processor_class = eval('processor_module.' + processor_name.split('.')[-1])(**processor_init_parameters)
+
+            except NameError:
+                message = '{name}: Processor class was not found [{processor_name}]'.format(
+                    name=self.__class__.__name__,
+                    processor_name=processor_name
+                )
+
+                self.logger.exception(message)
+                raise ValueError(message)
+
+        return self
+
 
 class ProcessingChain(ListDictContainer):
-    valid_formats = ['cpickle', 'yaml']  #: Valid formats
+    valid_formats = [FileFormat.CPICKLE, FileFormat.YAML]  #: Valid formats
     valid_input_types = [
         ProcessingChainItemType.AUDIO,
         ProcessingChainItemType.DATA_CONTAINER,
@@ -42,13 +85,27 @@ class ProcessingChain(ListDictContainer):
     ]  #: Valid output data types
 
     def __init__(self, *args, **kwargs):
+        """__init__ method.
+
+        """
+
+        if len(args) > 0 and args[0] and (not isinstance(args[0], list) or not isinstance(args[0][0], dict)):
+            message = '{name}: ProcessingChain should be initialized with list of dicts.'.format(
+                name=self.__class__.__name__,
+            )
+            self.logger.exception(message)
+            raise ValueError(message)
+
         super(ProcessingChain, self).__init__(*args, **kwargs)
 
         # Make sure items are ProcessingChainItems and that their parameters are valid.
         if len(self):
             for item_id, item in enumerate(self):
                 if not isinstance(item, ProcessingChainItem):
-                    current_processor = self.processor_class_reference(processor_name=item['processor_name'])
+                    current_processor = self.processor_class_reference(
+                        processor_name=item['processor_name']
+                    )
+
                     item.update(
                         {
                             'input_type': current_processor.input_type,
@@ -60,7 +117,10 @@ class ProcessingChain(ListDictContainer):
                     if item_id > 0:
                         # Check connection from second item in the chain,
                         # check connecting data type to between current and previous item.
-                        self._check_connection(item1=self[item_id-1], item2=item)
+                        self._check_connection(
+                            item1=self[item_id-1],
+                            item2=item
+                        )
 
                     # Store processing chain item
                     self[item_id] = ProcessingChainItem(item)
@@ -77,19 +137,24 @@ class ProcessingChain(ListDictContainer):
         output = ''
 
         ui = FancyStringifier()
-        output += ui.row('ID', 'Processor', 'INPUT', 'OUTPUT', 'INIT', widths=[5, 55, 10, 10, 15]) + '\n'
+        output += ui.row('ID', 'Processor', 'Input', 'Output', 'Init parameters set', widths=[5, 30, 18, 18, 50]) + '\n'
         output += ui.row('-', '-', '-', '-', '-') + '\n'
         if len(self):
             for item_id, item in enumerate(self):
                 if isinstance(item, ProcessingChainItem):
-                    current_processor = self.processor_class_reference(processor_name=item['processor_name'])
+                    current_processor = self.processor_class_reference(
+                        processor_name=item['processor_name']
+                    )
+                    processor_name = item['processor_name'].split('.')[-1]
+
                     output += ui.row(
                         item_id,
-                        item['processor_name'],
+                        processor_name,
                         current_processor.input_type,
                         current_processor.output_type,
-                        item.get('init_parameters')
+                        ','.join(item.get('init_parameters', {}).keys())
                     ) + '\n'
+
         else:
             output += ui.row('Empty', widths=[95])
 
@@ -114,7 +179,7 @@ class ProcessingChain(ListDictContainer):
         """
 
         ui = FancyLogger()
-        ui.line(self.chain_string(), level=level)
+        ui.line(data=self.chain_string(), level=level)
 
     def _check_item(self, item):
         """Check validity of processing chain item.
@@ -177,10 +242,14 @@ class ProcessingChain(ListDictContainer):
         """
 
         # Get processor class reference to item1
-        item1_processor = self.processor_class_reference(processor_name=item1['processor_name'])
+        item1_processor = self.processor_class_reference(
+            processor_name=item1['processor_name']
+        )
 
         # Get processor class reference to item2
-        item2_processor = self.processor_class_reference(processor_name=item2['processor_name'])
+        item2_processor = self.processor_class_reference(
+            processor_name=item2['processor_name']
+        )
 
         # Make sure connecting types are same.
         if item1_processor.output_type != item2_processor.input_type:
@@ -191,6 +260,7 @@ class ProcessingChain(ListDictContainer):
                 output_type=item1_processor.output_type,
                 input_type=item2_processor.input_type
             )
+
             self.logger.exception(message)
             raise ValueError(message)
 
@@ -214,9 +284,11 @@ class ProcessingChain(ListDictContainer):
 
         return False
 
-    def push_processor(self, processor_name, init_parameters=None, process_parameters=None,
+    def push_processor(self, processor_name,
+                       init_parameters=None, process_parameters=None, preprocessing_callbacks=None,
                        input_type=None, output_type=None):
-        """Push processor item to the chain.
+        """Push processor item to the chain, if item already exists in the processing chain update only parameters.
+        Processor name is considered unique in the processing chain.
 
         Parameters
         ----------
@@ -228,6 +300,8 @@ class ProcessingChain(ListDictContainer):
 
         process_parameters : dict
             Parameters for the process method
+
+        preprocessing_callbacks : list of dicts
 
         input_type : ProcessingChainItemType
             Input data type of the processor
@@ -241,29 +315,66 @@ class ProcessingChain(ListDictContainer):
 
         """
 
-        if input_type is None:
-            input_type = self.processor_class_reference(processor_name=processor_name).input_type
+        if init_parameters is None:
+            init_parameters = {}
 
-        if output_type is None:
-            output_type = self.processor_class_reference(processor_name=processor_name).output_type
+        if process_parameters is None:
+            process_parameters = {}
 
-        # Create item
-        item = ProcessingChainItem({
-            'processor_name': processor_name,
-            'init_parameters': init_parameters,
-            'process_parameters': process_parameters,
-            'input_type': input_type,
-            'output_type': output_type,
-        })
+        if preprocessing_callbacks is None:
+            preprocessing_callbacks = []
 
-        # Check item
-        self._check_item(item=item)
+        if not self.chain_item_exists(processor_name=processor_name):
+            if input_type is None:
+                input_type = self.processor_class_reference(
+                    processor_name=processor_name
+                ).input_type
 
-        # If there is other items in the chain check connection to previous item.
-        if len(self) > 0:
-            self._check_connection(item1=self[-1], item2=item)
+            if output_type is None:
+                output_type = self.processor_class_reference(
+                    processor_name=processor_name
+                ).output_type
 
-        self.append(item)
+            # Create item
+            item = ProcessingChainItem({
+                'processor_name': processor_name,
+                'init_parameters': init_parameters,
+                'process_parameters': process_parameters,
+                'preprocessing_callbacks': preprocessing_callbacks,
+                'input_type': input_type,
+                'output_type': output_type,
+            })
+
+            # Check item
+            self._check_item(item=item)
+
+            # If there is other items in the chain check connection to previous item.
+            if len(self) > 0:
+                self._check_connection(item1=self[-1], item2=item)
+
+            self.append(item)
+
+        else:
+            # Update existing processing chain item
+            item = self.chain_item(processor_name=processor_name)
+            if init_parameters:
+                item['init_parameters'].update(init_parameters)
+
+            if process_parameters:
+                item['process_parameters'].update(process_parameters)
+
+            if preprocessing_callbacks:
+                item['preprocessing_callbacks'] = preprocessing_callbacks
+
+            if input_type:
+                item['input_type'] = input_type
+
+            if output_type:
+                item['output_type'] = output_type
+
+            # Check item
+            self._check_item(item=item)
+
         return self
 
     def processor_class_reference(self, processor_name):
@@ -281,7 +392,11 @@ class ProcessingChain(ListDictContainer):
         """
 
         try:
+            if len(processor_name.split('.')) == 1:
+                processor_name = 'dcase_util.processors.' + processor_name
+
             processor_module = importlib.import_module('.'.join(processor_name.split('.')[:-1]))
+
             return eval('processor_module.' + processor_name.split('.')[-1])
 
         except NameError:
@@ -309,7 +424,11 @@ class ProcessingChain(ListDictContainer):
 
         try:
             # Get module
+            if len(processor_name.split('.')) == 1:
+                processor_name = 'dcase_util.processors.' + processor_name
+
             processor_module = importlib.import_module('.'.join(processor_name.split('.')[:-1]))
+
             return eval('processor_module.' + processor_name.split('.')[-1])(**kwargs)
 
         except NameError:
@@ -321,40 +440,66 @@ class ProcessingChain(ListDictContainer):
             self.logger.exception(message)
             raise ValueError(message)
 
-    def process(self, data=None, **kwargs):
+    def process(self, data=None, store_processing_chain=False, **kwargs):
         """Process the data with processing chain
 
         Parameters
         ----------
-        data : FeatureContainer
+        data : DataContainer
             Data
+
+        store_processing_chain : bool
+            Store processing chain to data container returned
+            Default value False
 
         Returns
         -------
-        data : FeatureContainer
+        data : DataContainer
             Processed data
 
         """
 
         for step_id, step in enumerate(self):
-            if step is not None and 'processor_name' in step:
-                processor = self.processor_class(processor_name=step['processor_name'], **step['init_parameters'])
+            # Loop through steps in the processing chain
+
+            if isinstance(step, ProcessingChainItem):
 
                 if step_id == 0 and data is None:
                     # Inject data for the first item in the chain
 
-                    if processor.input_type == ProcessingChainItemType.DATA_CONTAINER:
+                    if step.processor_class.input_type == ProcessingChainItemType.DATA_CONTAINER:
                         from dcase_util.containers import DataMatrix2DContainer
                         data = DataMatrix2DContainer(**kwargs).load()
 
-                    elif processor.input_type == ProcessingChainItemType.DATA_REPOSITORY:
+                    elif step.processor_class.input_type == ProcessingChainItemType.DATA_REPOSITORY:
                         from dcase_util.containers import DataRepository
                         data = DataRepository(**kwargs).load()
 
-                if hasattr(processor, 'process'):
+                if 'preprocessing_callbacks' in step and isinstance(step['preprocessing_callbacks'], list):
+                    # Handle pre-processing callbacks assigned to current processor
+
+                    for method in step['preprocessing_callbacks']:
+                        if isinstance(method, dict):
+                            method_name = method.get('method_name')
+                            method_parameters = method.get('parameters')
+                            if hasattr(step.processor_class, method_name):
+                                getattr(step.processor_class, method_name)(**method_parameters)
+
+                if hasattr(step.processor_class, 'process'):
+                    # Call process method of the processor if it exists
+
+                    # Get process parameters from step
                     process_parameters = step.get('process_parameters', {})
+
+                    # Update parameters with current parameters given
                     process_parameters.update(kwargs)
-                    data = processor.process(data=data, **process_parameters)
+
+                    # Do actual processing
+                    data = step.processor_class.process(
+                        data=data,
+                        store_processing_chain=store_processing_chain,
+                        **process_parameters
+                    )
 
         return data
 
@@ -372,12 +517,56 @@ class ProcessingChain(ListDictContainer):
         parameters : dict
             Parameters for the method
 
+        Returns
+        -------
+        self
+
         """
 
         parameters = parameters or {}
 
-        for item in self:
-            if hasattr(item, method_name):
-                getattr(item, method_name)(**parameters)
+        for step in self:
+            if hasattr(step.processor_class, method_name):
+                getattr(step.processor_class, method_name)(**parameters)
 
         return self
+
+    def chain_item_exists(self, processor_name):
+        """Check if item exists already in the chain
+
+        Parameters
+        ----------
+        processor_name : str
+            processor name
+
+        Returns
+        -------
+        bool
+
+        """
+
+        for step_id, step in enumerate(self):
+            if step.get('processor_name') == processor_name:
+                return True
+
+        return False
+
+    def chain_item(self, processor_name):
+        """Get item based processor_name from the processing chain. If processor is not found, None returned.
+
+        Parameters
+        ----------
+        processor_name : str
+            processor name
+
+        Returns
+        -------
+        ProcessingChainItem
+
+        """
+
+        for step_id, step in enumerate(self):
+            if step.get('processor_name') == processor_name:
+                return step
+
+        return None

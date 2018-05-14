@@ -2,12 +2,18 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, absolute_import
+import six
 from six import iteritems
 import numpy
 import scipy
+import copy
+import os
+import glob
+from past.builtins import basestring
 
-from dcase_util.containers import DataContainer, ObjectContainer
+from dcase_util.containers import ObjectContainer
 from dcase_util.ui import FancyStringifier
+from dcase_util.utils import VectorRecipeParser, filelist_exists
 
 
 class Normalizer(ObjectContainer):
@@ -20,18 +26,23 @@ class Normalizer(ObjectContainer):
         ----------
         n : int
             Item count used to calculate statistics
+            Default value None
 
         s1 : np.array [shape=(vector_length,)]
             Vector-wise sum of the data seen by the Normalizer
+            Default value None
 
         s2 : np.array [shape=(vector_length,)]
             Vector-wise sum^2 of the data seen by the Normalizer
+            Default value None
 
         mean : np.ndarray() [shape=(vector_length, 1)]
             Mean of the data
+            Default value None
 
         std : np.ndarray() [shape=(vector_length, 1)]
             Standard deviation of the data
+            Default value None
 
         """
 
@@ -161,10 +172,11 @@ class Normalizer(ObjectContainer):
 
         time_axis : int
             If data contains np.ndarray axis for the time
+            Default value 1
 
         Returns
         -------
-        nothing
+        self
 
         """
 
@@ -205,14 +217,14 @@ class Normalizer(ObjectContainer):
     def finalize(self):
         """Finalize statistics calculation
 
-        Accumulated values are used to get mean and std for the seen feature data.
+        Accumulated values are used to get mean and std for the seen data.
 
         Parameters
         ----------
 
         Returns
         -------
-        None
+        self
 
         """
 
@@ -221,8 +233,8 @@ class Normalizer(ObjectContainer):
 
         return self
 
-    def normalize(self, data):
-        """Normalize feature matrix with internal statistics of the class
+    def normalize(self, data, **kwargs):
+        """Normalize data matrix with internal statistics of the class.
 
         Parameters
         ----------
@@ -231,17 +243,17 @@ class Normalizer(ObjectContainer):
 
         Returns
         -------
-        DataContainer or numpy.ndarray [shape=(frames, number of feature values)]
+        DataContainer or numpy.ndarray [shape=(frames, number of data values)]
             Normalized data matrix
 
         """
         from dcase_util.containers import DataContainer
 
+        # Make copy of data to prevent data contamination
+        data = copy.deepcopy(data)
+
         if isinstance(data, DataContainer):
             data.data = (data.data - self.mean) / self.std
-
-            if hasattr(self, 'get_processing_chain_item'):
-                data.processing_chain.push_processor(**self.get_processing_chain_item())
 
             return data
 
@@ -251,37 +263,98 @@ class Normalizer(ObjectContainer):
 
 class RepositoryNormalizer(ObjectContainer):
     """Data repository normalizer"""
-    def __init__(self, normalizer_dict=None, filename_dict=None, **kwargs):
+    def __init__(self, normalizers=None, filename=None, **kwargs):
         """__init__ method.
 
         Parameters
         ----------
-        normalizer_dict : dict
-            Normalizers in a dict, key should be the label used in the repository.
+        normalizers : dict
+            Normalizers in a dict to initialize the repository, key in the dictionary should be the label
+            Default value None
 
-        filename_dict : dict
-            Filenames of Normalizers, key should be the label used in the repository.
+        filename : str or dict
+            Either one filename (str) or multiple filenames in a dictionary. Dictionary based parameter is used to
+            construct the repository from separate Normalizer, format:
+            label as key, and filename as value.
+            Default value None
 
         """
 
         # Run super init to call init of mixins too
         super(RepositoryNormalizer, self).__init__(**kwargs)
 
-        self.normalizer_dict = {}
+        self.normalizers = {}
 
-        if normalizer_dict:
-            self.normalizer_dict = normalizer_dict
+        if normalizers:
+            if isinstance(normalizers, dict):
+                self.normalizers = normalizers
 
-        if filename_dict:
-            self.load(filename_dict=filename_dict)
+            else:
+                message = '{name}: Invalid type for normalizer_dict'.format(
+                    name=self.__class__.__name__
+                )
+                self.logger.exception(message)
+                raise ValueError(message)
 
-    def load(self, filename_dict):
+        self.filename = filename
+
+    def __enter__(self):
+        self.reset()
+        return self
+
+    def __exit__(self, type, value, traceback):
+        # Finalize accumulated calculation
+        self.finalize()
+
+    def __getitem__(self, label):
+        return self.normalizers[label]
+
+    def __str__(self):
+        ui = FancyStringifier()
+
+        output = super(RepositoryNormalizer, self).__str__()
+
+        output += ui.data(
+            indent=4,
+            field='Labels',
+            value=list(self.normalizers.keys())
+        ) + '\n'
+
+        output += ui.line(field='Content') + '\n'
+        for label, label_data in iteritems(self.normalizers):
+            if label_data:
+                output += ui.data(
+                    indent=4,
+                    field='['+str(label)+']',
+                    value=label_data
+                ) + '\n'
+
+        output += '\n'
+
+        return output
+
+    def reset(self):
+        """Reset normalizers.
+        """
+
+        for label in self.normalizers:
+            self.normalizers[label].reset()
+
+    def load(self, filename, collect_from_containers=True):
         """Load normalizers from disk.
+
 
         Parameters
         ----------
-        filename_dict : dict
-            Filenames of Normalizers, key should be the label used in the repository.
+        filename : str or dict
+            Either one filename (str) or multiple filenames in a dictionary. Dictionary based parameter is used to
+            construct the repository from separate Normalizer, format:
+            label as key, and filename as value. If None given, parameter given to class initializer is used instead.
+            Default value None
+
+        collect_from_containers : bool
+            Collect data to the repository from separate containers.
+            Default value True
 
         Returns
         -------
@@ -289,56 +362,247 @@ class RepositoryNormalizer(ObjectContainer):
 
         """
 
-        self.normalizer_dict = {}
-        for label, filename in iteritems(filename_dict):
-            self.normalizer_dict[label] = Normalizer().load(filename=filename)
+        if filename:
+            self.filename = filename
+
+        if isinstance(self.filename, basestring):
+            # String filename given use load method from parent class
+            if os.path.exists(self.filename):
+                # If file exist load it
+                self.detect_file_format()
+                self.validate_format()
+
+                super(RepositoryNormalizer, self).load(
+                    filename=self.filename
+                )
+
+            if collect_from_containers:
+                # Collect data to the repository from separate normalizer containers
+                filename_base, file_extension = os.path.splitext(self.filename)
+                normalizers = glob.glob(filename_base + '.*' + file_extension)
+                for filename in normalizers:
+                    label = os.path.splitext(filename)[0].split('.')[-1]
+                    self.normalizers[label] = Normalizer().load(
+                        filename=filename
+                    )
+
+        elif isinstance(self.filename, dict):
+            sorted(self.filename)
+
+            # Dictionary based filename given
+            if filelist_exists(self.filename):
+                self.normalizers = {}
+
+                for label, data in iteritems(self.filename):
+                    if not label.startswith('_'):
+                        # Skip labels starting with '_', those are just for extra info
+                        if isinstance(data, basestring):
+                            # filename given directly, only one data stream per method inputted.
+                            self.normalizers[label] = Normalizer().load(
+                                filename=data
+                            )
+            else:
+                # All filenames did not exists, find which ones is missing and raise error.
+                for label, data in iteritems(self.filename):
+                    if isinstance(data, basestring) and not os.path.isfile(data):
+                        message = '{name}: RepositoryNormalizer cannot be loaded, file does not exists for method [{method}], file [{filename}]'.format(
+                            name=self.__class__.__name__,
+                            method=label,
+                            filename=data
+                        )
+                        self.logger.exception(message)
+                        raise IOError(message)
+
+        else:
+            message = '{name}: RepositoryNormalizer cannot be loaded, no valid filename set.'.format(
+                name=self.__class__.__name__
+            )
+            self.logger.exception(message)
+            raise IOError(message)
 
         return self
 
-    def normalize(self, data_repository):
+    def save(self, filename=None, split_into_containers=False):
+        """Save file
+
+        Parameters
+        ----------
+        filename : str or dict
+            File path
+            Default value filename given to class constructor
+
+        split_into_containers : bool
+            Split data from repository separate normalizer containers and save them individually.
+            Default value False
+
+        Raises
+        ------
+        ImportError:
+            Error if file format specific module cannot be imported
+
+        IOError:
+            File has unknown file format
+
+        Returns
+        -------
+        self
+
+        """
+
+        if filename:
+            self.filename = filename
+
+        if split_into_containers and isinstance(self.filename, basestring):
+            # Automatic filename generation for saving data into separate containers
+            filename_base, file_extension = os.path.splitext(self.filename)
+            filename_dictionary = {}
+            for label in self.normalizers:
+                if label not in filename_dictionary:
+                    filename_dictionary[label] = {}
+
+                filename_dictionary[label] = filename_base + '.' + label  + file_extension
+
+            self.filename = filename_dictionary
+
+        if isinstance(self.filename, basestring):
+            # Single output file as target
+            self.detect_file_format()
+            self.validate_format()
+
+            # String filename given use load method from parent class
+            super(RepositoryNormalizer, self).save(
+                filename=self.filename
+            )
+
+        elif isinstance(self.filename, dict):
+            # Custom naming and splitting into separate normalizer containers
+            sorted(self.filename)
+
+            # Dictionary of filenames given, save each data normalizer in the repository separately
+            for label in self.normalizers:
+                if label in self.filename:
+                    current_normalizer = self.normalizers[label]
+                    current_normalizer.save(
+                        filename=self.filename[label]
+                    )
+
+        return self
+
+    def accumulate(self, data):
+        """Accumulate statistics
+
+        Parameters
+        ----------
+        data : DataRepository
+            Data in DataRepository
+
+        Returns
+        -------
+        self
+
+        """
+
+        for label_id, label in enumerate(data.labels):
+            if label not in self.normalizers:
+                # Label not yet encountered, initialize new normalizer for it
+                self.normalizers[label] = Normalizer()
+
+            # Loop through streams
+            for stream_id in data.stream_ids(label=label):
+                self.normalizers[label].accumulate(
+                    data=data.get_container(
+                        label=label,
+                        stream_id=stream_id
+                    )
+                )
+
+        return self
+
+    def finalize(self):
+        """Finalize statistics calculation
+
+        Accumulated values are used to get mean and std for the seen data.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        self
+
+        """
+
+        for label in self.normalizers:
+            self.normalizers[label].finalize()
+
+        return self
+
+    def normalize(self, data, **kwargs):
         """Normalize data repository
 
         Parameters
         ----------
-        data_repository : DataRepository
+        data : DataRepository
             DataRepository to be normalized
 
         Returns
         -------
         DataRepository
-            Normalized data
 
         """
+
         from dcase_util.containers import DataRepository
 
-        if isinstance(data_repository, DataRepository):
-            for label_id, label in enumerate(data_repository.labels):
-                if label in self.normalizer_dict:
-                    for stream_id in data_repository.stream_ids(label=label):
-                        self.normalizer_dict[label].normalize(
-                            data=data_repository.get_container(label=label, stream_id=stream_id)
+        # Make copy of data to prevent data contamination
+        data = copy.deepcopy(data)
+
+        if isinstance(data, DataRepository):
+            for label_id, label in enumerate(data.labels):
+                if label in self.normalizers:
+                    for stream_id in data.stream_ids(label=label):
+                        data.set_container(
+                            label=label,
+                            stream_id=stream_id,
+                            container=self.normalizers[label].normalize(
+                                data=data.get_container(
+                                    label=label,
+                                    stream_id=stream_id
+                                )
+                            )
                         )
 
-        return data_repository
+        return data
 
 
 class Aggregator(ObjectContainer):
     """Data aggregator"""
     valid_method = ['mean', 'std', 'cov', 'kurtosis', 'skew', 'flatten']
 
-    def __init__(self, win_length_frames=10, hop_length_frames=1, recipe=None, **kwargs):
+    def __init__(self, win_length_frames=10, hop_length_frames=1, recipe=None, center=True, padding=True, **kwargs):
         """Constructor
 
         Parameters
         ----------
         recipe : list of dict or list of str
             Aggregation recipe, supported methods [mean, std, cov, kurtosis, skew, flatten].
+            Default value None
 
         win_length_frames : int
-            Window length in feature frames
+            Window length in data frames
+            Default value 10
 
         hop_length_frames : int
-            Hop length in feature frames
+            Hop length in data frames
+            Default value 1
+
+        center : bool
+            Centering of the window
+            Default value True
+
+        padding : bool
+            Padding of the first window with the first frame and last window with last frame to have equal
+            length data in the windows.
+            Default value True
 
         """
 
@@ -347,6 +611,11 @@ class Aggregator(ObjectContainer):
 
         self.win_length_frames = win_length_frames
         self.hop_length_frames = hop_length_frames
+        self.center = center
+        self.padding = padding
+
+        if recipe is None and kwargs.get('aggregation_recipe', None) is not None:
+            recipe = kwargs.get('aggregation_recipe', None)
 
         if isinstance(recipe, dict):
             self.recipe = [d['label'] for d in recipe]
@@ -360,8 +629,16 @@ class Aggregator(ObjectContainer):
             else:
                 self.recipe = recipe
 
+        elif isinstance(recipe, six.string_types):
+            recipe = VectorRecipeParser().parse(recipe=recipe)
+            self.recipe = [d['label'] for d in recipe]
+
         else:
-            self.recipe = None
+            message = '{name}: No valid recipe set'.format(
+                name=self.__class__.__name__
+            )
+            self.logger.exception(message)
+            raise ValueError(message)
 
     def __str__(self):
         ui = FancyStringifier()
@@ -392,6 +669,7 @@ class Aggregator(ObjectContainer):
         ----------
         data : DataContainer
             Features to be aggregated
+            Default value None
 
         Returns
         -------
@@ -400,54 +678,78 @@ class Aggregator(ObjectContainer):
         """
 
         from dcase_util.containers import DataContainer
+        # Make copy of the data to prevent modifications to the original data
+        data = copy.deepcopy(data)
 
         if isinstance(data, DataContainer):
-            aggregated_features = []
+            aggregated_data = []
 
             # Not the most efficient way as numpy stride_tricks would produce
             # faster code, however, opted for cleaner presentation this time.
             for frame in range(0, data.data.shape[data.time_axis], self.hop_length_frames):
-                # Get start and end of the window, keep frame at the middle (approximately)
-                start_frame = int(frame - numpy.floor(self.win_length_frames/2.0))
-                end_frame = int(frame + numpy.ceil(self.win_length_frames / 2.0))
+                # Get start and end of the window
+                if self.center:
+                    # Keep frame at the middle (approximately)
+                    start_frame = int(frame - numpy.floor(self.win_length_frames / 2.0))
+                    end_frame = int(frame + numpy.ceil(self.win_length_frames / 2.0))
+                else:
+                    start_frame = frame
+                    end_frame = frame + self.win_length_frames
 
                 frame_ids = numpy.array(range(start_frame, end_frame))
-                # If start of feature matrix, pad with first frame
-                frame_ids[frame_ids < 0] = 0
 
-                # If end of the feature matrix, pad with last frame
-                frame_ids[frame_ids > data.data.shape[data.time_axis] - 1] = data.data.shape[data.time_axis] - 1
+                valid_frame = True
+                if self.padding:
+                    # If start of data matrix, pad with first frame
+                    frame_ids[frame_ids < 0] = 0
 
-                current_frame = data.get_frames(frame_ids=frame_ids)
+                    # If end of the data matrix, pad with last frame
+                    frame_ids[frame_ids > data.data.shape[data.time_axis] - 1] = data.data.shape[data.time_axis] - 1
 
-                aggregated_frame = []
+                else:
+                    # Mark non-full windows invalid
+                    if numpy.any(frame_ids < 0) or numpy.any( frame_ids > data.data.shape[data.time_axis] - 1):
+                        valid_frame = False
 
-                if 'mean' in self.recipe:
-                    aggregated_frame.append(current_frame.mean(axis=data.time_axis))
+                if valid_frame:
+                    current_frame = data.get_frames(frame_ids=frame_ids)
 
-                if 'std' in self.recipe:
-                    aggregated_frame.append(current_frame.std(axis=data.time_axis))
+                    aggregated_frame = []
 
-                if 'cov' in self.recipe:
-                    aggregated_frame.append(numpy.cov(current_frame).flatten())
+                    if 'mean' in self.recipe:
+                        aggregated_frame.append(current_frame.mean(axis=data.time_axis))
 
-                if 'kurtosis' in self.recipe:
-                    aggregated_frame.append(scipy.stats.kurtosis(current_frame, axis=data.time_axis))
+                    if 'std' in self.recipe:
+                        aggregated_frame.append(current_frame.std(axis=data.time_axis))
 
-                if 'skew' in self.recipe:
-                    aggregated_frame.append(scipy.stats.skew(current_frame, axis=data.time_axis))
+                    if 'cov' in self.recipe:
+                        aggregated_frame.append(numpy.cov(current_frame).flatten())
 
-                if 'flatten' in self.recipe:
-                    if data.time_axis == 0:
-                        aggregated_frame.append(current_frame.flatten())
-                    elif data.time_axis == 1:
-                        aggregated_frame.append(current_frame.T.flatten().T)
+                    if 'kurtosis' in self.recipe:
+                        aggregated_frame.append(scipy.stats.kurtosis(current_frame, axis=data.time_axis))
 
-                if aggregated_frame:
-                    aggregated_features.append(numpy.concatenate(aggregated_frame))
+                    if 'skew' in self.recipe:
+                        aggregated_frame.append(scipy.stats.skew(current_frame, axis=data.time_axis))
 
-            # Update data
-            data.data = numpy.vstack(aggregated_features).T
+                    if 'flatten' in self.recipe:
+                        if data.time_axis == 0:
+                            aggregated_frame.append(current_frame.flatten())
+                        elif data.time_axis == 1:
+                            aggregated_frame.append(current_frame.T.flatten().T)
+
+                    if aggregated_frame:
+                        aggregated_data.append(numpy.concatenate(aggregated_frame))
+
+            if aggregated_data:
+                # Update data
+                data.data = numpy.vstack(aggregated_data).T
+
+            else:
+                message = '{name}: No aggregated data, check your aggregation recipe.'.format(
+                    name=self.__class__.__name__,
+                )
+                self.logger.exception(message)
+                raise ValueError(message)
 
             # Update meta data
             if hasattr(data, 'hop_length_seconds') and data.hop_length_seconds is not None:
@@ -466,47 +768,67 @@ class Aggregator(ObjectContainer):
 class Sequencer(ObjectContainer):
     """Data sequencer"""
 
-    def __init__(self, frames=10, hop_length_frames=None, padding=False, shift_step=0,
-                 shift_border='roll', shift_max=None, **kwargs):
+    def __init__(self, sequence_length=10, hop_length=None,
+                 padding=None,
+                 shift_border='roll', shift=0,
+                 required_data_amount_per_segment=0.9,
+                 **kwargs):
         """__init__ method.
 
         Parameters
         ----------
-        frames : int
+        sequence_length : int
             Sequence length
+            Default value 10
 
-        hop_length_frames : int
-            Hop value of when forming the sequence, if None then hop length equals to frames (non-overlapping hopping).
+        hop_length : int
+            Hop value of when forming the sequence, if None then hop length equals to sequence_length (non-overlapping sequences).
+            Default value None
 
-        padding: bool
-            Replicate data when sequence is not full
+        padding: str
+            How data is treated at the boundaries [None, 'zero', 'repeat']
+            Default value None
 
-        shift_step : int
-            Sequence start temporal shifting amount, is added once method increase_shifting is called
-
-        shift_border : string, {'roll', 'shift'}
+        shift_border : string, ['roll', 'shift']
             Sequence border handling when doing temporal shifting.
+            Default value roll
 
-        shift_max : int
-            Maximum value for temporal shift
+        shift : int
+            Sequencing grid shift.
+            Default value 0
+
+        required_data_amount_per_segment : float [0,1]
+            Percentage of valid data items per segment there need to be for valid segment. Use this parameter to
+            filter out part of the non-full segments.
+            Default value 0.9
 
         """
 
         # Run super init to call init of mixins too
         super(Sequencer, self).__init__(**kwargs)
 
-        self.frames = frames
+        self.sequence_length = sequence_length
 
-        if hop_length_frames is None:
-            self.hop_length_frames = self.frames
+        if hop_length is None:
+            self.hop_length = self.sequence_length
 
         else:
-            self.hop_length_frames = hop_length_frames
+            self.hop_length = hop_length
 
-        self.padding = padding
-        self.shift = 0
+        # Padding
+        if padding in [None, False, 'zero', 'repeat']:
+            self.padding = padding
 
-        self.shift_step = shift_step
+        else:
+            message = '{name}: Unknown padding mode [{padding_mode}]'.format(
+                name=self.__class__.__name__,
+                padding_mode=padding
+            )
+            self.logger.exception(message)
+            raise ValueError(message)
+
+        # Shifting
+        self.shift = shift
 
         if shift_border in ['roll', 'shift']:
             self.shift_border = shift_border
@@ -519,52 +841,53 @@ class Sequencer(ObjectContainer):
             self.logger.exception(message)
             raise ValueError(message)
 
-        self.shift_max = shift_max
+        self.required_data_amount_per_segment = required_data_amount_per_segment
 
     def __str__(self):
         ui = FancyStringifier()
 
         output = super(Sequencer, self).__str__()
-        output += ui.data(field='frames', value=self.frames) + '\n'
-        output += ui.data(field='hop_length_frames', value=self.hop_length_frames) + '\n'
+        output += ui.data(field='frames', value=self.sequence_length) + '\n'
+        output += ui.data(field='hop_length_frames', value=self.hop_length) + '\n'
         output += ui.data(field='padding', value=self.padding) + '\n'
-
+        output += ui.data(field='required_data_amount_per_segment', value=self.required_data_amount_per_segment) + '\n'
         output += ui.line(field='Shifting') + '\n'
         output += ui.data(indent=4, field='shift', value=self.shift) + '\n'
-        output += ui.data(indent=4, field='shift_step', value=self.shift_step) + '\n'
         output += ui.data(indent=4, field='shift_border', value=self.shift_border) + '\n'
-        output += ui.data(indent=4, field='shift_max', value=self.shift_max) + '\n'
 
         return output
 
     def __getstate__(self):
         # Return only needed data for pickle
         return {
-            'frames': self.frames,
-            'hop_length_frames': self.hop_length_frames,
+            'frames': self.sequence_length,
+            'hop_length_frames': self.hop_length,
             'padding': self.padding,
             'shift': self.shift,
-            'shift_step': self.shift_step,
             'shift_border': self.shift_border,
-            'shift_max': self.shift_max,
+            'required_data_amount_per_segment': self.required_data_amount_per_segment,
         }
 
     def __setstate__(self, d):
-        self.frames = d['frames']
-        self.hop_length_frames = d['hop_length_frames']
+        self.sequence_length = d['frames']
+        self.hop_length = d['hop_length_frames']
         self.padding = d['padding']
         self.shift = d['shift']
-        self.shift_step = d['shift_step']
         self.shift_border = d['shift_border']
-        self.shift_max = d['shift_max']
+        self.required_data_amount_per_segment = d['required_data_amount_per_segment']
 
-    def sequence(self, data=None, **kwargs):
-        """Make sequences
+    def sequence(self, data, shift=None, **kwargs):
+        """Convert 2D data matrix into sequence of specified length 2D matrices
 
         Parameters
         ----------
-        data : DataContainer
+        data : DataContainer or numpy.ndarray
             Data
+
+        shift : int
+            Sequencing grid shift in frames. If none given, one given for class initializer is used.
+            Value is kept inside data size. Parameter value is stored as new class stored value.
+            Default value None
 
         Returns
         -------
@@ -572,59 +895,101 @@ class Sequencer(ObjectContainer):
 
         """
 
-        from dcase_util.containers import DataContainer, DataMatrix3DContainer
+        if shift:
+            self.shift = shift
+
+        from dcase_util.containers import DataContainer, DataMatrix2DContainer, DataMatrix3DContainer
+        # Make copy of the data to prevent modifications to the original data
+        data = copy.deepcopy(data)
+
+        if isinstance(data, numpy.ndarray):
+            if len(data.shape) == 2:
+                data = DataMatrix2DContainer(data)
 
         if isinstance(data, DataContainer):
+            # Make sure shift index is withing data
+            self.shift = self.shift % data.length
 
             # Not the most efficient way as numpy stride_tricks would produce
             # faster code, however, opted for cleaner presentation this time.
-            data_length = data.length
             processed_data = []
 
             if self.shift_border == 'shift':
-                segment_indexes = numpy.arange(self.shift, data.length, self.hop_length_frames)
+                segment_indexes = numpy.arange(self.shift, data.length, self.hop_length)
 
             elif self.shift_border == 'roll':
-                segment_indexes = numpy.arange(0, data.length, self.hop_length_frames)
+                segment_indexes = numpy.arange(0, data.length, self.hop_length)
 
-                if self.shift:
+                if self.shift != 0:
                     # Roll data
                     data.data = numpy.roll(
                         data.data,
-                        shift=self.shift,
+                        shift=-self.shift,
                         axis=data.time_axis
                     )
 
             else:
-                message = '{name}: Unknown type for sequence border handling when doing temporal shifting [{shift_border}].'.format(
+                message = '{name}: Unknown type for sequence border handling when doing temporal shifting ' \
+                          '[{shift_border}].'.format(
                     name=self.__class__.__name__,
-                    shift_border=self.shift_border,
+                    shift_border=self.shift_border
                 )
 
                 self.logger.exception(message)
-                raise IOError(message)
+                raise ValueError(message)
 
             if self.padding:
                 if len(segment_indexes) == 0:
                     # Have at least one segment
                     segment_indexes = numpy.array([0])
+
             else:
                 # Remove segments which are not full
-                segment_indexes = segment_indexes[(segment_indexes+self.hop_length_frames-1) < data.length]
+                segment_indexes = segment_indexes[(segment_indexes + self.sequence_length - 1) < data.length]
 
             for segment_start_frame in segment_indexes:
-                segment_end_frame = segment_start_frame + self.hop_length_frames
+                segment_end_frame = segment_start_frame + self.sequence_length
 
                 frame_ids = numpy.array(range(segment_start_frame, segment_end_frame))
 
-                if self.padding:
-                    # If start of matrix, pad with first frame
-                    frame_ids[frame_ids < 0] = 0
+                valid_frames = numpy.where(numpy.logical_and(frame_ids >= 0, frame_ids < data.length))[0]
 
-                    # If end of the matrix, pad with last frame
-                    frame_ids[frame_ids > data.length - 1] = data.length - 1
+                if len(valid_frames) / float(self.sequence_length) > self.required_data_amount_per_segment:
+                    # Process segment only if it has minimum about of valid frames
 
-                processed_data.append(data.get_frames(frame_ids=frame_ids))
+                    if self.padding == 'repeat':
+                        # Handle boundaries with repeated boundary vectors
+
+                        # If start of matrix, pad with first frame
+                        frame_ids[frame_ids < 0] = 0
+
+                        # If end of the matrix, pad with last frame
+                        frame_ids[frame_ids > data.length - 1] = data.length - 1
+
+                        # Append the segment
+                        processed_data.append(
+                            data.get_frames(
+                                frame_ids=frame_ids
+                            )
+                        )
+
+                    elif self.padding == 'zero':
+                        # Handle boundaries with zero padding
+
+                        # Initialize current segment with zero content
+                        current_segment = numpy.zeros((data.vector_length, self.sequence_length))
+
+                        # Copy data into correct position within the segment
+                        current_segment[:, valid_frames] = data.get_frames(
+                            frame_ids=frame_ids[valid_frames]
+                        )
+
+                        # Append the segment
+                        processed_data.append(current_segment)
+
+                    else:
+                        # Append the segment
+                        processed_data.append(data.get_frames(frame_ids=frame_ids))
 
             if len(processed_data) == 0:
                 message = '{name}: Cannot create valid segment, adjust segment length and hop size, or use ' \
@@ -646,13 +1011,14 @@ class Sequencer(ObjectContainer):
             self.logger.exception(message)
             raise ValueError(message)
 
-    def increase_shifting(self, shift_step=None):
+    def increase_shifting(self, shift_step=1):
         """Increase temporal shifting
 
         Parameters
         ----------
         shift_step : int
-            Optional value, if none given shift_step parameter given for init is used.
+            Amount to be added to the sequencing grid
+            Default value 1
 
         Returns
         -------
@@ -660,12 +1026,8 @@ class Sequencer(ObjectContainer):
 
         """
 
-        if shift_step is None:
-            shift_step = self.shift_step
-        self.shift += shift_step
-
-        if self.shift_max and self.shift > self.shift_max:
-            self.shift = 0
+        if shift_step:
+            self.shift += shift_step
 
         return self
 
@@ -680,9 +1042,11 @@ class Stacker(ObjectContainer):
         ----------
         recipe : dict or str
             Stacking recipe
+            Default value None
 
         hop : int, optional
             Data item hopping
+            Default value 1
 
         """
 
@@ -724,7 +1088,7 @@ class Stacker(ObjectContainer):
         self.recipe = d['recipe']
         self.hop = d['hop']
 
-    def stack(self, repository):
+    def stack(self, repository, **kwargs):
         """Vector creation based on recipe
 
         Parameters
@@ -738,7 +1102,7 @@ class Stacker(ObjectContainer):
 
         """
 
-        # Check that all feature matrices have same amount of frames
+        # Check that all data matrices have same amount of frames
         frame_count = []
         time_resolution = []
         for recipe_part in self.recipe:
@@ -748,9 +1112,19 @@ class Stacker(ObjectContainer):
                 stream_id = recipe_part['vector-index']['stream']
 
             if repository.get_container(label=label, stream_id=stream_id).time_resolution:
-                time_resolution.append(repository.get_container(label=label, stream_id=stream_id).time_resolution)
+                time_resolution.append(
+                    repository.get_container(
+                        label=label,
+                        stream_id=stream_id
+                    ).time_resolution
+                )
 
-            frame_count.append(repository.get_container(label=label, stream_id=stream_id).length)
+            frame_count.append(
+                repository.get_container(
+                    label=label,
+                    stream_id=stream_id
+                ).length
+            )
 
         if len(set(frame_count)) != 1:
             message = '{name}: Data matrices should have same number of frames {frame_count}'.format(
@@ -785,7 +1159,12 @@ class Stacker(ObjectContainer):
 
                 # Full matrix
                 data_matrix.append(
-                    repository.get_container(label=label, stream_id=stream_id).get_frames(frame_hop=self.hop)
+                    repository.get_container(
+                        label=label,
+                        stream_id=stream_id
+                    ).get_frames(
+                        frame_hop=self.hop
+                    )
                 )
 
             elif ('vector-index' in recipe_part and
@@ -796,7 +1175,13 @@ class Stacker(ObjectContainer):
 
                 # Selector vector
                 data_matrix.append(
-                    repository.get_container(label=label, stream_id=stream_id).get_frames(vector_ids=index, frame_hop=self.hop)
+                    repository.get_container(
+                        label=label,
+                        stream_id=stream_id
+                    ).get_frames(
+                        vector_ids=index,
+                        frame_hop=self.hop
+                    )
                 )
 
             elif ('vector-index' in recipe_part and
@@ -807,7 +1192,13 @@ class Stacker(ObjectContainer):
 
                 # Start and end index
                 data_matrix.append(
-                    repository.get_container(label=label, stream_id=stream_id).get_frames(vector_ids=index, frame_hop=self.hop)
+                    repository.get_container(
+                        label=label,
+                        stream_id=stream_id
+                    ).get_frames(
+                        vector_ids=index,
+                        frame_hop=self.hop
+                    )
                 )
 
         from dcase_util.containers import FeatureContainer
@@ -860,7 +1251,7 @@ class Selector(ObjectContainer):
         return self
 
     def select(self, data, selection_events=None):
-        """Selecting feature repository with given events 
+        """Selecting data repository with given events
 
         Parameters
         ----------
@@ -869,6 +1260,7 @@ class Selector(ObjectContainer):
 
         selection_events : list of MetaItems or MetaDataContainer
             Event list used for selecting
+            Default value None
 
         Returns
         -------
@@ -896,6 +1288,7 @@ class Selector(ObjectContainer):
                 current_container.data = current_container.get_frames(frame_ids=numpy.where(selection_mask == True)[0])
 
         return data
+
 
 class Masker(ObjectContainer):
     """Data masker"""
@@ -938,7 +1331,7 @@ class Masker(ObjectContainer):
         return self
 
     def mask(self, data, mask_events=None):
-        """Masking feature repository with given events
+        """Masking data repository with given events
 
         Parameters
         ----------
@@ -947,6 +1340,7 @@ class Masker(ObjectContainer):
 
         mask_events : list of MetaItems or MetaDataContainer
             Event list used for masking
+            Default value None
 
         Returns
         -------

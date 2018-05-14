@@ -21,6 +21,7 @@ dcase_util.files.RemoteFile
       ~RemoteFile.download
       ~RemoteFile.empty
       ~RemoteFile.exists
+      ~RemoteFile.filter
       ~RemoteFile.fromkeys
       ~RemoteFile.get
       ~RemoteFile.get_dump_content

@@ -31,14 +31,17 @@ class DCASE2017_Task4tagging_DevelopmentSet(SoundEventDataset):
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'DCASE2017-task4-development'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -339,14 +342,17 @@ class DCASE2017_Task4tagging_EvaluationSet(DCASE2017_Task4tagging_DevelopmentSet
 
         storage_name : str
             Name to be used when storing dataset on disk
+            Default value 'DCASE2017-task4-evaluation'
 
         data_path : str
             Root path where the dataset is stored. If None, os.path.join(tempfile.gettempdir(), 'dcase_util_datasets')
             is used.
+            Default value None
 
-        included_content_types : list of str
+        included_content_types : list of str or str
             Indicates what content type should be processed. One or multiple from ['all', 'audio', 'meta', 'code',
-            'documentation']. If None given, ['all'] is used.
+            'documentation']. If None given, ['all'] is used. Parameter can be also comma separated string.
+            Default value None
 
         """
 
@@ -444,7 +450,10 @@ class DCASE2017_Task4tagging_EvaluationSet(DCASE2017_Task4tagging_DevelopmentSet
                     # Set scene label
                     item.scene_label = 'youtube'
 
-                    self.process_meta_item(item=item, absolute_path=False)
+                    self.process_meta_item(
+                        item=item,
+                        absolute_path=False
+                    )
 
                     evaluate_meta.append(item)
 
@@ -463,7 +472,11 @@ class DCASE2017_Task4tagging_EvaluationSet(DCASE2017_Task4tagging_DevelopmentSet
                     'scene_label': 'youtube'
 
                 })
-                self.process_meta_item(item=item, absolute_path=False)
+                self.process_meta_item(
+                    item=item,
+                    absolute_path=False
+                )
+
                 test_meta.append(item)
 
             test_meta.save(filename=self.evaluation_setup_filename(

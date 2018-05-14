@@ -3,10 +3,10 @@
 
 from __future__ import print_function, absolute_import
 from dcase_util.containers import AudioContainer
-from dcase_util.processors import ProcessorMixin, ProcessingChainItemType
+from dcase_util.processors import Processor, ProcessingChainItemType, ProcessingChain
 
 
-class AudioReadingProcessor(ProcessorMixin, AudioContainer):
+class AudioReadingProcessor(Processor):
     input_type = ProcessingChainItemType.NONE  #: Input data type
     output_type = ProcessingChainItemType.AUDIO  #: Output data type
 
@@ -37,47 +37,26 @@ class AudioReadingProcessor(ProcessorMixin, AudioContainer):
 
         """
 
-        kwargs.update({
-            'data': data,
-            'fs': fs,
-            'focus_start_samples': focus_start_samples,
-            'focus_stop_samples': focus_stop_samples,
-            'focus_channel': focus_channel,
-            'mono': mono
-        })
-
-        # Run ProcessorMixin init
-        ProcessorMixin.__init__(self, **kwargs)
-
-        # Run AudioContainer init
-        AudioContainer.__init__(self, **kwargs)
+        # Inject initialization parameters back to kwargs
+        kwargs.update(
+            {
+                'data': data,
+                'fs': fs,
+                'focus_start_samples': focus_start_samples,
+                'focus_stop_samples': focus_stop_samples,
+                'focus_channel': focus_channel,
+                'mono': mono
+            }
+        )
 
         # Run super init to call init of mixins too
         super(AudioReadingProcessor, self).__init__(**kwargs)
-
-        self.mono = kwargs.get('mono', False)
-
-    def __getstate__(self):
-        d = super(AudioReadingProcessor, self).__getstate__()
-        d.update({
-            'fs': self.fs,
-            'mono': self.mono,
-            'filename': self.filename,
-        })
-
-        return d
-
-    def __setstate__(self, d):
-        super(AudioReadingProcessor, self).__setstate__(d)
-
-        self.fs = d['fs']
-        self.mono = d['mono']
-        self.filename = d['filename']
 
     def process(self, data=None, filename=None,
                 focus_start_samples=None, focus_stop_samples=None, focus_duration_samples=None,
                 focus_start_seconds=None, focus_stop_seconds=None, focus_duration_seconds=None,
                 focus_channel=None,
+                store_processing_chain=False,
                 **kwargs):
         """Audio reading
 
@@ -111,6 +90,10 @@ class AudioReadingProcessor(ProcessorMixin, AudioContainer):
             single channel are 'L', 'R', 'left', and 'right' or 0, 1, and to get mixed down version
             of all channels 'mixdown'.
 
+        store_processing_chain : bool
+            Store processing chain to data container returned
+            Default value False
+
         Returns
         -------
         AudioContainer
@@ -118,18 +101,16 @@ class AudioReadingProcessor(ProcessorMixin, AudioContainer):
         """
 
         if data is None and self.input_type == ProcessingChainItemType.NONE:
-            chain_item = self.get_processing_chain_item()
+            audio_container = AudioContainer(**self.init_parameters)
 
             if filename:
-                self.load(filename=filename, mono=self.mono, fs=self.fs)
-
-                if 'process_parameters' not in chain_item:
-                    chain_item['process_parameters'] = {}
-
-                chain_item['process_parameters']['filename'] = filename
+                audio_container.load(
+                    filename=filename,
+                    mono=self.init_parameters.get('mono')
+                )
 
             # Set focus segment and channel
-            self.set_focus(
+            audio_container.set_focus(
                 start=focus_start_samples,
                 stop=focus_stop_samples,
                 duration=focus_duration_samples,
@@ -138,19 +119,35 @@ class AudioReadingProcessor(ProcessorMixin, AudioContainer):
                 duration_seconds=focus_duration_seconds,
                 channel=focus_channel
             )
-            chain_item['process_parameters']['focus_start_samples'] = focus_start_samples
-            chain_item['process_parameters']['focus_stop_samples'] = focus_stop_samples
-            chain_item['process_parameters']['focus_duration_samples'] = focus_duration_samples
 
-            chain_item['process_parameters']['focus_start_seconds'] = focus_start_seconds
-            chain_item['process_parameters']['focus_stop_seconds'] = focus_stop_seconds
-            chain_item['process_parameters']['focus_duration_seconds'] = focus_duration_seconds
+            if store_processing_chain:
+                processing_chain_item = self.get_processing_chain_item()
 
-            chain_item['process_parameters']['focus_channel'] = focus_channel
+                if 'process_parameters' not in processing_chain_item:
+                    processing_chain_item['process_parameters'] = {}
 
-            self.push_processing_chain_item(**chain_item)
+                processing_chain_item['process_parameters']['filename'] = filename
 
-            return self
+                processing_chain_item['process_parameters']['focus_start_samples'] = focus_start_samples
+                processing_chain_item['process_parameters']['focus_stop_samples'] = focus_stop_samples
+                processing_chain_item['process_parameters']['focus_duration_samples'] = focus_duration_samples
+
+                processing_chain_item['process_parameters']['focus_start_seconds'] = focus_start_seconds
+                processing_chain_item['process_parameters']['focus_stop_seconds'] = focus_stop_seconds
+                processing_chain_item['process_parameters']['focus_duration_seconds'] = focus_duration_seconds
+
+                processing_chain_item['process_parameters']['focus_channel'] = focus_channel
+
+                # Push chain item into processing chain stored in the container
+
+                # Create processing chain to be stored in the container, and push chain item into it
+                if hasattr(audio_container, 'processing_chain'):
+                    audio_container.processing_chain.push_processor(**processing_chain_item)
+
+                else:
+                    audio_container.processing_chain = ProcessingChain().push_processor(**processing_chain_item)
+
+            return audio_container
 
         else:
             message = '{name}: Wrong input data type, type required [{input_type}].'.format(
@@ -193,14 +190,16 @@ class MonoAudioReadingProcessor(AudioReadingProcessor):
 
         """
 
-        kwargs.update({
-            'data': data,
-            'fs': fs,
-            'focus_start_samples': focus_start_samples,
-            'focus_stop_samples': focus_stop_samples,
-            'focus_channel': focus_channel,
-            'mono': True
-        })
+        kwargs.update(
+            {
+                'data': data,
+                'fs': fs,
+                'focus_start_samples': focus_start_samples,
+                'focus_stop_samples': focus_stop_samples,
+                'focus_channel': focus_channel,
+                'mono': True
+            }
+        )
 
         # Run AudioReadingProcessor init
         AudioReadingProcessor.__init__(self, **kwargs)

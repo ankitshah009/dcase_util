@@ -20,6 +20,7 @@ dcase_util.processors.ProcessingChainItem
       ~ProcessingChainItem.detect_file_format
       ~ProcessingChainItem.empty
       ~ProcessingChainItem.exists
+      ~ProcessingChainItem.filter
       ~ProcessingChainItem.fromkeys
       ~ProcessingChainItem.get
       ~ProcessingChainItem.get_dump_content
@@ -29,6 +30,7 @@ dcase_util.processors.ProcessingChainItem
       ~ProcessingChainItem.get_leaf_path_list
       ~ProcessingChainItem.get_path
       ~ProcessingChainItem.has_key
+      ~ProcessingChainItem.init_processor_class
       ~ProcessingChainItem.is_package
       ~ProcessingChainItem.items
       ~ProcessingChainItem.iteritems
